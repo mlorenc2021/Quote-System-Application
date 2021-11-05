@@ -15,7 +15,7 @@ app.all('*', (req,res) => {
 });
 
 
-//Set server to lisen on port 5000
+//Set server to lisen on port 3000
 app.listen(3000, () => {
     console.log('Server is listening on port 3000');
 });

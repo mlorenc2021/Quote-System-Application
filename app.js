@@ -2,12 +2,14 @@
 const express = require('express');
 //Import path module
 const path = require('path');
+//Import dotenv module
+require('dotenv').config();
 
 //invoke express function to create server
 const app = express();
 
 // Import static elements from public directory
-app.use(express.static('./public'));
+app.use(express.static('./views'));
 
 // If user is attempting to access a resource that doesn't exist
 app.all('*', (req,res) => {

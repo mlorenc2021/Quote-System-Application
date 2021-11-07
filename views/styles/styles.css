@@ -327,6 +327,67 @@ details[open] > summary {
 	padding: 20px;
 }
 
+.contact-header
+{ 
+	width: 400px;
+	height: 40px;
+	margin-top: 5px;
+	margin-left: 35px;
+	padding-left: 10px;
+	padding-right: 10px;	
+	font-size: 30px;
+	text-align: center;
+	color: white;
+	border-radius: 15px;
+	background-color:rgba(0, 136, 169, 1);
+	position: absolute;
+}
+
+.contact-box
+{
+	width: 500px;
+	background-color: #777;
+	box-shadow: 0 0 20px 0 #999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	position: absolute;
+}
+
+form
+{
+	margin: 35px;
+	background-color: #777;
+}
+
+.input-field
+{
+	width: 400px;
+	height: 40px;
+	margin-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid #777;
+	border-radius: 14px;
+	outline: none;
+}
+
+.textarea-field
+{
+	height: 150px;
+	padding-top: 10px;
+}
+
+.contact-submit
+{
+	border-radius: 20px;
+	color: #fff;
+	margin-top: 18px;
+	padding: 10px;
+	background-color: rgba(0, 136, 169, 1);
+	font-size: 12px;
+	cursor: pointer;
+}
 
 /*footer*/
 footer

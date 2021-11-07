@@ -19,8 +19,10 @@
   "homepage": "https://github.com/Ryan-Jeziorski/csci_467_group_project#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mysql2": "^2.3.2",
+    "nodemailer": "^6.7.0",
     "sequelize": "^6.8.0"
   },
   "devDependencies": {

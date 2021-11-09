@@ -2,7 +2,7 @@ const express = require('express'); //Import express module
 const path = require('path'); //Import path module
 require('dotenv').config(); //Import dotenv module
 const nodemailer = require('nodemailer');// Import nodemailer
-const { sequelize, employee } = require('./db/models');
+const { sequelize, employee, quote} = require('./db/models');
 
 //invoke express function to create server
 const app = express();
@@ -43,6 +43,46 @@ app.get('/employees/:user_name', async(req,res) => {
     try {
         const emp = await employee.findOne({where: {user_name}});
         return res.json(emp);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({error: 'Something went wrong'}, err);
+    }
+});
+
+
+//apis for quotes
+app.post('/quotes', async(req,res) => {
+    const {line_items, user_name, price, discount} = req.body;
+
+    // Attempt to create employee, catch error if one occures
+    try {
+        const qte = await quote.create( {
+            line_items, user_name, price, discount
+        });
+        return res.json(qte);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json(err);
+    }
+});
+
+// api to get alll quotes
+app.get('/quotes', async(req,res) => {
+    try {
+        const qte = await quote.findAll();
+        return res.json(qte);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({error: 'Something went wrong'}, err);
+    }
+});
+
+// API to get an quote based on aployee user_name
+app.get('/quotes/:user_name', async(req,res) => {
+    const user_name = req.params.user_name; //store username param in user_name
+    try {
+        const qte = await quote.findAll({where: {user_name}});
+        return res.json(qte);
     } catch(err) {
         console.log(err);
         return res.status(500).json({error: 'Something went wrong'}, err);

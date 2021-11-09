@@ -18,7 +18,7 @@ contactForm.addEventListener('submit', (e)=>{
     }
 
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/');
+    xhr.open('POST', '/contact');
     xhr.setRequestHeader('content-type', 'application/json');
 
     //send backend response after submission

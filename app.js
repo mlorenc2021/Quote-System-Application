@@ -1,25 +1,61 @@
-//Import express module
-const express = require('express');
-//Import path module
-const path = require('path');
-//Import dotenv module
-require('dotenv').config();
+const express = require('express'); //Import express module
+const path = require('path'); //Import path module
+require('dotenv').config(); //Import dotenv module
+const nodemailer = require('nodemailer');// Import nodemailer
+const { sequelize, employee } = require('./db/models');
 
 //invoke express function to create server
 const app = express();
 
-const nodemailer = require('nodemailer');
+app.use(express.static('./views')); // Import static elements from views 
+app.use(express.json()); // This allows easy use for exporting to json format
 
-// Import static elements from public directory
-app.use(express.static('./views'));
-app.use(express.json())
+// API to create an employee
+app.post('/employees', async(req,res) => {
+    const {employee_name, user_name, password, address, role } = req.body;
+
+    // Attempt to create employee, catch error if one occures
+    try {
+        const emp = await employee.create( {
+            employee_name, user_name, password, address, role
+        });
+        return res.json(emp);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json(err);
+    }
+});
+
+// API to get all employees from employees table
+app.get('/employees', async(req,res) => {
+    try {
+        const emp = await employee.findAll();
+        return res.json(emp);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({error: 'Something went wrong'}, err);
+    }
+});
+
+// API to get an employee based on user_name
+app.get('/employees/:user_name', async(req,res) => {
+    const user_name = req.params.user_name; //store username param in user_name
+    try {
+        const emp = await employee.findOne({where: {user_name}});
+        return res.json(emp);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({error: 'Something went wrong'}, err);
+    }
+});
 
 //Middleware
-app.get('/', (req, res)=>{
+app.get('/contact', (req, res)=>{
     res.sendFile(__dirname + '/views/contact.html')
 })
 
-app.post('/', (req, res)=>{
+//POST API for the contact page form
+app.post('/contact', (req, res)=>{
     console.log(req.body)
 
     //pass email details
@@ -57,9 +93,9 @@ app.all('*', (req,res) => {
     res.status(404).send('error 404');
 });
 
-
 //Set server to lisen on port 3000
-app.listen(3000, () => {
+app.listen({port: 3000}, async () => {
     console.log('Server is listening on port 3000');
+    await sequelize.authenticate();
 });
 

@@ -6,88 +6,43 @@ const { sequelize, employee, quote} = require('./db/models');
 
 //invoke express function to create server
 const app = express();
+app.use(express.urlencoded());
+const router = express.Router();
+const employee_controller = require('./controllers/employeeController');
+const quote_controller = require('./controllers/quotesController');
 
-app.use(express.static('./views')); // Import static elements from views 
+app.set('view-engine', 'ejs');
+// app.use(express.static('./views')); // Import static elements from views 
 app.use(express.json()); // This allows easy use for exporting to json format
 
-// API to create an employee
-app.post('/employees', async(req,res) => {
-    const {employee_name, user_name, password, address, role } = req.body;
-
-    // Attempt to create employee, catch error if one occures
-    try {
-        const emp = await employee.create( {
-            employee_name, user_name, password, address, role
-        });
-        return res.json(emp);
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json(err);
-    }
+app.get('/login', (req,res) => {
+    res.render('login.ejs');
 });
+
+app.post('/login', employee_controller.employee_check_credentials);
+
+app.get('/register', (req,res) => {
+    res.render('register.ejs');
+});
+
+// API to create an employee
+app.post('/employees', employee_controller.employee_create);
 
 // API to get all employees from employees table
-app.get('/employees', async(req,res) => {
-    try {
-        const emp = await employee.findAll();
-        return res.json(emp);
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json({error: 'Something went wrong'}, err);
-    }
-});
+app.get('/employees', employee_controller.employee_get_all);
 
 // API to get an employee based on user_name
-app.get('/employees/:user_name', async(req,res) => {
-    const user_name = req.params.user_name; //store username param in user_name
-    try {
-        const emp = await employee.findOne({where: {user_name}});
-        return res.json(emp);
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json({error: 'Something went wrong'}, err);
-    }
-});
+app.get('/employees/:user_name', employee_controller.employee_get_one);
 
 
 //apis for quotes
-app.post('/quotes', async(req,res) => {
-    const {line_items, user_name, price, discount} = req.body;
-
-    // Attempt to create employee, catch error if one occures
-    try {
-        const qte = await quote.create( {
-            line_items, user_name, price, discount
-        });
-        return res.json(qte);
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json(err);
-    }
-});
+app.post('/quotes', quote_controller.quote_create);
 
 // api to get alll quotes
-app.get('/quotes', async(req,res) => {
-    try {
-        const qte = await quote.findAll();
-        return res.json(qte);
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json({error: 'Something went wrong'}, err);
-    }
-});
+app.get('/quotes', quote_controller.quote_get_all);
 
 // API to get an quote based on aployee user_name
-app.get('/quotes/:user_name', async(req,res) => {
-    const user_name = req.params.user_name; //store username param in user_name
-    try {
-        const qte = await quote.findAll({where: {user_name}});
-        return res.json(qte);
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json({error: 'Something went wrong'}, err);
-    }
-});
+app.get('/quotes/:user_name', quote_controller.quote_get_all_for_user);
 
 //Middleware
 app.get('/contact', (req, res)=>{

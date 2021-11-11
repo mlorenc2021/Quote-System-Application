@@ -1,0 +1,29 @@
+<h1>Register</h1>
+<form action="/employees" method="POST">
+    <div>
+        <label for="employee_name">Name:</label>
+        <input type="text" id="employee_name" name="employee_name" required>
+    </div>
+    <div>
+        <label for="user_name">Username:</label>
+        <input type="text" id="user_name" name="user_name" required>
+    </div>
+    <div>
+        <label for="password">Password: </label>
+        <input type="text" id="password" name="password" required>
+    </div>
+    <div>
+        <label for="address">Address: </label>
+        <input type="text" id="address" name="address" required>
+    </div>
+    <label for="role">Role: </label>
+    <select name="role" id="role">
+        <option value="sales">Sales Associate</option>
+        <option value="manager">Sales Manager</option>
+        <option value="accountant">Accountant</option>
+        <option value="admin">Administrator</option>
+    </select>
+    <br></br>
+    <button type="submit">Register</button>
+</form>
+<a href="/login">Login Here</a>

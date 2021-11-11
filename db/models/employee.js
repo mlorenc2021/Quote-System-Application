@@ -1,5 +1,6 @@
 // This is the model view for the employee model
 // It is based off of the shcmea for the employees table in the database
+bcrypt = require('bcrypt')
 
 'use strict';
 const {
@@ -47,6 +48,26 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'employee',
+    hooks: {
+      beforeCreate: async (employee) => {
+        if(employee.password) {
+          employee.password = await bcrypt.hashSync(employee.password, 10);
+        }
+      },
+      beforeUpdate: async (employee) => {
+        if(employee.password) {
+          employee.password = await bcrypt.hashSync(employee.password, 10);
+        }
+      }
+    },
+    instanceMethods: {
+      validPassword: (password) => {
+        return bcrypt.compareSync(password, this.password);
+      }
+    }
   });
+  employee.prototype.validPassword = async (password, hash) => {
+    return await bcrypt.compareSync(password, hash);
+  }
   return employee;
 };

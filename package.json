@@ -18,13 +18,14 @@
   },
   "homepage": "https://github.com/Ryan-Jeziorski/csci_467_group_project#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mysql2": "^2.3.2",
-    "sqlite3": "^5.0.2",
     "nodemailer": "^6.7.0",
-    "sequelize": "^6.8.0"
+    "sequelize": "^6.8.0",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.14",

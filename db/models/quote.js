@@ -45,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
     secret: {
       type:DataTypes.STRING,
       defaultValue: "",
+    },
+    cust_email: {
+      type:DataTypes.STRING,
+      allowNull: false,
     }
   }, {
     sequelize,

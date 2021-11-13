@@ -15,6 +15,10 @@ app.set('view-engine', 'ejs');
 // app.use(express.static('./views')); // Import static elements from views 
 app.use(express.json()); // This allows easy use for exporting to json format
 
+app.get('/', (req,res) => {
+    res.render('index.ejs');
+});
+
 app.get('/login', (req,res) => {
     res.render('login.ejs');
 });

@@ -7,10 +7,7 @@ const { sequelize } = require('./db/models');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const employeeRoutes = require('./routes/employee_api');
-
-// Controllers Imports
-const employee_controller = require('./controllers/employeeController');
-const quote_controller = require('./controllers/quotesController');
+const quoteRoutes = require('./routes/quote_api');
 
 //invoke express function to create server
 const app = express();
@@ -32,21 +29,7 @@ app.get('/register', (req,res) => {
 });
 
 app.use('/api/employees', employeeRoutes);
-
-
-/*
- *   API's for qoutes
- */
-
-//apis for quotes
-app.post('/quotes', quote_controller.quote_create);
-
-// api to get alll quotes
-app.get('/quotes', quote_controller.quote_get_all);
-
-// API to get an quote based on aployee user_name
-app.get('/quotes/:user_name', quote_controller.quote_get_all_for_user);
-
+app.use('/api/quotes', quoteRoutes);
 
 // If user is attempting to access a resource that doesn't exist
 app.use((req,res) => {

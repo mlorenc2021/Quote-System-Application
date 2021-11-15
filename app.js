@@ -109,7 +109,7 @@ app.post('/contact', (req, res)=>{
 })
 
 // If user is attempting to access a resource that doesn't exist
-app.all('*', (req,res) => {
+app.use((req,res) => {
     res.status(404).send('error 404');
 });
 

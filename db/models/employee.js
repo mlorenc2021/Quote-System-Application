@@ -62,6 +62,18 @@ module.exports = (sequelize, DataTypes) => {
         if(employee.password) {
           employee.password = await bcrypt.hashSync(employee.password, 10);
         }
+      },
+      beforeBulkCreate: async (employees) => {
+        for (const employee of employees) {
+          if(employee.password) {
+            employee.password = await bcrypt.hashSync(employee.password, 10);
+          }
+        }
+      },
+      beforeBulkUpdate: async (employee) => {
+        if(employee.password) {
+          employee.password = await bcrypt.hashSync(employee.password, 10);
+        }
       }
     },
     instanceMethods: {

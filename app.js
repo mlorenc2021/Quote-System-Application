@@ -7,7 +7,6 @@ const { sequelize, employee, quote} = require('./db/models');
 //invoke express function to create server
 const app = express();
 app.use(express.urlencoded());
-const router = express.Router();
 const employee_controller = require('./controllers/employeeController');
 const quote_controller = require('./controllers/quotesController');
 
@@ -15,19 +14,33 @@ app.set('view-engine', 'ejs');
 // app.use(express.static('./views')); // Import static elements from views 
 app.use(express.json()); // This allows easy use for exporting to json format
 
+/*
+ *   Home Page Routes
+ */
 app.get('/', (req,res) => {
     res.render('index.ejs');
 });
 
+/*
+ *   Login and Registration routes
+ */
+
+// Login get requests
 app.get('/login', (req,res) => {
     res.render('login.ejs');
 });
 
+// Login post request
 app.post('/login', employee_controller.employee_check_credentials);
 
+// Registration get request
 app.get('/register', (req,res) => {
     res.render('register.ejs');
 });
+
+/*
+ *   API's for employees
+ */
 
 // API to create an employee
 app.post('/employees', employee_controller.employee_create);
@@ -38,6 +51,9 @@ app.get('/employees', employee_controller.employee_get_all);
 // API to get an employee based on user_name
 app.get('/employees/:user_name', employee_controller.employee_get_one);
 
+/*
+ *   API's for qoutes
+ */
 
 //apis for quotes
 app.post('/quotes', quote_controller.quote_create);
@@ -47,6 +63,11 @@ app.get('/quotes', quote_controller.quote_get_all);
 
 // API to get an quote based on aployee user_name
 app.get('/quotes/:user_name', quote_controller.quote_get_all_for_user);
+
+/*
+ *  Contact page
+ *  May be removed later
+ */
 
 //Middleware
 app.get('/contact', (req, res)=>{

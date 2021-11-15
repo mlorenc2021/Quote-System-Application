@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const employeeRoutes = require('./routes/employee_api');
 const quoteRoutes = require('./routes/quote_api');
+const dashboardRoutes = require('./routes/dashboard');
 
 //invoke express function to create server
 const app = express();
@@ -28,6 +29,7 @@ app.get('/register', (req,res) => {
     res.render('register.ejs');
 });
 
+app.use('/dashboard', dashboardRoutes);
 app.use('/api/employees', employeeRoutes);
 app.use('/api/quotes', quoteRoutes);
 

@@ -6,6 +6,7 @@ const { sequelize } = require('./db/models');
 // Routes Imports
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
+const employeeRoutes = require('./routes/employee_api');
 
 // Controllers Imports
 const employee_controller = require('./controllers/employeeController');
@@ -17,19 +18,10 @@ app.use(express.urlencoded());
 
 
 app.set('view-engine', 'ejs');
-// app.use(express.static('./views')); // Import static elements from views 
 app.use(express.json()); // This allows easy use for exporting to json format
 
-/*
- *   Homepage
- */
+
 app.use('/', indexRouter);
-
-/*
- *   Login and Registration routes
- */
-
-// Login get requests
 app.use('/login', loginRouter);
 
 // Registration get request
@@ -39,18 +31,8 @@ app.get('/register', (req,res) => {
     res.render('register.ejs');
 });
 
-/*
- *   API's for employees
- */
+app.use('/api/employees', employeeRoutes);
 
-// API to create an employee
-app.post('/employees', employee_controller.employee_create);
-
-// API to get all employees from employees table
-app.get('/employees', employee_controller.employee_get_all);
-
-// API to get an employee based on user_name
-app.get('/employees/:user_name', employee_controller.employee_get_one);
 
 /*
  *   API's for qoutes

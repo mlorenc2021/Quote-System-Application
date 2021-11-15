@@ -3,8 +3,6 @@ const router = express.Router();
 const employee_controller = require('../controllers/employeeController');
 const loginController = require('../controllers/loginController');
 
-console.log('Inside login.js')
-
 // GET login page
 router.get('/', loginController.login_get);
 

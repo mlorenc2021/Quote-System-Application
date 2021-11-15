@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    commission: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   }, {
     sequelize,
@@ -55,6 +59,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       beforeUpdate: async (employee) => {
+        if(employee.password) {
+          employee.password = await bcrypt.hashSync(employee.password, 10);
+        }
+      },
+      beforeBulkCreate: async (employees) => {
+        for (const employee of employees) {
+          if(employee.password) {
+            employee.password = await bcrypt.hashSync(employee.password, 10);
+          }
+        }
+      },
+      beforeBulkUpdate: async (employee) => {
         if(employee.password) {
           employee.password = await bcrypt.hashSync(employee.password, 10);
         }

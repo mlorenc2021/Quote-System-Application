@@ -37,6 +37,22 @@ module.exports = (sequelize, DataTypes) => {
     discount: {
       type:DataTypes.INTEGER,
       allowNull: false
+    },
+    status: {
+      type:DataTypes.STRING,
+      defaultValue: "",
+    },
+    secret: {
+      type:DataTypes.STRING,
+      defaultValue: "",
+    },
+    cust_email: {
+      type:DataTypes.STRING,
+      allowNull: false,
+    },
+    customer: {
+      type:DataTypes.STRING,
+      allowNull: false,
     }
   }, {
     sequelize,

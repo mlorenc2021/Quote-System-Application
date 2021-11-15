@@ -2,11 +2,16 @@ const express = require('express'); //Import express module
 const path = require('path'); //Import path module
 require('dotenv').config(); //Import dotenv module
 const nodemailer = require('nodemailer');// Import nodemailer
-const { sequelize, employee, quote} = require('./db/models');
+const { sequelize } = require('./db/models');
 
 //invoke express function to create server
 const app = express();
 app.use(express.urlencoded());
+
+// Routes Imports
+const indexRouter = require('./routes/index');
+
+// Controllers Imports
 const employee_controller = require('./controllers/employeeController');
 const quote_controller = require('./controllers/quotesController');
 
@@ -15,11 +20,9 @@ app.set('view-engine', 'ejs');
 app.use(express.json()); // This allows easy use for exporting to json format
 
 /*
- *   Home Page Routes
+ *   Homepage
  */
-app.get('/', (req,res) => {
-    res.render('index.ejs');
-});
+app.use('/', indexRouter);
 
 /*
  *   Login and Registration routes

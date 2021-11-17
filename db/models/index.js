@@ -12,23 +12,44 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../../config/config.js')[env];
 const db = {};
+const databases = Object.keys(config.databases);
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+for(let i = 0; i < databases.length; ++i) {
+  let database = databases[i];
+  let dbPath = config.databases[database];
+  // Store the database connection in our db object
+  db[database] = new Sequelize( 
+    dbPath.database, dbPath.username, dbPath.password, dbPath 
+  );
 }
 
+/** Add the Database Models  **/
+/** Add models from the database 1 directory */
 fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
+  .readdirSync(__dirname + '/hq_db')
+  .filter(file =>
+    (file.indexOf('.') !== 0) &&
+    (file !== basename) &&
+    (file.slice(-3) === '.js'))
   .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    const model = require(path.join(__dirname + '/hq_db', file))(db.hq_db, Sequelize.DataTypes);
+    // const model = db.hq_db.import(path.join(__dirname + 'hq_db', file));
     db[model.name] = model;
   });
+
+/** Add models from legacy customer database **/
+fs
+  .readdirSync(__dirname + '/legacy_db')
+  .filter(file =>
+    (file.indexOf('.') !== 0) &&
+    (file !== basename) &&
+    (file.slice(-3) === '.js'))
+  .forEach(file => {
+    const model = require(path.join(__dirname + '/legacy_db', file))(db.legacy_db, Sequelize.DataTypes);
+    // const model = db.legacy_db.import(path.join(__dirname + 'legacy_db', file));
+    db[model.name] = model;
+  });
+
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
@@ -36,7 +57,7 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-db.sequelize = sequelize;
+// db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;

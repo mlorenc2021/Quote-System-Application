@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>Sales Associate Dashboard</title>
+    <div class="dash-header">
+        <a href="/dashboard/sales">Dashboard</a>
+        <a href="/login">Logout</a>
+    </div>
+</head>
+
+<body>
+    <h1>Welcome Sales Associate, .....
+        <!----this is where the user name goes-->
+        Your Commission: $
+    </h1>
+    <h2>Create A New Quote</h2>
+    <form action="/api/quotes" method="POST">
+        <div>
+            <label for="customers">Select a Customer: </label>
+            <select name="customers" id="customers">
+                <option value="sales">Customer is Required</option>
+            </select>
+        </div>
+        <div>
+            <label for="cemail">Customer Email: </label>
+            <input type="text" id="cemail" name="cemail" required>
+        </div>
+
+
+
+        <button class="btns" type="submit">Create Quote</button>
+    </form>
+
+
+
+<script>
+
+</script>

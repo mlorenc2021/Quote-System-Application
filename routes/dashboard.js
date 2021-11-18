@@ -17,7 +17,7 @@ router.get('/manager/sanction_quote', dashboard.sanction_quote);
 
 //accountant dashboard
 router.get('/accountant', dashboard.accountant_dashboard);
-router.get('/accountant/process_order', dashboard.accountant_dashboard);
+router.get('/accountant/process_order', dashboard.process_order);
 
 
 //admin dashboard

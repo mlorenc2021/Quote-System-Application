@@ -17,15 +17,17 @@
     <h1>Welcome Administrator, .....
         <!----this is where the user name goes-->
     </h1>
-    <form action="/dashboard/admin/manage_users.ejs">
+    <form action="/dashboard/admin/review_quotes.ejs">
         <label>Search by date from:
             <input type="date" name="from" min="2020-11-01" max="2021-12-30">
         </label>
         <label>to
             <input type="date" name="to" min="2020-11-01" max="2021-12-30">
         </label>
+        <button type="submit">Search</button>
     </form>
-    <form action="/dashboard/admin/manage_users.ejs">
+
+    <form action="/dashboard/admin/review_quotes.ejs">
         <label>Search by Quote Status
             <select name="qstatus" id="qstatus">
                 <option value="all">All</option>
@@ -34,8 +36,10 @@
                 <option value="ordered">Ordered</option>
             </select>
         </label>
+        <button type="submit">Search</button>
     </form>
-    <form action="/dashboard/admin/manage_users.ejs">
+
+    <form action="/dashboard/admin/review_quotes.ejs">
         <label>Search by Associate
             <select name="associate" id="associate">
                 <option value="none" aria-placeholder="Select Associate">Select Associate
@@ -43,13 +47,16 @@
     
             </select>
         </label>
+        <button type="submit">Search</button>
     </form>
-    <form action="/dashboard/admin/manage_users.ejs">
+
+    <form action="/dashboard/admin/review_quotes.ejs">
         <label>Search by Customer
             <select name="customer" id="customer">
                 <option value="none">Select Customer
                 <option>
             </select>
         </label>
+        <button type="submit">Search</button>        
     </form>
 </body>

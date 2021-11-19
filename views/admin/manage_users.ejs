@@ -17,6 +17,13 @@
     <h1>Welcome Administrator, .....
         <!----this is where the user name goes-->
     </h1>
-
-
+        <% emp.forEach(function(field){ %>
+            <li>
+                <%= field.user_name %>
+                <%= field.employee_name %>
+                <%= field.commision %>
+                <%= field.address %>
+                <%= field.role %>
+        <% }) %>
+            </li>
 </body>

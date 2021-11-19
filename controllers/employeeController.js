@@ -19,13 +19,15 @@ exports.employee_create = async function(req,res) {
 };
 
 //This method is used to get all employees from the employee table
-exports.employee_get_all = async function(req,res) {
+exports.employee_get_all = async function (req, res) {
     try {
         const emp = await employee.findAll();
+        // console.log(emp);
+        return res.render('./admin/manage_users.ejs', { emp: emp });
         return res.send(emp);
-    } catch(err) {
+    } catch (err) {
         console.log(err);
-        return res.status(500).send({error: 'Something went wrong'}, err);
+        return res.status(500).send({ error: 'Something went wrong' }, err);
     }
 };
 

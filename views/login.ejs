@@ -7,9 +7,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/styles.css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" >
+    <link rel="stylesheet" href="styles/styles-login.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     <title>Login Page</title>
 </head>
@@ -31,6 +29,8 @@
 
     <div class="testbox">
     <form action="/login" method="POST">
+            <h3>LOGIN</h3>
+            <hr>
         <div>
             <label id="icon" for="user_name"><i class="fas fa-user"></i></label>
             <input type="text" id="user_name" name="user_name" placeholder=" User Name" size="20" maxlength="20"required>
@@ -41,16 +41,11 @@
         </div>
 
         <div class ="button-fix">
-            <button type="submit">Login</button>
-
-        
-
-        
-        
+            <button type="submit">Login</button>   
     </form>
 
     <div class = "register">
-        <a href="/register">Register</a>
+        <a href="/register">Register Here</a>
     </div>
 </div>
 </div>

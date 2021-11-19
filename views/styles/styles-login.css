@@ -92,7 +92,7 @@ body{
 		margin: 20px auto;
 		top: 20px;
 		width: 343px; 
-		height: 264px; 
+		height: 384px; 
 		-webkit-border-radius: 8px/7px; 
 		-moz-border-radius: 8px/7px; 
 		border-radius: 8px/7px; 
@@ -103,28 +103,10 @@ body{
 		border: solid 1px #cbc9c9;
 	}
     
-
-	.testbox-register {
-		margin: 20px auto;
-		top: 20px;
-		width: 443px; 
-		height: 564px; 
-		-webkit-border-radius: 8px/7px; 
-		-moz-border-radius: 8px/7px; 
-		border-radius: 8px/7px; 
-		background-color: orange; 
-		-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-		-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-		box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-		border: solid 1px #cbc9c9;
-	}
-    
-	
-
 
 	input[type=text], input[type=password] {
 		width: 200px; 
-		height: 29px; 
+		height: 39px; 
 		-webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px; 
 		-moz-border-radius: 0px 4px 4px 0px/0px 0px 4px 4px; 
 		border-radius: 0px 4px 4px 0px/5px 5px 4px 4px; 
@@ -161,31 +143,8 @@ body{
 		display: inline-flex;
 	}
 
-	
-	button[type="submit"], .register a {
-		font-size: 14px;
-		font-weight: 600;
-		color: white;
-		padding: 6px 65px 10px 20px;
-		margin: 40px 8px 50px 85px;
-		display: inline-block;
-		text-decoration: none;
-		width: 80px; 
-		height: 30px; 
-		-webkit-border-radius: 10px; 
-		-moz-border-radius: 10px; 
-		border-radius: 10px; 
-		background-color: #3a57af; 
-		-webkit-box-shadow: 0 3px rgba(58,87,175,.75); 
-		-moz-box-shadow: 0 3px rgba(58,87,175,.75); 
-		box-shadow: 7px 3px rgba(58,87,175,.75);
-		transition: all 0.1s linear 0s; 
-		top: 0px;
-		right: 80px;
-		position: relative;
-	}
 
-	.login a
+	button[type="submit"] ,.login a, .register a
 	{
 		font-size: 14px;
 		font-weight: 600;
@@ -217,8 +176,30 @@ body{
 		box-shadow: none;
 	}
 
+	h3 {
+		font-size: 32px;
+		font-weight: 300;
+		color: #4c4c4c;
+		text-align: center;
+		padding-top: 10px;
+		margin-bottom: 10px;
+	}
 
-	/* Login form decoration END here */
+	.accounttype {
+		margin-left: 8px;
+		margin-top: 20px;
+	}
+
+
+	hr {
+		color: #a9a9a9;
+		opacity: 0.3;
+	}
+
+
+
+
+	/* Login & register form decoration END here */
 
 /*footer*/
 footer {

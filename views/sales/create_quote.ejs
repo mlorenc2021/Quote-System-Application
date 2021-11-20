@@ -5,35 +5,47 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/styles-sales.css">
     <title>Create Quote</title>
-    <div class="dash-header">
-        <a href="/dashboard/sales">Dashboard</a>
-        <a href="/login">Logout</a>
-    </div>
+
 </head>
 
 <body>
-    <h1>Welcome Sales Associate, .....
-        <!----this is where the user name goes-->
-        Your Commission: $
-    </h1>
-    <h2>Create A New Quote</h2>
+    <header>
+        <div class="dash-header">
+            <a href="/dashboard/sales">Dashboard</a>
+            <h1>Welcome Sales Associate, .....
+                <!----this is where the user name goes-->
+                Your Commission: $
+            </h1>
+            <a href="/login">Logout</a>
+        </div>
+        </header>
+
+ <div class="testbox-sales">
+   
     <form action="/api/quotes" method="POST">
-        <div>
-            <label for="customers">Select a Customer: </label>
+        <div class="accounttype">
+        <h3>Create A New Quote</h3>
+        <hr>
+    </div>
+       <div>
+            <div class="select">
+            <label id="icon" for="customers"><i class="fas fa-user-tie"></i> </label>
             <select name="customers" id="customers">
                 <option value="sales">Customer is Required</option>
             </select>
         </div>
+  
         <div>
-            <label for="cemail">Customer Email: </label>
-            <input type="text" id="cemail" name="cemail" required>
+            <label id="icon" for="cemail"><i class="fas fa-envelope"></i></label>
+            <input type="text" id="cemail" name="cemail" placeholder="Enter e-mail Address" size="20" maxlength="20"required>
         </div>
 
+    </div>
 
-
-        <button class="btns" type="submit">Create Quote</button>
+        <button type="submit">Create Quote</button>
     </form>
 
 
@@ -41,3 +53,11 @@
 <script>
 
 </script>
+</div>
+<footer>    	
+    <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small> 
+</footer> 
+</body>
+
+
+</html>

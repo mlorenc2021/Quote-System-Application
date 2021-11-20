@@ -5,21 +5,41 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/styles-sales.css">
     <title>Sales Associate Dashboard</title>
-    <div class="dash-header">
-        <a href="/dashboard/sales">Dashboard</a>
-        <a href="/login">Logout</a>
-    </div>
+  
 </head>
 
 <body>
-    <h1>Welcome Sales Associate, .....
-        <!----this is where the user name goes-->
-        Your Commission: $
-    </h1>
-    <nav>
-        <a href="/dashboard/sales/create_quote">Create Quote</a>
-        <a href="/dashboard/sales/finalize_quote">Finalize Quote</a>
+
+  
+    <header>
+    <div class="dash-header">
+        <a href="/dashboard/sales">Dashboard</a>
+
+        <h1>Welcome Sales Associate, .....
+            <!----this is where the user name goes-->
+            Your Commission: $
+        </h1>
+
+        <a href="/login">Logout</a>
+    </div>
+
+    </header>
+
+    <nav class="dash-line">
+
+        <a href="/dashboard/sales/create_quote"><i class="fas fa-clipboard-list fa-7x"></i><br><p>Create Quotes</p></a>
+        <a href="/dashboard/sales/finalize_quote"><i class="fas fa-handshake fa-6x"></i><br><p> Finalize Quotes</p></a>
+
     </nav>
+
+
+    <footer>    	
+        <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small> 
+    </footer> 
 </body>
+
+
+</html>

@@ -33,13 +33,13 @@ exports.quote_create = async function(req,res) {
 };
 
 // api to get alll quotes
-exports.quote_get_all = async function (req, res) {
+exports.quote_get_all = async function(req,res) {
     try {
         const qte = await quote.findAll();
         return res.send(qte);
-    } catch (err) {
+    } catch(err) {
         console.log(err);
-        return res.status(500).send({ error: 'Something went wrong' }, err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
     }
 };
 

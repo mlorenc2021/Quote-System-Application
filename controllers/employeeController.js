@@ -22,8 +22,8 @@ exports.employee_create = async function(req,res) {
 exports.employee_get_all = async function (req, res) {
     try {
         const emp = await employee.findAll();
-        // console.log(emp);
-        return res.render('./admin/manage_users.ejs', { emp: emp });
+        console.log(emp);
+        //return res.render('./admin/manage_users.ejs', { emp: emp });
         return res.send(emp);
     } catch (err) {
         console.log(err);

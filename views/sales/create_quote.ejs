@@ -32,10 +32,22 @@
             <label for="cemail">Customer Email: </label>
             <input type="text" id="cemail" name="cemail" required>
         </div>
-        <h4>Line Items <button class="btn-add">New line item</button></h4>
-        <div id="line-item">
-            <button class="btn-delete">Delete</button>
+
+        <h4>Line Items</h4>
+        <div class="input-items">
+            <input type="text" class="form-control" id="candidate">
+
+            <div class="input-items-append">
+                <button onclick="addItem()" class="btn btn-add">Add Item</button>
+                <button onclick="removeItem()" class="btn btn-remove">Remove Item</button>                
+            </div>
+
         </div>
+
+        <ul id="dynamic-list">
+        </ul>
+
+
 
 
 
@@ -43,23 +55,24 @@
     </form>
 </body>
 
+
 <script>
-    const add_btn = document.querySelector(".btn-add");
-    const delete_btn = document.querySelector(".btn-delete");
+    function addItem(){
+        var ul = document.getElementById("dynamic-list");
+        var candidate = document.getElementById("candidate");
+        var li = document.createElement("li");
+        li.setAttribute('id', candidate.value);
+        li.appendChild(document.createTextNode(candidate.value));
+        ul.appendChild(li);
+    }
 
-    const line_item = document.getElementById("line-item");
-    add_btn.addEventListener("click", add_new);
-    delete_btn.addEventListener("click", remove);
-
-    function add_new(){
-        const new_item = document.createElement("input");
-        new_item.classList.add('line-item');
-        line_item.appendChild(new_item);
+    function removeItem(){
+        var ul = document.getElementById("dynamic-list");
+        var candidate = document.getElementById("candidate");
+        var item = document.getElementById(candidate.value);
+        ul.removeChild(item);
 
     }
 
-    function remove(){
-        new_item.classList.remove('line-item');
-        line_item.removeChild(new_item);
-    }
+
 </script>

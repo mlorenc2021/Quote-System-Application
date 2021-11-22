@@ -389,10 +389,41 @@ form
 	cursor: pointer;
 }
 
-.line-item{
-	
+.input-item{
+	margin: 50px 0px
 }
 
+.btn-add{
+	background-color: green;
+	color: white;
+	padding: 0px 63px;
+
+}
+
+.btn-remove{
+	background-color: red;
+	color: white;
+	padding: 0px 50px;	
+}
+
+ul{
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+li{
+	position: relative;
+	display: block;
+	padding: 10px 20px;
+
+	margin-bottom: 10px;
+	background-color: white;
+	border: 1px solid grey;
+
+}
 
 /*footer*/
 footer

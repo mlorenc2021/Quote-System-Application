@@ -35,7 +35,7 @@
 
         <h4>Line Items</h4>
         <div class="input-items">
-            <input type="text" class="form-control" id="candidate">
+            <input type="text" class="form-control" id="litem">
 
             <div class="input-items-append">
                 <button onclick="addItem()" class="btn btn-add">Add Item</button>
@@ -44,10 +44,22 @@
 
         </div>
 
-        <ul id="dynamic-list">
+        <ul id="line-item-list">
         </ul>
 
-
+        <h4>Secret Notes</h4>
+        <div class="input-items">
+            <input type="text" class="form-control" id="secret">
+        
+            <div class="input-items-append">
+                <button onclick="addNote()" class="btn btn-add">Add Note</button>
+                <button onclick="removeNote()" class="btn btn-remove">Remove Note</button>
+            </div>
+        
+        </div>
+        
+        <ul id="secret-note-list">
+        </ul>
 
 
 
@@ -58,8 +70,8 @@
 
 <script>
     function addItem(){
-        var ul = document.getElementById("dynamic-list");
-        var candidate = document.getElementById("candidate");
+        var ul = document.getElementById("line-item-list");
+        var candidate = document.getElementById("litem");
         var li = document.createElement("li");
         li.setAttribute('id', candidate.value);
         li.appendChild(document.createTextNode(candidate.value));
@@ -67,12 +79,28 @@
     }
 
     function removeItem(){
-        var ul = document.getElementById("dynamic-list");
-        var candidate = document.getElementById("candidate");
+        var ul = document.getElementById("line-item-list");
+        var candidate = document.getElementById("litem");
         var item = document.getElementById(candidate.value);
         ul.removeChild(item);
 
     }
 
+    function addNote(){
+        var ul = document.getElementById("secret-note-list");
+        var candidate = document.getElementById("secret");
+        var li = document.createElement("li");
+        li.setAttribute('id', candidate.value);
+        li.appendChild(document.createTextNode(candidate.value));
+        ul.appendChild(li);
+    }
+
+    function removeNote(){
+        var ul = document.getElementById("secret-note-list");
+        var candidate = document.getElementById("secret");
+        var item = document.getElementById(candidate.value);
+        ul.removeChild(item);
+
+    }
 
 </script>

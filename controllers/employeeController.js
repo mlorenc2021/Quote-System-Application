@@ -65,7 +65,7 @@ exports.employee_check_credentials = async function(req,res) {
         const emp = await employee.findOne({where: {user_name}});
         const success = await emp.validPassword(password, emp.password);
         if(success) {
-            res.send('Success');
+            res.redirect('./dashboard/' + emp.role);
         } else {
             res.send('Failure');
         }

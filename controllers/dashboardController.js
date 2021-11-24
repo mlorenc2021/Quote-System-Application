@@ -1,4 +1,4 @@
-
+const employee = require('./employeeController');
 
 //sales dashboard and interfaces
 exports.sales_dashboard = async function(req,res) {
@@ -44,7 +44,10 @@ exports.admin_dashboard = async function(req,res) {
 };
 
 exports.manage_users = async function (req, res) {
-    await res.render('./admin/manage_users.ejs');
+    // Use employee controller get all function to get the employee obj
+    emp = await employee.employee_get_all();
+    // Send the emp object to the admin page
+    await res.render('./admin/manage_users.ejs', {emp: emp});
 };
 
 exports.review_quotes = async function (req, res) {

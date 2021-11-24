@@ -23,19 +23,22 @@
     <h2>Create A New Quote</h2>
     <form action="/api/quotes" method="POST">
         <div>
-            <label for="customers">Select a Customer: </label>
-            <select name="customers" id="customers">
-                <option value="sales">Customer is Required</option>
+            <label for="customer">Select a Customer: </label>
+            <select name="customer" id="customer">
+                <option value="customer">Customer is Required</option>
+                <% cust.forEach(function(field){ %>
+                    <option value=customer><%= field.name %></option>
+                <% }) %>
             </select>
         </div>
         <div>
-            <label for="cemail">Customer Email: </label>
-            <input type="text" id="cemail" name="cemail" required>
+            <label for="cust_email">Customer Email: </label>
+            <input type="email" id="cust_email" name="cust_email" required>
         </div>
 
         <h4>Line Items</h4>
         <div class="input-items">
-            <input type="text" class="form-control" id="litem">
+            <input type="text" class="form-control" id="line_item">
 
             <div class="input-items-append">
                 <button onclick="addItem()" class="btn btn-add">Add Item</button>
@@ -60,7 +63,29 @@
         <ul id="secret-note-list">
         </ul>
 
+        <h4>Price</h4>
+        <div>
+            <label for="price">price:</label>
+            <input type="text" id="price" name="price" required>
+        </div>
+
+        <h4>Line item test purposes only remove later</h4>
+        <div>
+            <label for="line_items">price:</label>
+            <input type="text" id="line_items" name="line_items" required>
+        </div>
+
         <h4>Discount</h4>
+        <div>
+            <label for="discount">discount:</label>
+            <input type="text" id="discount" name="discount" required>
+        </div>
+
+        <h4>User Name this field is temporary!!!!!</h4>
+        <div>
+            <label for="user_name">user name:</label>
+            <input type="text" id="user_name" name="user_name" required>
+        </div>
 
 
 
@@ -73,7 +98,7 @@
 <script>
     function addItem(){
         var ul = document.getElementById("line-item-list");
-        var candidate = document.getElementById("litem");
+        var candidate = document.getElementById("line_item");
         var li = document.createElement("li");
         li.setAttribute('id', candidate.value);
         li.appendChild(document.createTextNode(candidate.value));
@@ -82,7 +107,7 @@
 
     function removeItem(){
         var ul = document.getElementById("line-item-list");
-        var candidate = document.getElementById("litem");
+        var candidate = document.getElementById("line_item");
         var item = document.getElementById(candidate.value);
         ul.removeChild(item);
 

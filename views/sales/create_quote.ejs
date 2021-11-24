@@ -61,7 +61,14 @@
         </ul>
 
         <h4>Discount</h4>
-
+        <div class="quote-price">
+            <label for="price">Price: </label>
+            <input type="number" class="form-control" min="0" step="0.01" id="price">
+            <label for="discount">Discount: </label>
+            <input type="number" class="form-control" min="0" step="0.01" id="discount">
+            <button onclick="getPrice()">Calculate New Price</button>
+            <input readonly id="total">
+        </div>
 
 
 
@@ -104,5 +111,16 @@
         ul.removeChild(item);
 
     }
+
+
+    getPrice = function () {
+        var numVal1 = Number(document.getElementById("price").value);
+        var numVal2 = Number(document.getElementById("discount").value) / 100;
+        var totalValue = numVal1 - (numVal1 * numVal2)
+        document.getElementById("total").value = totalValue.toFixed(2);
+    }
+
+
+        
 
 </script>

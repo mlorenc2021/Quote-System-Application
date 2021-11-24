@@ -1,4 +1,5 @@
 const employee = require('./employeeController');
+const customer = require('./customerController');
 
 //sales dashboard and interfaces
 exports.sales_dashboard = async function(req,res) {
@@ -6,7 +7,9 @@ exports.sales_dashboard = async function(req,res) {
 };
 
 exports.create_quote = async function (req, res) {
-    await res.render('./sales/create_quote.ejs');
+    cust = await customer.customer_get_all();
+    // console.log(cust) 
+    await res.render('./sales/create_quote.ejs', {cust: cust});
 };
 
 exports.finalize_quote = async function (req, res) {

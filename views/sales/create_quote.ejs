@@ -57,13 +57,35 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+        <!-- add new line items -->
         <h4>Line Items <button class="add_field_button_line">Add Line Items</button></h4>
 
-        <div class="input_fields_wrap"></div>
+        <div class="input_fields_wrap_line"></div>
 
-        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+
+        <!-- add secret notes -->
         <h4>Secret Notes</h4>
+
+        <div id="inputFormRow">
+        
+            <div class="input-group mb-3">
+                <input type="text" name="secret" class="form-control m-input">
+        
+                <div class="input-group-append">
+                    <button id="removeRow" type="button" class="btn">Remove Note</button>
+                </div>
+            </div>
+        
+            <div id="newRow"></div>
+            <button id="addRow" type="button" class="btn btn-info">Add Row</button>
+        
+        
+        </div>
+
+
+        <!-- <h4>Secret Notes</h4>
         <div class="input-items">
             <input type="text" class="form-control" id="secret">
         
@@ -74,7 +96,7 @@
         
         </div>        
         <ul id="secret-note-list">
-        </ul>
+        </ul> -->
 
 
         <h4>Discount</h4>
@@ -110,8 +132,13 @@
 
     $(document).ready(function () {
         var max_fields = 5; //maximum input boxes allowed
-        var wrapper = $(".input_fields_wrap"); //Fields wrapper
+
+        var wrapper1 = $(".input_fields_wrap_line"); //Fields wrapper
+        var wrapper2 = $(".input_fields_wrap_note"); //Fields wrapper
+
         var add_button_line = $(".add_field_button_line"); //Add button ID
+        var add_button_note = $(".add_field_button_note"); //Add button ID
+
 
         var x = 1; //initlal text box count
         $(add_button_line).click(function (e) { //on add input button click
@@ -119,28 +146,29 @@
             if (x < max_fields) { //max input box allowed
                 x++; //text box increment
 
-                $(wrapper).append('<div class="line_items_list">' +
+                $(wrapper1).append('<div class="line_items_list">' +
 
-                    '<div class="col-lg-3" >' +
+                    '<div>' +
                     '<label>Label: </label>' +
                     '<input type="text" class="line_items" name="line_items">' +
                     '<label>Price: </label>' +
                     '<input type="text" class="price" name="price">' +
                     '</div>' +
 
-                    '<a href="#" class="remove_field"> Remove Line Item</a>' +
+                    '<a href="#" class="remove_field_line"> Remove Line Item</a>' +
 
 
                     '</div>');
             }
         });
 
-        $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+        $(wrapper1).on("click", ".remove_field_line", function (e) { //user click on remove text
             e.preventDefault();
             $(this).parent('.line_items_list').remove();
             calculateTotal();
             x--;
         })
+     
 
         function calculateTotal() {
             //Initialize total to 0
@@ -164,25 +192,57 @@
 
         });
 
-    });  
+    });
+    
+    
+    var noteCount = 1;
+    // add row
+    $("#addRow").click(function () {
+        var html = '';
+        html += '<div id="inputFormRow">';
+        html += '<div class="input-group mb-3">';
+        html += '<input type="text" name="secret" class="form-control m-input">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeRow" type="button" class="btn">Remove Note</button>';
+        html += '</div>';
+        html += '</div>';
+        $('#newRow').append(html);
+        noteCount++;
 
+    });
 
-    function addNote(){
-        var ul = document.getElementById("secret-note-list");
-        var candidate = document.getElementById("secret");
-        var li = document.createElement("li");
-        li.setAttribute('id', candidate.value);
-        li.appendChild(document.createTextNode(candidate.value));
-        ul.appendChild(li);
+    if(noteCount == 1) {
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#inputFormRow').remove();
+        });
+    }
+    else {
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#inputFormRow').remove();
+        });
     }
 
-    function removeNote(){
-        var ul = document.getElementById("secret-note-list");
-        var candidate = document.getElementById("secret");
-        var item = document.getElementById(candidate.value);
-        ul.removeChild(item);
 
-    }
+
+
+    // function addNote(){
+    //     var ul = document.getElementById("secret-note-list");
+    //     var candidate = document.getElementById("secret");
+    //     var li = document.createElement("li");
+    //     li.setAttribute('id', candidate.value);
+    //     li.appendChild(document.createTextNode(candidate.value));
+    //     ul.appendChild(li);
+    // }
+
+    // function removeNote(){
+    //     var ul = document.getElementById("secret-note-list");
+    //     var candidate = document.getElementById("secret");
+    //     var item = document.getElementById(candidate.value);
+    //     ul.removeChild(item);
+
+    // }
 
 /*
     function getPrice(){
@@ -204,7 +264,14 @@
         var price = Number(document.getElementById("total").value);
         var amount = Number(document.getElementById("discount").value);
         var totalValue = price - amount;
-        document.getElementById("total").value = totalValue.toFixed(2);
+
+        if (totalValue <= 0.00) {
+            totalValue = 0.00;
+            document.getElementById("total").value = totalValue.toFixed(2);
+        }
+        else {
+            document.getElementById("total").value = totalValue.toFixed(2);
+        }
     }
 
         

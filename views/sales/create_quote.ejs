@@ -52,6 +52,7 @@
         <h4>Line Items</h4>
         <div class="input-items">
             <input type="text" class="form-control" id="line_item">
+            <input type="number" class="form-control" id="line_item_price">
 
             <div class="input-items-append">
                 <button onclick="addItem()" class="btn btn-add">Add Item</button>
@@ -76,36 +77,22 @@
         <ul id="secret-note-list">
         </ul>
 
-        <h4>Price</h4>
-        <div>
-            <label for="price">price:</label>
-            <input type="text" id="price" name="price" required>
-        </div>
-
-        <h4>Line item test purposes only remove later</h4>
-        <div>
-            <label for="line_items">price:</label>
-            <input type="text" id="line_items" name="line_items" required>
-        </div>
 
         <h4>Discount</h4>
         <div class="quote-price">
             <label for="price">Price: </label>
-            <input type="number" class="form-control" min="0" step="0.01" id="price">
+            <input type="number" class="form-control" name="price" min="0" step="0.01" id="price">
 
             <label for="discount">Discount: </label>
-            <input type="number" class="form-control" min="0" step="0.01" id="discount">
+            <input type="number" class="form-control" name="discount" min="0" step="0.01" id="discount">
 
-            <button onclick="getPrice()">Calculate New Price</button>
-            
+            <button onclick="getPercentage()">Percentage</button>
+            <button onclick="getAmount()">Amount</button>
+
+
             <input readonly id="total">
         </div>
 
-        <h4>User Name this field is temporary!!!!!</h4>
-        <div>
-            <label for="user_name">user name:</label>
-            <input type="text" id="user_name" name="user_name" required>
-        </div>
 
 
 
@@ -116,19 +103,42 @@
 
 <script>
     function addItem(){
+        //reference dynamic list
         var ul = document.getElementById("line-item-list");
-        var candidate = document.getElementById("line_item");
+
+        //fetch line item label and price
+        var label = document.getElementById("line_item");
+        var price = document.getElementById("line_item_price");
+
+        //create list element
         var li = document.createElement("li");
-        li.setAttribute('id', candidate.value);
-        li.appendChild(document.createTextNode(candidate.value));
+
+        //set label and price by id
+        li.setAttribute('id', label.value);
+        li.setAttribute('id', price.value);
+
+        //append lable and price to list
+        li.appendChild(document.createTextNode(label.value));
+        li.appendChild(document.createTextNode(" "));
+        li.appendChild(document.createTextNode(price.value));
+
+        //add line item and price to list
         ul.appendChild(li);
     }
 
     function removeItem(){
+
         var ul = document.getElementById("line-item-list");
+
         var candidate = document.getElementById("line_item");
+        var candidate2 = document.getElementById("line_item_price");
+
+
         var item = document.getElementById(candidate.value);
-        ul.removeChild(item);
+        var item2 = document.getElementById(candidate2.value);
+
+
+        ul.removeChild(item + item2);
 
     }
 
@@ -149,14 +159,27 @@
 
     }
 
-
-    getPrice = function () {
+/*
+    function getPrice(){
         var numVal1 = Number(document.getElementById("price").value);
         var numVal2 = Number(document.getElementById("discount").value) / 100;
         var totalValue = numVal1 - (numVal1 * numVal2)
         document.getElementById("total").value = totalValue.toFixed(2);
     }
+*/
 
+    function getPercentage() {
+        var price = Number(document.getElementById("price").value);
+        var percent = Number(document.getElementById("discount").value) / 100;
+        var totalValue = price - (price * percent);
+        document.getElementById("total").value = totalValue.toFixed(2);
+    }
+    function getAmount() {
+        var price = Number(document.getElementById("price").value);
+        var amount = Number(document.getElementById("discount").value);
+        var totalValue = price - amount;
+        document.getElementById("total").value = totalValue.toFixed(2);
+    }
 
         
 

@@ -1,0 +1,286 @@
+
+
+
+/* Fareed,Ryan,Beto,Matt CSCI 467, Quote System  */
+
+
+*{
+
+	box-sizing: border-box;
+}
+
+html {
+
+	height: 100%;
+}
+
+
+body{
+	max-width: 2600px;
+	font-family: arial, helvetica, sans-serif;
+    background-image: url("../images/4.jpg");
+	background-repeat: no-repeat;
+    background-size: cover;
+	margin: 0;
+	font-size: cal(16px+(10%100)*(100vw-400px)/(400%1600));
+	padding: 0;
+	flex-basis: 100%;
+}
+
+
+	/* header decoration */
+	header {
+
+		min-height: 15px;
+		background-color:orange;
+		padding: 5px;
+		width: 100%;
+	
+	}
+
+    .dash-header
+    {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+ 
+    .dash-line
+    {
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 10%;
+        margin-left: 30%;
+        flex-basis: 100%;
+        left: 50px;
+        object-fit: cover;
+        
+    }
+    
+    .dash-header a:hover
+	{	
+		max-width: 100%;
+		padding: 35px;
+		background-color: rgba(0, 136, 169, 0.8);
+	}
+
+	.dash-header a
+	{
+		margin-right: 100px;
+		margin-top: 10px;
+		padding: 30px;
+		color: #edf0f1;
+		background-color: rgb(173, 36, 65);
+		border-radius: 5px;
+		cursor: pointer;
+		text-decoration: none;
+		transition: all 0.3s ease 0s;
+	}
+
+
+
+    .dash-line a
+	{
+		margin-right: 100px;
+		margin-top: 10px;
+		padding: 80px 90px ;
+		color: brown;
+		background-color: rgb(248, 163, 4);
+		border-radius: 35px 5px 35px 5px;
+		cursor: pointer;
+		text-decoration: none;
+		transition: all 0.3s ease 0s;
+	}
+
+     .dash-line a:hover
+	{	
+		max-width: 100%;
+		padding: 70px;
+		background-color: rgba(0, 136, 169, 0.8);
+	}
+
+    h1 {
+		font-size: 32px;
+		font-weight: 300;
+		color: blue;
+		padding-top: 10px;
+		margin-bottom: 10px;
+	}
+    
+    .dash-line p
+    {
+        text-align: center;
+    }
+
+    form {
+		margin: 20px 30px;
+	}
+
+	.testbox-admin {
+		margin: 20px auto;
+		top: 20px;
+		width: 643px; 
+		height: 484px; 
+		-webkit-border-radius: 8px/7px; 
+		-moz-border-radius: 8px/7px; 
+		border-radius: 8px/7px; 
+		background-color: rgba(247, 143, 8, 0.8); 
+		-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+		-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+		box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+		border: solid 1px #cbc9c9;
+	}
+
+
+    select {
+        left: 60%;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        appearance: none;
+        outline: 0;
+        box-shadow: none;
+        border: 0 !important;
+        background: brown;
+        background-image: none;
+    }
+
+    /* Remove IE arrow */
+    select::-ms-expand {
+        display: none;
+    }
+
+    /* Custom Select */
+    .select {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        width: 15em;
+        height: 2em;
+        left: 190px;
+        margin-top: 10px;
+        bottom: 30px;
+        line-height: 3;
+        background: brown;
+        overflow: hidden;
+        border-radius: .12em;
+    }
+
+    select {
+        flex: 1;
+        padding: 0 .5em;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    /* Arrow */
+    .select::after {
+        content: '\25BC';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0 1em;
+        background: #34495e;
+        cursor: pointer;
+        pointer-events: none;
+        -webkit-transition: .25s all ease;
+        -o-transition: .25s all ease;
+        transition: .25s all ease;
+    }
+
+    /* Transition */
+    .select:hover::after {
+        color: #f39c12;
+    }
+    
+    label {
+		font-size: 17px;
+		font-weight: 300px;
+		color: rgb(94, 57, 57);
+		text-align: center;
+		padding-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.search-date {
+
+        position: relative;
+        display: inline-flex;
+    
+        bottom: 29px;
+        margin-left: 470px;
+    }
+
+	.search-status {
+
+        position: relative;
+        display: inline-flex;
+    
+        bottom: 63px;
+        margin-left: 470px;
+    }
+
+	.search-associate {
+
+        position: relative;
+        display: inline-flex;
+    
+        bottom: 63px;
+        margin-left: 470px;
+    }
+
+	.search-customer {
+
+        position: relative;
+        display: inline-flex;
+    
+        bottom: 63px;
+        margin-left: 470px;
+    }
+
+
+    .search {
+
+        position: relative;
+        display: inline-flex;
+    
+        bottom: 32px;
+        margin-left: 470px;
+    }
+
+    input[type=date] {
+		width: 135px; 
+		height: 25px; 
+		-webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px; 
+		-moz-border-radius: 0px 4px 4px 0px/0px 0px 4px 4px; 
+		border-radius: 0px 4px 4px 0px/5px 5px 4px 4px; 
+		background-color: #fff; 
+		-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+		-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+		box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+		border: solid 1px #cbc9c9;
+		margin-left: -5px;
+		margin-top: 35px; 
+		padding-left: 10px;
+	}
+    
+/*footer*/
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+	position: absolute;
+	min-height: 20px;
+	background-color: orange;
+	bottom: 0px;
+	width: 100%;
+	height: 2.5rem;
+	padding: 10px;
+}
+
+small 
+{
+	color: blue;
+	font-family: 'Dancing Script', 'Times New Roman', Times, serif;
+}

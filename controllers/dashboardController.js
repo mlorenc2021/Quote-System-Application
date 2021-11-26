@@ -56,3 +56,7 @@ exports.manage_users = async function (req, res) {
 exports.review_quotes = async function (req, res) {
     await res.render('./admin/review_quotes.ejs');
 };
+
+exports.create_employee = async function (req, res) {
+    await res.render('./admin/create_employee.ejs');
+};

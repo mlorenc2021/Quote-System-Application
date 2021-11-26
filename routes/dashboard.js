@@ -24,6 +24,7 @@ router.get('/accountant/process_order', dashboard.process_order);
 router.get('/admin', dashboard.admin_dashboard);
 router.get('/admin/manage_users', dashboard.manage_users);
 router.get('/admin/review_quotes', dashboard.review_quotes);
+router.get('/admin/create_employee', dashboard.create_employee);
 
 
 module.exports = router;

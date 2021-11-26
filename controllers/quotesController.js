@@ -54,3 +54,82 @@ exports.quote_get_all_for_user = async function(req,res) {
         return res.status(500).send({error: 'Something went wrong'}, err);
     }
 };
+
+// API to promote a quote
+exports.finalize_quote = async function(req,res) {
+    const id = req.params.id; //store id param in user_name
+
+    //First check if the quote is a draft
+    try {
+        const qte = await quote.findOne({where: {id}});
+        if (qte.status != 'draft') {
+            res.send('This quote is not a draft, please contact your manager');
+        }
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+    //Then we can promote the quote
+    try {
+        quote.update(
+            {status: 'finalized'},
+            {where: {id: id}}
+        )
+        return res.send();
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+};
+
+// API to promote a quote
+exports.sanction_quote = async function(req,res) {
+    const id = req.params.id; //store id param in user_name
+    //First check if the quote can be promoted
+    try {
+        const qte = await quote.findOne({where: {id}});
+        if (qte.status != 'finalized') {
+            res.send('This quote is not a finalized quote, please contact your manager');
+        }
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+    //Then we can promote the quote
+    try {
+        quote.update(
+            {status: 'sanctioned'},
+            {where: {id: id}}
+        )
+        return res.send();
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+};
+
+// API to promote a quote
+exports.purchase_order = async function(req,res) {
+    const id = req.params.id; //store id param in user_name
+    //First check if the quote can be promoted
+    try {
+        const qte = await quote.findOne({where: {id}});
+        if (qte.status != 'sanctioned') {
+            res.send('This quote is not a finalized quote, please contact your manager');
+        }
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+    //Then we can promote the quote
+    try {
+        quote.update(
+            {status: 'purchase_order'},
+            {where: {id: id}}
+        )
+        return res.send();
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+};

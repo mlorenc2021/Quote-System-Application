@@ -5,27 +5,38 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/styles-admin.css">
     <title>Manage Users</title>
-    <div class="dash-header">
-        <a href="/dashboard/admin">Dashboard</a>
-        <a href="/login">Logout</a>
-    </div>
 </head>
 
 <body>
-    <h1>Welcome Administrator, .....
-        <!----this is where the user name goes-->
-    </h1>
-        <ul>
-        <% emp.forEach(function(field){ %>
+    <header>
+        <div class="dash-header">
+            <a href="/dashboard/admin">Dashboard</a>
+    
+            <h1>Welcome Administrator, .....
+                <!----this is where the user name goes-->
+            </h1>
+    
+            <a href="/login">Logout</a>
+        </div>
+    </header>
+
+    <ul>
+    <% emp.forEach(function(field){ %>
         <li>
-            <%= field.user_name %>
-            <%= field.employee_name %>
-            <%= field.commision %>
-            <%= field.address %>
-            <%= field.role %>
-        <% }) %>
+        <%= field.user_name %>
+        <%= field.employee_name %>
+        <%= field.commision %>
+        <%= field.address %>
+        <%= field.role %>
         </li>
-        </ul>
+    <% }) %>
+    </ul>
+
+    <footer>    	
+        <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small> 
+    </footer> 
 </body>
+</html>

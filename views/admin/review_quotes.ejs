@@ -5,17 +5,91 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/styles-admin.css">
     <title>Review Quotes</title>
-    <div class="dash-header">
-        <a href="/dashboard/admin">Dashboard</a>
-        <a href="/login">Logout</a>
-    </div>
+   
 </head>
 
 <body>
-    <h1>Welcome Administrator, .....
-        <!----this is where the user name goes-->
-    </h1>
+    <header>
+        <div class="dash-header">
+            <a href="/dashboard/admin">Dashboard</a>
+    
+            <h1>Welcome Administrator, .....
+                <!----this is where the user name goes-->
+            </h1>
+    
+            <a href="/login">Logout</a>
+        </div>
+    
+        </header>
 
+        <div class="testbox-admin">
+    <form action="/dashboard/admin/review_quotes.ejs">
+        
+        <label>Search by date from:
+            <input type="date" name="from" min="2020-11-01" max="2021-12-30">
+        </label>
+        <label>to
+            <input type="date" name="to" min="2020-11-01" max="2021-12-30">
+        </label>
+        <div class="search-date">
+        <button id="icon" type="submit"><i class="fa fa-search fa-2x"></i></button>
+    </div>
+    </form>
+
+    <form action="/dashboard/admin/review_quotes.ejs">
+        
+        <label>Search by Quote Status
+            <div class="select">
+            <select name="qstatus" id="qstatus">
+                <option value="all">All</option>
+                <option value="finalized">Finalized</option>
+                <option value="sanctioned">Sanctioned</option>
+                <option value="ordered">Ordered</option>
+            </select>
+        </div>
+        </label>
+        <div class="search-status">
+        <button id="icon" type="submit"><i class="fa fa-search fa-2x"></i></button>
+    </div>
+    </form>
+
+    <form action="/dashboard/admin/review_quotes.ejs">
+        <label>Search by Associate
+            <div class="select">
+            <select name="associate" id="associate">
+                <option value="none" aria-placeholder="Select Associate">Select Associate
+                <option>
+    
+            </select>
+        </div>
+        </label>
+        <div class="search-associate">
+        <button id="icon" type="submit"><i class="fa fa-search fa-2x"></i></button>
+    </div>
+    </form>
+
+    <form action="/dashboard/admin/review_quotes.ejs">
+        <label>Search by Customer
+            <div class="select">
+            <select name="customer" id="customer">
+                <option value="none">Select Customer
+                <option>
+            </select>
+        </div>
+        </label>
+        <div class="search-customer">
+        <button id="icon" type="submit"><i class="fa fa-search fa-2x"></i></button> 
+    </div>       
+    </form>
+</div>
+
+
+<footer>    	
+    <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small> 
+</footer> 
 </body>
+
+</html>

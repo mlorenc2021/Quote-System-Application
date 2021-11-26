@@ -57,10 +57,9 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-        <h4>Line Items <button class="add_field_button btn btn-primary pull-right">Add Line Items</button></h4>
+        <h4>Line Items <button class="add_field_button_line">Add Line Items</button></h4>
 
         <div class="input_fields_wrap"></div>
-
 
         
 
@@ -112,24 +111,24 @@
     $(document).ready(function () {
         var max_fields = 5; //maximum input boxes allowed
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
-        var add_button = $(".add_field_button"); //Add button ID
+        var add_button_line = $(".add_field_button_line"); //Add button ID
 
         var x = 1; //initlal text box count
-        $(add_button).click(function (e) { //on add input button click
+        $(add_button_line).click(function (e) { //on add input button click
             e.preventDefault();
             if (x < max_fields) { //max input box allowed
                 x++; //text box increment
 
-                $(wrapper).append('<div class="col-lg-12 product_wrapper">' +
+                $(wrapper).append('<div class="line_items_list">' +
 
                     '<div class="col-lg-3" >' +
                     '<label>Label: </label>' +
-                    '<input type="text" class="product_textarea" name="Product[]">' +
-                    '<label>Price Tag: </label>' +
-                    '<input type="text" class="price_tag form-control" name="Price[]"/>' +
+                    '<input type="text" class="line_items" name="line_items">' +
+                    '<label>Price: </label>' +
+                    '<input type="text" class="price" name="price">' +
                     '</div>' +
 
-                    '<a href="#" class="remove_field btn btn-danger pull-right"> Remove Line Item</a>' +
+                    '<a href="#" class="remove_field"> Remove Line Item</a>' +
 
 
                     '</div>');
@@ -138,7 +137,7 @@
 
         $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
             e.preventDefault();
-            $(this).parent('.product_wrapper').remove();
+            $(this).parent('.line_items_list').remove();
             calculateTotal();
             x--;
         })
@@ -146,7 +145,7 @@
         function calculateTotal() {
             //Initialize total to 0
             var total = 0;
-            $(".price_tag").each(function () {
+            $(".price").each(function () {
                 // Sum only if the text entered is number and greater than 0
                 if (!isNaN(this.value) && this.value.length != 0) {
                     total += parseFloat(this.value);
@@ -158,7 +157,7 @@
         }
 
         //Iterate through each Textbox and add keyup event handler
-        $("body").on('keyup', '.price_tag', function (e) {
+        $("body").on('keyup', '.price', function (e) {
 
             e.preventDefault();
             calculateTotal();

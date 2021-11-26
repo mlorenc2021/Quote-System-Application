@@ -30,6 +30,8 @@
             <h3>Create A New Quote</h3>
             <hr>
         </div>
+
+
         <div class="select">
             <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
             <select name="customer" id="customer">
@@ -49,20 +51,18 @@
                    size="20" maxlength="20" required>
         </div>
 
-        <h4>Line Items</h4>
-        <div class="input-items">
-            <input type="text" class="form-control" id="line_item">
-            <input type="number" class="form-control" id="line_item_price">
 
-            <div class="input-items-append">
-                <button onclick="addItem()" class="btn btn-add">Add Item</button>
-                <button onclick="removeItem()" class="btn btn-remove">Remove Item</button>                
-            </div>
 
-        </div>
 
-        <ul id="line-item-list">
-        </ul>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <h4>Line Items <button class="add_field_button btn btn-primary pull-right">Add Line Items</button></h4>
+
+        <div class="input_fields_wrap"></div>
+
+
+        
 
         <h4>Secret Notes</h4>
         <div class="input-items">
@@ -80,8 +80,8 @@
 
         <h4>Discount</h4>
         <div class="quote-price">
-            <label for="price">Price: </label>
-            <input type="number" class="form-control" name="price" min="0" step="0.01" id="price">
+            <!-- <label for="price">Price: </label>
+            <input type="number" class="form-control" name="price" min="0" step="0.01" id="price"> -->
 
             <label for="discount">Discount: </label>
             <input type="number" class="form-control" name="discount" min="0" step="0.01" id="discount">
@@ -90,10 +90,14 @@
             <button onclick="getAmount()">Amount</button>
 
 
-            <input readonly id="total">
+            <input readonly id="total" min="0">
+
         </div>
 
-
+        <div>
+            <label for="username">Sign your quote:</label>
+            <input type="text" placeholder="Enter username" required>
+        </div>
 
 
         <button type="submit">Create Quote</button>
@@ -105,45 +109,64 @@
 
 <script>
 
-    function addItem(){
-        //reference dynamic list
-        var ul = document.getElementById("line-item-list");
+    $(document).ready(function () {
+        var max_fields = 5; //maximum input boxes allowed
+        var wrapper = $(".input_fields_wrap"); //Fields wrapper
+        var add_button = $(".add_field_button"); //Add button ID
 
-        //fetch line item label and price
-        var label = document.getElementById("line_item");
-        var price = document.getElementById("line_item_price");
+        var x = 1; //initlal text box count
+        $(add_button).click(function (e) { //on add input button click
+            e.preventDefault();
+            if (x < max_fields) { //max input box allowed
+                x++; //text box increment
 
-        //create list element
-        var li = document.createElement("li");
+                $(wrapper).append('<div class="col-lg-12 product_wrapper">' +
 
-        //set label and price by id
-        li.setAttribute('id', label.value);
-        li.setAttribute('id', price.value);
+                    '<div class="col-lg-3" >' +
+                    '<label>Label: </label>' +
+                    '<input type="text" class="product_textarea" name="Product[]">' +
+                    '<label>Price Tag: </label>' +
+                    '<input type="text" class="price_tag form-control" name="Price[]"/>' +
+                    '</div>' +
 
-        //append lable and price to list
-        li.appendChild(document.createTextNode(label.value));
-        li.appendChild(document.createTextNode(" "));
-        li.appendChild(document.createTextNode(price.value));
-
-        //add line item and price to list
-        ul.appendChild(li);
-    }
-
-    function removeItem(){
-
-        var ul = document.getElementById("line-item-list");
-
-        var candidate = document.getElementById("line_item");
-        var candidate2 = document.getElementById("line_item_price");
+                    '<a href="#" class="remove_field btn btn-danger pull-right"> Remove Line Item</a>' +
 
 
-        var item = document.getElementById(candidate.value);
-        var item2 = document.getElementById(candidate2.value);
+                    '</div>');
+            }
+        });
 
+        $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('.product_wrapper').remove();
+            calculateTotal();
+            x--;
+        })
 
-        ul.removeChild(item + item2);
+        function calculateTotal() {
+            //Initialize total to 0
+            var total = 0;
+            $(".price_tag").each(function () {
+                // Sum only if the text entered is number and greater than 0
+                if (!isNaN(this.value) && this.value.length != 0) {
+                    total += parseFloat(this.value);
+                }
+            });
+            //Assign the total to label
+            //.toFixed() method will roundoff the final sum to 2 decimal places
+            $('#total').val(total.toFixed(2));
+        }
 
-    }
+        //Iterate through each Textbox and add keyup event handler
+        $("body").on('keyup', '.price_tag', function (e) {
+
+            e.preventDefault();
+            calculateTotal();
+
+        });
+
+    });  
+
 
     function addNote(){
         var ul = document.getElementById("secret-note-list");
@@ -172,13 +195,14 @@
 */
 
     function getPercentage() {
-        var price = Number(document.getElementById("price").value);
+        var price = Number(document.getElementById("total").value);
         var percent = Number(document.getElementById("discount").value) / 100;
         var totalValue = price - (price * percent);
         document.getElementById("total").value = totalValue.toFixed(2);
     }
+
     function getAmount() {
-        var price = Number(document.getElementById("price").value);
+        var price = Number(document.getElementById("total").value);
         var amount = Number(document.getElementById("discount").value);
         var totalValue = price - amount;
         document.getElementById("total").value = totalValue.toFixed(2);

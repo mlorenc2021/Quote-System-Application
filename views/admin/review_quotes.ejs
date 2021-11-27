@@ -25,18 +25,18 @@
     </header>
 
     
-    <form action="/dashboard/admin/review_quotes.ejs">
+    <form action="/api/quotes/review" method="post">
         <label>Search by date from:
-            <input type="date" name="from" min="2020-11-01" max="2021-12-30">
+            <input type="date" name="start_date" min="" max="">
         </label>
         <label>to
-            <input type="date" name="to" min="2020-11-01" max="2021-12-30">
+            <input type="date" name="end_date" min="" max="">
         </label>
 
         <label>Search by Quote Status
             <div class="select">            
-                <select name="qstatus" id="qstatus">
-                    <option value="all">All</option>
+                <select name="status" id="status">
+                    <option value="">All</option>
                     <option value="finalized">Finalized</option>
                     <option value="sanctioned">Sanctioned</option>
                     <option value="ordered">Ordered</option>
@@ -46,8 +46,8 @@
 
         <label>Search by Associate
             <div class="select">
-                <select name="associate" id="associate">
-                    <option value="none" aria-placeholder="Select Associate">Select Associate
+                <select name="user_name" id="associate">
+                    <option value="" aria-placeholder="Select Associate">Select Associate
                     <option>
                 </select>
             </div>
@@ -56,7 +56,7 @@
         <label>Search by Customer
             <div class="select">
                 <select name="customer" id="customer">
-                    <option value="none">Select Customer
+                    <option value="">Select Customer
                     <option>
                 </select>
             </div>

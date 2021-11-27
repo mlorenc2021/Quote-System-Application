@@ -38,7 +38,7 @@ exports.quote_create = async function(req,res) {
 exports.quote_get_all = async function(req,res) {
     try {
         const qte = await quote.findAll();
-        return res.send(qte);
+        return qte;
     } catch(err) {
         console.log(err);
         return res.status(500).send({error: 'Something went wrong'}, err);
@@ -50,7 +50,7 @@ exports.quote_get_all_for_user = async function(req,res) {
     const user_name = req.params.user_name; //store username param in user_name
     try {
         const qte = await quote.findAll({where: {user_name}});
-        return res.send(qte);
+        return qte;
     } catch(err) {
         console.log(err);
         return res.status(500).send({error: 'Something went wrong'}, err);

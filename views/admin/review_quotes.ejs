@@ -47,8 +47,10 @@
         <label>Search by Associate
             <div class="select">
                 <select name="user_name" id="associate">
-                    <option value="" aria-placeholder="Select Associate">Select Associate
-                    <option>
+                    <option value="" aria-placeholder="Select Associate">Select Associate</option>
+                    <% emp.forEach(function(field) { %>
+                        <option value=<%= field.user_name %>><%= field.user_name %></option>
+                    <% }) %>
                 </select>
             </div>
         </label>
@@ -56,8 +58,10 @@
         <label>Search by Customer
             <div class="select">
                 <select name="customer" id="customer">
-                    <option value="">Select Customer
-                    <option>
+                    <option value="">Select Customer</option>
+                    <% cust.forEach(function(field){ %>
+                        <option value=customer><%= field.name %></option>
+                    <% }) %>
                 </select>
             </div>
         </label>

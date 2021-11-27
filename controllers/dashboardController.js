@@ -60,3 +60,8 @@ exports.review_quotes = async function (req, res) {
 exports.create_employee = async function (req, res) {
     await res.render('./admin/create_employee.ejs');
 };
+
+exports.edit_employee = async function (req, res) {
+    emp = await employee.employee_get_one(req,res);
+    await res.render('./admin/edit_employee.ejs', {emp:emp});
+};

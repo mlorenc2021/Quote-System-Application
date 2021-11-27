@@ -37,7 +37,7 @@
             <select name="customer" id="customer">
                 <option value="customer">Customer is Required</option>
                 <% cust.forEach(function(field){ %>
-                    <option value=customer><%= field.name %></option>
+                    <option value="<%= field.name %>"><%= field.name %></option>
                 <% }) %>
             </select>
         </div>
@@ -53,8 +53,6 @@
 
 
 
-
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
         <!-- add new line items -->
@@ -62,47 +60,16 @@
 
         <div class="input_fields_wrap_line"></div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 
         <!-- add secret notes -->
-        <h4>Secret Notes</h4>
+        <h4>Secret Notes <button class="add_field_button_note">Add Secret Note</button></h4>
 
-        <div id="inputFormRow">
-        
-            <div class="input-group mb-3">
-                <input type="text" name="secret" class="form-control m-input">
-        
-                <div class="input-group-append">
-                    <button id="removeRow" type="button" class="btn">Remove Note</button>
-                </div>
-            </div>
-        
-            <div id="newRow"></div>
-            <button id="addRow" type="button" class="btn btn-info">Add Row</button>
-        
-        
-        </div>
+        <!-- add new line items -->        
+        <div class="input_fields_wrap_note"></div>
 
-
-        <!-- <h4>Secret Notes</h4>
-        <div class="input-items">
-            <input type="text" class="form-control" id="secret">
-        
-            <div class="input-items-append">
-                <button onclick="addNote()" class="btn btn-add">Add Note</button>
-                <button onclick="removeNote()" class="btn btn-remove">Remove Note</button>
-            </div>
-        
-        </div>        
-        <ul id="secret-note-list">
-        </ul> -->
-
-
+        <!-- calculate total with discount -->
         <h4>Discount</h4>
         <div class="quote-price">
-            <!-- <label for="price">Price: </label>
-            <input type="number" class="form-control" name="price" min="0" step="0.01" id="price"> -->
 
             <label for="discount">Discount: </label>
             <input type="number" class="form-control" name="discount" min="0" step="0.01" id="discount">
@@ -116,8 +83,8 @@
         </div>
 
         <div>
-            <label for="username">Sign your quote:</label>
-            <input type="text" placeholder="Enter username" required>
+            <label for="user_name">Sign your quote:</label>
+            <input type="text" id="user_name" name="user_name" placeholder="Enter username" required>
         </div>
 
 
@@ -150,12 +117,12 @@
 
                     '<div>' +
                     '<label>Label: </label>' +
-                    '<input type="text" class="line_items" name="line_items">' +
+                    '<input type="text" id="line_items" class="line_items" name="line_items">' +
                     '<label>Price: </label>' +
-                    '<input type="text" class="price" name="price">' +
+                    '<input type="text" id="price" class="price" name="price">' +
                     '</div>' +
 
-                    '<a href="#" class="remove_field_line"> Remove Line Item</a>' +
+                    '<button type="submit" class="remove_field_line"> Remove Line Item</button>' +
 
 
                     '</div>');
@@ -167,8 +134,7 @@
             $(this).parent('.line_items_list').remove();
             calculateTotal();
             x--;
-        })
-     
+        }) 
 
         function calculateTotal() {
             //Initialize total to 0
@@ -190,69 +156,39 @@
             e.preventDefault();
             calculateTotal();
 
+        });        
+
+
+        var y = 1; //initlal text box count
+        $(add_button_note).click(function (e) { //on add input button click
+            e.preventDefault();
+            if (y < max_fields) { //max input box allowed
+                y++; //text box increment
+
+                $(wrapper2).append('<div class="line_items_note">' +
+
+                    '<div>' +
+                    '<input type="text" id="secret" class="secret" name="secret">' +
+                    '</div>' +
+
+                    '<button type="submit" class="remove_field_note"> Remove Secret Note</button>' +
+
+
+                    '</div>');
+            }
         });
+
+        $(wrapper2).on("click", ".remove_field_note", function (e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('.line_items_note').remove();
+            y--;
+        })        
+
+
 
     });
     
     
-    var noteCount = 1;
-    // add row
-    $("#addRow").click(function () {
-        var html = '';
-        html += '<div id="inputFormRow">';
-        html += '<div class="input-group mb-3">';
-        html += '<input type="text" name="secret" class="form-control m-input">';
-        html += '<div class="input-group-append">';
-        html += '<button id="removeRow" type="button" class="btn">Remove Note</button>';
-        html += '</div>';
-        html += '</div>';
-        $('#newRow').append(html);
-        noteCount++;
-
-    });
-
-    if(noteCount == 1) {
-        // remove row
-        $(document).on('click', '#removeRow', function () {
-            $(this).closest('#inputFormRow').remove();
-        });
-    }
-    else {
-        // remove row
-        $(document).on('click', '#removeRow', function () {
-            $(this).closest('#inputFormRow').remove();
-        });
-    }
-
-
-
-
-    // function addNote(){
-    //     var ul = document.getElementById("secret-note-list");
-    //     var candidate = document.getElementById("secret");
-    //     var li = document.createElement("li");
-    //     li.setAttribute('id', candidate.value);
-    //     li.appendChild(document.createTextNode(candidate.value));
-    //     ul.appendChild(li);
-    // }
-
-    // function removeNote(){
-    //     var ul = document.getElementById("secret-note-list");
-    //     var candidate = document.getElementById("secret");
-    //     var item = document.getElementById(candidate.value);
-    //     ul.removeChild(item);
-
-    // }
-
-/*
-    function getPrice(){
-        var numVal1 = Number(document.getElementById("price").value);
-        var numVal2 = Number(document.getElementById("discount").value) / 100;
-        var totalValue = numVal1 - (numVal1 * numVal2)
-        document.getElementById("total").value = totalValue.toFixed(2);
-    }
-*/
-
     function getPercentage() {
         var price = Number(document.getElementById("total").value);
         var percent = Number(document.getElementById("discount").value) / 100;

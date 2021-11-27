@@ -12,6 +12,16 @@ exports.quote_create = async function(req,res) {
         cust_email, 
         customer
     } = req.body;
+    console.log(line_items);
+    console.log(user_name);
+    console.log(price);
+    console.log(discount);
+    console.log(status);
+    console.log(secret);
+    console.log(cust_email);
+    console.log(customer);
+
+
 
     // Attempt to create employee, catch error if one occures
     try {

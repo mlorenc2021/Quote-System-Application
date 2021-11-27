@@ -65,35 +65,40 @@ exports.review_quotes = async function(req,res) {
     const user_name = req.body.user_name;
     const customer = req.body.customer;
 
-    // const body = req.body;
-    // console.log(body)
-
+    // Create a map for key value pairs
     let query_map = new Map();
 
+    // If the req.body variable is not a default value we add it to the map
     if(start_date != '') {
         query_map.set('start_date', start_date);
     }
 
+    // If the req.body variable is not a default value we add it to the map
     if(end_date != '') {
-        query_map.set('start_date', start_date);
+        query_map.set('end_date', end_date);
     }
 
+    // If the req.body variable is not a default value we add it to the map
     if(user_name != '') {
         query_map.set('user_name', user_name);
     }
 
+    // If the req.body variable is not a default value we add it to the map
     if(status != '') {
         query_map.set('status', status);
     }
 
+    // If the req.body variable is not a default value we add it to the map
     if(customer != '') {
         query_map.set('customer', customer);
     }
 
+    // Convert the map to a javascript object to pass into findAll as a param
     const query_object = Object.fromEntries(query_map);
 
     try {
         const qte = await quote.findAll({
+            // Pass the Javascript Object from above in as the where clause
             where: query_object
         })
         return res.send(qte);

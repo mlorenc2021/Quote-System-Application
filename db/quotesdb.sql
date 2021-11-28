@@ -18,7 +18,7 @@ CREATE TABLE `employees`(
 CREATE TABLE `quotes`(
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `employeeid` INTEGER NOT NULL,
-  `price` DECIMAL(8,2) DEFAULT '0.00',
+  `total` DECIMAL(8,2) DEFAULT '0.00',
   `createdAt` DATETIME NOT NULL,
   `updatedAt` DATETIME NOT NULL,
   `status`  VARCHAR(255) DEFAULT 'draft',
@@ -31,7 +31,7 @@ CREATE TABLE `quotes`(
 CREATE TABLE `lineitems`(
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `quoteid` INTEGER NOT NULL,
-  `text` TEXT DEFAULT '',
+  `label` TEXT DEFAULT '',
   `price` DECIMAL(8,2) DEFAULT '0.00',
 
   
@@ -41,9 +41,7 @@ CREATE TABLE `lineitems`(
 CREATE TABLE `secretnotes`(
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `quoteid` INTEGER NOT NULL,
-  `text` TEXT DEFAULT '',
+  `note` TEXT DEFAULT '',
  
   FOREIGN KEY (`quoteid`) REFERENCES `quotes`(`id`)
 );
-
-

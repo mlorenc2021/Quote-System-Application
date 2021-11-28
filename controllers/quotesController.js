@@ -1,4 +1,4 @@
-const { quote, line_item } = require('../db/models');
+const { quote, line_item, secret_note} = require('../db/models');
 
 //apis for quotes
 exports.quote_create = async function(req,res) {
@@ -9,10 +9,12 @@ exports.quote_create = async function(req,res) {
         cust_email, 
         customer,
         line_items,
-        price
+        price,
+        secret
     } = req.body;
 
-    let obj_list = [];
+    let line_item_list = [];
+    let secret_list = [];
 
     console.log(typeof(line_items))
 
@@ -25,8 +27,6 @@ exports.quote_create = async function(req,res) {
     console.log(cust_email);
     console.log(customer);
 
-
-
     // Attempt to create employee, catch error if one occures
     try {
         const qte = await quote.create( {
@@ -37,18 +37,35 @@ exports.quote_create = async function(req,res) {
             customer
         });
 
+        // Loop for line items
         for(i = 0; i < line_items.length; i++) {
             const obj = {
                 quote_id: qte.id,
                 label: line_items[i],
                 price: price[i]
             }
-            obj_list.push(obj);
+            line_item_list.push(obj);
         }
 
-        obj_list.forEach(async function(obj) {
+        // Loop over list of all line items to be added
+        line_item_list.forEach(async function(obj) {
             const lineItem = await line_item.create(obj)
         });
+
+        // Loop for secret notes
+        for(i = 0; i < secret.length; i++) {
+            const obj = {
+                quote_id: qte.id,
+                note: secret[i]
+            }
+            secret_list.push(obj);
+        }
+
+        // Loop over and add all secret notes
+        secret_list.forEach(async function(obj) {
+            const secret = await secret_note.create(obj)
+        });
+
         return res.send(qte);
     } catch(err) {
         console.log(err);

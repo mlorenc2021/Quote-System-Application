@@ -126,6 +126,8 @@
 
 
                     '</div>');
+                e.stringifyItems();
+
             }
         });
 
@@ -161,6 +163,7 @@
 
         var y = 1; //initlal text box count
         $(add_button_note).click(function (e) { //on add input button click
+            
             e.preventDefault();
             if (y < max_fields) { //max input box allowed
                 y++; //text box increment
@@ -189,7 +192,10 @@
     });
 
 
-
+    function stringifyItems() {
+        // var litem = document.getElementById("line_items");
+        console.log(".line_items");
+    }
 
     
     

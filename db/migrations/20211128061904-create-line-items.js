@@ -1,28 +1,27 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('quotes', {
+    await queryInterface.createTable('line_items', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      line_items: {
-        type: Sequelize.STRING,
-        allowNull: false
-        
-      },
-      user_name: {
-        type: Sequelize.STRING,
+      quote_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model:'employees',
-          key:'user_name'
+          model:'quotes',
+          key:'id'
         }
       },
-      total: {
-        type: Sequelize.DECIMAL,
+      label: {
+        type: Sequelize.STRING,
+        default: ""
+      },
+      price: {
+        type: Sequelize.DECIMAL(10,2),
         defaultValue: 0
       },
       createdAt: {
@@ -36,6 +35,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('quotes');
+    await queryInterface.dropTable('line_items');
   }
 };

@@ -3,12 +3,9 @@ const { quote } = require('../db/models');
 //apis for quotes
 exports.quote_create = async function(req,res) {
     const {
-        line_items, 
         user_name, 
-        price, 
-        discount, 
+        total, 
         status, 
-        secret, 
         cust_email, 
         customer
     } = req.body;
@@ -16,12 +13,9 @@ exports.quote_create = async function(req,res) {
     // Attempt to create employee, catch error if one occures
     try {
         const qte = await quote.create( {
-            line_items, 
             user_name, 
-            price, 
-            discount,
+            total, 
             status,
-            secret,
             cust_email,
             customer
         });

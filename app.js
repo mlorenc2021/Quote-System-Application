@@ -15,9 +15,12 @@ const customerRoutes = require('./routes/customer_api');
 const app = express();
 app.use(express.urlencoded());
 
+app.use(express.static("public"));
+
 
 app.set('view-engine', 'ejs');
 app.use(express.json()); // This allows easy use for exporting to json format
+
 
 
 app.use('/', indexRouter);

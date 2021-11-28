@@ -4,6 +4,7 @@
 const {
   Model
 } = require('sequelize');
+const secret_note = require('./secret_note');
 module.exports = (sequelize, DataTypes) => {
   class quote extends Model {
     /**
@@ -11,16 +12,14 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({employee}) {
+    static associate({employee, line_item, secret_note}) {
       // define association here
-      this.belongsTo(employee, {foreignKey:'user_name'})
+      this.belongsTo(employee, {foreignKey:'user_name'});
+      this.hasMany(line_item, {foreignKey:'id'});
+      this.hasMany(secret_note, {foreignKey:'id'});
     }
   };
   quote.init({
-    line_items: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     user_name: {
       type:DataTypes.STRING,
       allowNull: false,
@@ -30,21 +29,13 @@ module.exports = (sequelize, DataTypes) => {
         key:'user_name'
       }
     },
-    price: {
-      type:DataTypes.INTEGER,
-      allowNull: false,
-    },
-    discount: {
-      type:DataTypes.INTEGER,
-      allowNull: false
+    total: {
+      type:DataTypes.DECIMAL,
+      defaultValue: 0 
     },
     status: {
       type:DataTypes.STRING,
-      defaultValue: "",
-    },
-    secret: {
-      type:DataTypes.STRING,
-      defaultValue: "",
+      defaultValue: "draft",
     },
     cust_email: {
       type:DataTypes.STRING,

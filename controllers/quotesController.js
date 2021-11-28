@@ -1,4 +1,4 @@
-const { quote } = require('../db/models');
+const { quote, line_item, secret_note} = require('../db/models');
 const { Op } = require('sequelize');
 const sequelize = require('sequelize');
 
@@ -9,8 +9,25 @@ exports.quote_create = async function(req,res) {
         total, 
         status, 
         cust_email, 
-        customer
+        customer,
+        line_items,
+        price,
+        secret
     } = req.body;
+
+    let line_item_list = [];
+    let secret_list = [];
+
+    console.log(typeof(line_items))
+
+    console.log('this is both prices: ', price)
+
+    // console.log(line_items.)
+    console.log(user_name);
+    console.log(status);
+    console.log(total);
+    console.log(cust_email);
+    console.log(customer);
 
     // Attempt to create employee, catch error if one occures
     try {
@@ -21,6 +38,36 @@ exports.quote_create = async function(req,res) {
             cust_email,
             customer
         });
+
+        // Loop for line items
+        for(i = 0; i < line_items.length; i++) {
+            const obj = {
+                quote_id: qte.id,
+                label: line_items[i],
+                price: price[i]
+            }
+            line_item_list.push(obj);
+        }
+
+        // Loop over list of all line items to be added
+        line_item_list.forEach(async function(obj) {
+            const lineItem = await line_item.create(obj)
+        });
+
+        // Loop for secret notes
+        for(i = 0; i < secret.length; i++) {
+            const obj = {
+                quote_id: qte.id,
+                note: secret[i]
+            }
+            secret_list.push(obj);
+        }
+
+        // Loop over and add all secret notes
+        secret_list.forEach(async function(obj) {
+            const secret = await secret_note.create(obj)
+        });
+
         return res.send(qte);
     } catch(err) {
         console.log(err);

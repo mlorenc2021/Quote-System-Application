@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn('quotes', 'status', {
       type: Sequelize.STRING,
-      defaultValue: "",
+      defaultValue: "draft",
     });
   },
 

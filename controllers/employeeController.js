@@ -9,8 +9,7 @@ exports.employee_create = async function(req,res) {
         const emp = await employee.create( {
             employee_name, user_name, password, address, role
         });
-        return res.redirect('/login');
-        return res.send(emp);
+        return res.redirect('/dashboard/admin/manage_users');
     } catch(err) {
         console.log(err);
         return res.status(500).send(err);

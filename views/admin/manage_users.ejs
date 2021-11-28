@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/styles-admin.css">
     <title>Manage Users</title>
+
+    <!-- Super fast and easy table-->
+    <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel = "stylesheet" href = "https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
+    <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src = "https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src = "https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#employee_table').DataTable();
+        } );
+    </script>
+    <title>Manage Users</title>
 </head>
 
 <body>
@@ -23,20 +39,43 @@
         </div>
     </header>
 
-    <ul>
+    <table id= "employee_table" 
+           class= "table table-bordered table-striped"
+           style= "width:100%">
+        <thread>
+        <tr>
+            <th>User Name</th>
+            <th>Employee Name</th>
+            <th>Commision</th>
+            <th>Address</th>
+            <th>Role</th>
+            <th>Edit Employee</th>
+        </tr>
+        </thread>
+        <tbody>
     <% emp.forEach(function(field){ %>
-        <li>
-        <%= field.user_name %>
-        <%= field.employee_name %>
-        <%= field.commision %>
-        <%= field.address %>
-        <%= field.role %>
-        </li>
+        <tr>
+            <td><%= field.user_name %></td>
+            <td><%= field.employee_name %></td>
+            <td><%= field.commision %></td>
+            <td><%= field.address %></td>
+            <td><%= field.role %></td>
+            <td><a href="./edit_employee/<%=field.user_name%>"><button type="button">Edit</button></a></td>
+        </tr>
     <% }) %>
-    </ul>
+        </tbody>
+        <br>
+    </table>
+
+    <header>
+        <div class="dash-header">
+            <a href="./create_employee">Create</a>
+        </div>
+    </header>
 
     <footer>    	
         <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small> 
     </footer> 
+
 </body>
 </html>

@@ -25,18 +25,18 @@
     </header>
 
     
-    <form action="/dashboard/admin/review_quotes.ejs">
+    <form action="/api/quotes/review" method="post">
         <label>Search by date from:
-            <input type="date" name="from" min="2020-11-01" max="2021-12-30">
+            <input type="date" name="start_date" min="" max="">
         </label>
         <label>to
-            <input type="date" name="to" min="2020-11-01" max="2021-12-30">
+            <input type="date" name="end_date" min="" max="">
         </label>
 
         <label>Search by Quote Status
             <div class="select">            
-                <select name="qstatus" id="qstatus">
-                    <option value="all">All</option>
+                <select name="status" id="status">
+                    <option value="">All</option>
                     <option value="finalized">Finalized</option>
                     <option value="sanctioned">Sanctioned</option>
                     <option value="ordered">Ordered</option>
@@ -46,9 +46,11 @@
 
         <label>Search by Associate
             <div class="select">
-                <select name="associate" id="associate">
-                    <option value="none" aria-placeholder="Select Associate">Select Associate
-                    <option>
+                <select name="user_name" id="associate">
+                    <option value="" aria-placeholder="Select Associate">Select Associate</option>
+                    <% emp.forEach(function(field) { %>
+                        <option value=<%= field.user_name %>><%= field.user_name %></option>
+                    <% }) %>
                 </select>
             </div>
         </label>
@@ -56,8 +58,10 @@
         <label>Search by Customer
             <div class="select">
                 <select name="customer" id="customer">
-                    <option value="none">Select Customer
-                    <option>
+                    <option value="">Select Customer</option>
+                    <% cust.forEach(function(field){ %>
+                        <option value=customer><%= field.name %></option>
+                    <% }) %>
                 </select>
             </div>
         </label>
@@ -66,7 +70,41 @@
             <button id="icon" type="submit"><i class="fa fa-search fa-2x"></i></button> 
         </div>       
     </form>
-    
+
+
+        <table id= "employee_table" 
+           class= "table table-bordered table-striped"
+           style= "width:100%">
+        <thread>
+        <tr>
+            <th>User Name</th>
+            <th>Employee Name</th>
+            <th>Commision</th>
+            <th>Address</th>
+            <th>Role</th>
+            <th>Edit Employee</th>
+        </tr>
+        </thread>
+        <tbody>
+    <% qte.forEach(function(field){ %>
+        <tr>
+            <td><%= field.user_name %></td>
+            <td><%= field.status %></td>
+            <td><%= field.customer %></td>
+            <td><%= field.cust_email %></td>
+            <td><%= field.line_items %></td>
+            <td><%= field.price %></td>
+            <td><%= field.discount %></td>
+            <td><%= field.secret %></td>
+            <td><%= field.createdAt %></td>
+            <!-- <td><%= field.updatedAt %></td> -->
+            <!-- <td><a href="./edit_employee/<%=field.user_name%>"><button type="button">Edit</button></a></td> -->
+        </tr>
+    <% }) %>
+        </tbody>
+        <br>
+    </table>
+
     <footer>    	
         <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small> 
     </footer> 

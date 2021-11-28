@@ -4,6 +4,7 @@ const { customer } = require('../db/models');
 exports.customer_get_all = async function(req, res) {
     try {
         const cust = await customer.findAll();
+        return cust;
         return res.send(cust);
     } catch(err) {
         console.log(err);

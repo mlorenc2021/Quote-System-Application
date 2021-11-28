@@ -1,4 +1,6 @@
-
+const employee = require('./employeeController');
+const customer = require('./customerController');
+const quote = require('./quotesController');
 
 //sales dashboard and interfaces
 exports.sales_dashboard = async function(req,res) {
@@ -6,7 +8,9 @@ exports.sales_dashboard = async function(req,res) {
 };
 
 exports.create_quote = async function (req, res) {
-    await res.render('./sales/create_quote.ejs');
+    cust = await customer.customer_get_all();
+    // console.log(cust) 
+    await res.render('./sales/create_quote.ejs', {cust: cust});
 };
 
 exports.finalize_quote = async function (req, res) {
@@ -44,9 +48,24 @@ exports.admin_dashboard = async function(req,res) {
 };
 
 exports.manage_users = async function (req, res) {
-    await res.render('./admin/manage_users.ejs');
+    // Use employee controller get all function to get the employee obj
+    emp = await employee.employee_get_all();
+    // Send the emp object to the admin page
+    await res.render('./admin/manage_users.ejs', {emp: emp});
 };
 
 exports.review_quotes = async function (req, res) {
-    await res.render('./admin/review_quotes.ejs');
+    emp = await employee.employee_get_all();
+    cust = await customer.customer_get_all();
+    qte = await quote.review_quotes(req,res);
+    await res.render('./admin/review_quotes.ejs', {emp: emp, cust: cust});
+};
+
+exports.create_employee = async function (req, res) {
+    await res.render('./admin/create_employee.ejs');
+};
+
+exports.edit_employee = async function (req, res) {
+    emp = await employee.employee_get_one(req,res);
+    await res.render('./admin/edit_employee.ejs', {emp:emp});
 };

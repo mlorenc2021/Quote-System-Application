@@ -27,30 +27,164 @@
    
     <form action="/api/quotes" method="POST">
         <div class="accounttype">
-        <h3>Create A New Quote</h3>
-        <hr>
-    </div>
-       <div>
-            <div class="select">
-            <label id="icon" for="customers"><i class="fas fa-user-tie"></i> </label>
-            <select name="customers" id="customers">
-                <option value="sales">Customer is Required</option>
+            <h3>Create A New Quote</h3>
+            <hr>
+        </div>
+        <div class="select">
+            <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
+            <select name="customer" id="customer">
+                <option value="customer">Customer is Required</option>
+                <% cust.forEach(function(field){ %>
+                    <option value=customer><%= field.name %></option>
+                <% }) %>
             </select>
         </div>
   
         <div>
-            <label id="icon" for="cemail"><i class="fas fa-envelope"></i></label>
-            <input type="text" id="cemail" name="cemail" placeholder="Enter e-mail Address" size="20" maxlength="20"required>
+            <label id ="icon" for="cust_email"><i class="fas fa-envelope"></i></label>
+            <input type="email" 
+                   id="cust_email" 
+                   name="cust_email" 
+                   placeholder="Enter e-mail Address" 
+                   size="20" maxlength="20" required>
         </div>
 
-    </div>
+        <h4>Line Items</h4>
+        <div class="input-items">
+            <input type="text" class="form-control" id="line_item">
+            <input type="number" class="form-control" id="line_item_price">
+
+            <div class="input-items-append">
+                <button onclick="addItem()" class="btn btn-add">Add Item</button>
+                <button onclick="removeItem()" class="btn btn-remove">Remove Item</button>                
+            </div>
+
+        </div>
+
+        <ul id="line-item-list">
+        </ul>
+
+        <h4>Secret Notes</h4>
+        <div class="input-items">
+            <input type="text" class="form-control" id="secret">
+        
+            <div class="input-items-append">
+                <button onclick="addNote()" class="btn btn-add">Add Note</button>
+                <button onclick="removeNote()" class="btn btn-remove">Remove Note</button>
+            </div>
+        
+        </div>        
+        <ul id="secret-note-list">
+        </ul>
+
+
+        <h4>Discount</h4>
+        <div class="quote-price">
+            <label for="price">Price: </label>
+            <input type="number" class="form-control" name="price" min="0" step="0.01" id="price">
+
+            <label for="discount">Discount: </label>
+            <input type="number" class="form-control" name="discount" min="0" step="0.01" id="discount">
+
+            <button onclick="getPercentage()">Percentage</button>
+            <button onclick="getAmount()">Amount</button>
+
+
+            <input readonly id="total">
+        </div>
+
+
+
 
         <button type="submit">Create Quote</button>
     </form>
+</body>
 
+</html>
 
 
 <script>
+
+    function addItem(){
+        //reference dynamic list
+        var ul = document.getElementById("line-item-list");
+
+        //fetch line item label and price
+        var label = document.getElementById("line_item");
+        var price = document.getElementById("line_item_price");
+
+        //create list element
+        var li = document.createElement("li");
+
+        //set label and price by id
+        li.setAttribute('id', label.value);
+        li.setAttribute('id', price.value);
+
+        //append lable and price to list
+        li.appendChild(document.createTextNode(label.value));
+        li.appendChild(document.createTextNode(" "));
+        li.appendChild(document.createTextNode(price.value));
+
+        //add line item and price to list
+        ul.appendChild(li);
+    }
+
+    function removeItem(){
+
+        var ul = document.getElementById("line-item-list");
+
+        var candidate = document.getElementById("line_item");
+        var candidate2 = document.getElementById("line_item_price");
+
+
+        var item = document.getElementById(candidate.value);
+        var item2 = document.getElementById(candidate2.value);
+
+
+        ul.removeChild(item + item2);
+
+    }
+
+    function addNote(){
+        var ul = document.getElementById("secret-note-list");
+        var candidate = document.getElementById("secret");
+        var li = document.createElement("li");
+        li.setAttribute('id', candidate.value);
+        li.appendChild(document.createTextNode(candidate.value));
+        ul.appendChild(li);
+    }
+
+    function removeNote(){
+        var ul = document.getElementById("secret-note-list");
+        var candidate = document.getElementById("secret");
+        var item = document.getElementById(candidate.value);
+        ul.removeChild(item);
+
+    }
+
+/*
+    function getPrice(){
+        var numVal1 = Number(document.getElementById("price").value);
+        var numVal2 = Number(document.getElementById("discount").value) / 100;
+        var totalValue = numVal1 - (numVal1 * numVal2)
+        document.getElementById("total").value = totalValue.toFixed(2);
+    }
+*/
+
+    function getPercentage() {
+        var price = Number(document.getElementById("price").value);
+        var percent = Number(document.getElementById("discount").value) / 100;
+        var totalValue = price - (price * percent);
+        document.getElementById("total").value = totalValue.toFixed(2);
+    }
+    function getAmount() {
+        var price = Number(document.getElementById("price").value);
+        var amount = Number(document.getElementById("discount").value);
+        var totalValue = price - amount;
+        document.getElementById("total").value = totalValue.toFixed(2);
+    }
+
+        
 
 </script>
 </div>

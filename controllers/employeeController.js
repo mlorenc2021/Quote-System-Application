@@ -9,8 +9,7 @@ exports.employee_create = async function(req,res) {
         const emp = await employee.create( {
             employee_name, user_name, password, address, role
         });
-        return res.redirect('/login');
-        return res.send(emp);
+        return res.redirect('/dashboard/admin/manage_users');
     } catch(err) {
         console.log(err);
         return res.status(500).send(err);
@@ -19,10 +18,24 @@ exports.employee_create = async function(req,res) {
 };
 
 //This method is used to get all employees from the employee table
-exports.employee_get_all = async function(req,res) {
+exports.employee_get_all = async function (req, res) {
     try {
         const emp = await employee.findAll();
+        return emp;
         return res.send(emp);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ error: 'Something went wrong' }, err);
+    }
+};
+
+// This method is used to get one employee from the table
+// Based on Employee user_name
+exports.employee_get_one = async function(req,res) {
+    const user_name = req.params.user_name; //store username param in user_name
+    try {
+        const emp = await employee.findOne({where: {user_name}});
+        return emp;
     } catch(err) {
         console.log(err);
         return res.status(500).send({error: 'Something went wrong'}, err);
@@ -35,19 +48,7 @@ exports.employee_get_one = async function(req,res) {
     const user_name = req.params.user_name; //store username param in user_name
     try {
         const emp = await employee.findOne({where: {user_name}});
-        return res.send(emp);
-    } catch(err) {
-        console.log(err);
-        return res.status(500).send({error: 'Something went wrong'}, err);
-    }
-};
-
-// This method is used to get one employee from the table
-// Based on Employee user_name
-exports.employee_get_one = async function(req,res) {
-    const user_name = req.params.user_name; //store username param in user_name
-    try {
-        const emp = await employee.findOne({where: {user_name}});
+        return emp;
         return res.send(emp);
     } catch(err) {
         console.log(err);
@@ -63,7 +64,7 @@ exports.employee_check_credentials = async function(req,res) {
         const emp = await employee.findOne({where: {user_name}});
         const success = await emp.validPassword(password, emp.password);
         if(success) {
-            res.send('Success');
+            res.redirect('./dashboard/' + emp.role);
         } else {
             res.send('Failure');
         }

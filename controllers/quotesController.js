@@ -1,4 +1,4 @@
-const { quote } = require('../db/models');
+const { quote, line_item } = require('../db/models');
 
 //apis for quotes
 exports.quote_create = async function(req,res) {
@@ -7,10 +7,21 @@ exports.quote_create = async function(req,res) {
         total, 
         status, 
         cust_email, 
-        customer
+        customer,
+        line_items,
+        price
     } = req.body;
+
+    let obj_list = [];
+
+    console.log(typeof(line_items))
+
+    console.log('this is both prices: ', price)
+
+    // console.log(line_items.)
     console.log(user_name);
     console.log(status);
+    console.log(total);
     console.log(cust_email);
     console.log(customer);
 
@@ -24,6 +35,19 @@ exports.quote_create = async function(req,res) {
             status,
             cust_email,
             customer
+        });
+
+        for(i = 0; i < line_items.length; i++) {
+            const obj = {
+                quote_id: qte.id,
+                label: line_items[i],
+                price: price[i]
+            }
+            obj_list.push(obj);
+        }
+
+        obj_list.forEach(async function(obj) {
+            const lineItem = await line_item.create(obj)
         });
         return res.send(qte);
     } catch(err) {

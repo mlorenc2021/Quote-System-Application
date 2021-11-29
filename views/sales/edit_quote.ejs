@@ -59,7 +59,7 @@
             <!-- display current line items -->
             <div class="output_fields_wrap_line">
                 <% line_items.forEach(function(line_item) { %>
-                    <div class="subjectName">
+                    <div class="line_items_list_current">
                         <div>
                             <label>Label: </label>
                             <input type="text" value="<%= line_item.label %>" id="line_items" class="line_items" name="line_items">
@@ -82,9 +82,14 @@
 
 
             <!-- display current secret notes -->
-            <div>
+            <div class="output_fields_wrap_note">
                 <% secret_notes.forEach(function(note) { %>
-                <input type="text" value="<%= note.note %>" id="secret" class="secret" name="secret">
+                    <div class="secret_notes_list_current">
+                        <div>
+                            <input type="text" value="<%= note.note %>" id="secret" class="secret" name="secret">
+                        </div>
+                    <button type="submit" class="remove_field_note">Remove Secret Note</button>
+                    </div>
                     <% }) %>
             </div>
 
@@ -123,16 +128,21 @@
 
 <script>
 
+    // function passQuoteID() {
+    //     getElementById("quote_id")
+    // }
+
     $(document).ready(function () {
         var wrapper3 = $(".output_fields_wrap_line"); //Fields wrapper for line items
+        var wrapper4 = $(".output_fields_wrap_note"); //Fields wrapper for line items
+
 
         $(wrapper3).on("click", ".remove_field_line", function (e) { //user click on remove text
         e.preventDefault();
-        $(this).parent('.subjectName').remove();
+        $(this).parent('.line_items_list_current').remove();
         calculateTotal();
         x--;
         })
-
 
 
         function calculateTotal() {
@@ -156,6 +166,12 @@
             calculateTotal();
 
         });
+
+        $(wrapper4).on("click", ".remove_field_note", function (e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('.secret_notes_list_current').remove();
+            y--;
+        })        
         
     });
 

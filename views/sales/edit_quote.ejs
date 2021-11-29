@@ -28,7 +28,7 @@
 
     <div class="testbox-sales">
 
-        <form action="/api/quotes" method="POST">
+        <form action="/api/quotes/update" method="POST">
             <div class="accounttype">
                 <h3>Edit Quote</h3>
                 <hr>
@@ -38,6 +38,7 @@
             <div class="select">
                 <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
                 <input readonly id="customer" name="customer" value=<%= qte.customer %>>
+                <input readonly id="quote_id" name="quote_id" value=<%= qte.id %>>
             </div>
 
 

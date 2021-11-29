@@ -65,6 +65,76 @@ exports.quote_create = async function(req,res) {
     }
 };
 
+//apis for quotes
+exports.quote_update = async function(req,res) {
+    const {
+        quote_id,
+        secret_id,
+        line_item_id,
+        user_name, 
+        total, 
+        status, 
+        cust_email, 
+        customer,
+        line_items,
+        price,
+        secret
+    } = req.body;
+    console.log(quote_id)
+
+    // Used to store the line item and objects together as objects
+    let line_item_list = [];
+    let secret_list = [];
+
+    // Attempt to create employee, catch error if one occures
+    try {
+        const qte = await quote.upsert( {
+            id: quote_id,
+            user_name, 
+            total, 
+            status,
+            cust_email,
+            customer
+        });
+
+        console.log(qte.id)
+
+        // Loop for line items add them to line_item list
+        for(i = 0; i < line_items.length; i++) {
+            const obj = {
+                quote_id: quote_id,
+                label: line_items[i],
+                price: price[i]
+            }
+            line_item_list.push(obj);
+        }
+
+        // Loop over list of all line items to be added
+        line_item_list.forEach(async function(obj) {
+            const lineItem = await line_item.upsert(obj);
+        });
+
+        // Loop for secret notes and add them to secret_list
+        for(i = 0; i < secret.length; i++) {
+            const obj = {
+                quote_id: quote_id,
+                note: secret[i]
+            }
+            secret_list.push(obj);
+        }
+
+        // Loop over and add all secret notes
+        secret_list.forEach(async function(obj) {
+            const secret = await secret_note.upsert(obj);
+        });
+
+        return res.redirect('/api/quotes/finalize/'+ quote_id);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send(err);
+    }
+};
+
 // api to get alll quotes
 exports.quote_get_all = async function(req,res) {
     try {
@@ -212,7 +282,7 @@ exports.finalize_quote = async function(req,res) {
             {status: 'finalized'},
             {where: {id: id}}
         )
-        return res.send();
+        return res.redirect('/dashboard/sales');
     } catch(err) {
         console.log(err);
         return res.status(500).send({error: 'Something went wrong'}, err);

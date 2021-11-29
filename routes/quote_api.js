@@ -8,6 +8,9 @@ router.post('/', quote_controller.quote_create);
 // api to get alll quotes
 router.get('/', quote_controller.quote_get_all);
 
+//apis for quotes
+router.post('/update', quote_controller.quote_update);
+
 // API to get an quote based on aployee user_name
 router.get('/:user_name', quote_controller.quote_get_all_for_user);
 
@@ -18,7 +21,7 @@ router.get('/:id', quote_controller.quote_get_one);
 router.post('/review', quote_controller.review_quotes);
 
 // API to finalize a quote
-router.post('/finalize/:id', quote_controller.finalize_quote);
+router.get('/finalize/:id', quote_controller.finalize_quote);
 
 // API to finalize a quote
 router.post('/sanction/:id', quote_controller.sanction_quote);

@@ -6,6 +6,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <!-- <link rel="stylesheet" href="/css/styles-sales.css"> -->
     <title>Edit Quote</title>
 
@@ -54,15 +57,15 @@
             <!-- display current line items -->
             <div class="output_fields_warp_line">
                 <% line_items.forEach(function(line_item) { %>
-                    <div class="output_line_items_list">
+                    <div class="subjectName">
                         <div>
                             <label>Label: </label>
                             <input type="text" value="<%= line_item.label %>" id="line_items" class="line_items" name="line_items">
                             <label>Price: </label>
                             <input type="number" value="<%= line_item.price %>" id="price" class="price" name="price">
                         </div>
+                    <button type="submit" >Remove Line Item</button>
                     </div>
-                    <button type="submit" class="output_remove_field_line"> Remove Line Item</button>
                     <% }) %>
             </div>
 
@@ -215,6 +218,19 @@
 
 
     });
+
+    // Link to source https://www.tutorialspoint.com/how-to-remove-li-elements-on-button-click-in-javascript
+    // The below code deletes the line items that were initially imported!
+    var allSubjectName = document.querySelectorAll(".subjectName");
+        for (var index = 0; index <allSubjectName.length; index++){
+            allSubjectName[index].addEventListener("click", function(){
+                this.classList.toggle("active");
+            });
+            allSubjectName[index].querySelector("button").addEventListener("click",
+        function(){
+            this.closest(".subjectName").remove();
+        });
+   }
 
 
     function stringifyItems() {

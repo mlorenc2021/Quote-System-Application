@@ -37,9 +37,28 @@
             <!-- display customer name -->
             <div class="select">
                 <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
-                <input readonly id="customer" name="customer" value=<%= qte.customer %>>
-                <input readonly id="quote_id" name="quote_id" value=<%= qte.id %>>
+                <select name="customer" id="customer">
+                    <option value="<%= qte.customer %>"><%= qte.customer %></option>
+                    <% cust.forEach(function(field){ %>
+                        <option value="<%= field.name %>"><%= field.name %> </option>
+                        <% }) %>
+                </select>
             </div>
+
+
+            <!-- <div class="select">
+                <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
+                <input id="customer" name="customer" value=<%= qte.customer %>>
+                <input readonly id="quote_id" name="quote_id" value=<%= qte.id %>>
+            </div> -->
+
+            <!-- <strong>
+                <%= qte.customer %>
+                <%= qte.customer.name %>
+                <%= qte.customer.city %>
+                <%= qte.customer.street %>
+                <%= qte.customer.address %>
+            </strong> -->
 
 
 

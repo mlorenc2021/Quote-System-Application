@@ -99,7 +99,7 @@
                 <button onclick="getAmount()">Amount</button>
 
 
-                <input readonly id="total" name="total" min="0">
+                <input readonly id="total" value="<%= qte.total %>" step="0.01" name="total" min="0">
 
             </div>
 
@@ -119,11 +119,22 @@
 <script>
 
     $(document).ready(function () {
+        var wrapper3 = $(".output_fields_wrap_note"); //Fields wrapper
+        $(wrapper3).on("click", ".output_remove_field_line", function (e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('.output_line_items_list').remove();
+            calculateTotal();
+            x--;
+        })  
+
+    });
+
+
+    $(document).ready(function () {
         var max_fields = 5; //maximum input boxes allowed
 
         var wrapper1 = $(".input_fields_wrap_line"); //Fields wrapper
         var wrapper2 = $(".input_fields_wrap_note"); //Fields wrapper
-        var wrapper3 = $(".output_fields_wrap_note"); //Fields wrapper
 
 
         var add_button_line = $(".add_field_button_line"); //Add button ID
@@ -159,12 +170,7 @@
             x--;
         })
 
-        // $(wrapper3).on("click", ".output_remove_field_line", function (e) { //user click on remove text
-        //     e.preventDefault();
-        //     $(this).parent('.output_line_items_list').remove();
-        //     calculateTotal();
-        //     x--;
-        // })        
+      
 
         function calculateTotal() {
             //Initialize total to 0
@@ -229,6 +235,7 @@
             allSubjectName[index].querySelector("button").addEventListener("click",
         function(){
             this.closest(".subjectName").remove();
+            calculateTotal();
         });
    }
 

@@ -90,6 +90,28 @@ exports.quote_get_one = async function(req,res) {
 };
 
 // api to get alll quotes
+exports.get_line_items = async function(quote_id) {
+    try {
+        const line_items = await line_item.findAll({where: {quote_id}});
+        return line_items;
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+};
+
+// api to get alll quotes
+exports.get_secret = async function(quote_id) {
+    try {
+        const secret_notes = await secret_note.findAll({where: {quote_id}});
+        return secret_notes;
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+};
+
+// api to get alll quotes
 exports.quote_get_all_by_status = async function(status) {
     try {
         const qte = await quote.findAll({where: {status}});

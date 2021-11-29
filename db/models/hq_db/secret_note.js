@@ -23,8 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         key:'id'
       }
     },
-    note: DataTypes.STRING,
-    defaultValue: ''
+    note: {
+      type: DataTypes.STRING,
+      defaultValue: ''
+    }
   }, {
     sequelize,
     modelName: 'secret_note',

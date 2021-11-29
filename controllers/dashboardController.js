@@ -15,7 +15,14 @@ exports.create_quote = async function (req, res) {
 
 exports.edit_quote = async function (req, res) {
     qte = await quote.quote_get_one(req,res);
-    await res.render('./sales/edit_quote.ejs', {qte:qte});
+    console.log('What is quote.id?:',qte.id);
+    line_items = await quote.get_line_items(qte.id);
+    secret_notes = await quote.get_secret(qte.id);
+    await res.render('./sales/edit_quote.ejs', {
+        qte:qte, 
+        line_items:line_items, 
+        secret_notes:secret_notes
+    });
 };
 
 exports.finalize_quote = async function (req, res) {

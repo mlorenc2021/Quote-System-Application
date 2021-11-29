@@ -3,3 +3,13 @@
 <%= qte.status %>
 <%= qte.cust_email %>
 <%= qte.customer %>
+
+<% line_items.forEach(function(line_item) { %>
+    <%= line_item.label %>
+    <%= line_item.price %>
+<% }) %>
+    
+
+<% secret_notes.forEach(function(note) { %>
+    <%= note.note %>
+<% }) %>

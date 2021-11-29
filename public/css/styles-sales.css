@@ -18,7 +18,7 @@ html {
 body{
 	max-width: 2600px;
 	font-family: arial, helvetica, sans-serif;
-    background-image: url("../images/4.jpg");
+    background-image: url("../images/3.jpeg");
 	background-repeat: no-repeat;
     background-size: cover;
 	margin: 0;
@@ -283,20 +283,14 @@ body{
 
 /*footer*/
 footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-	position: absolute;
-	min-height: 20px;
-	background-color: orange;
-	bottom: 0px;
-	width: 100%;
-	height: 2.5rem;
-	padding: 10px;
-}
 
-small 
-{
+	background-color: orange;
+	position: fixed;
+	left: 0;
+     bottom: 0;
+     width: 100%;
+	text-align: center;
+	padding: 10px;
 	color: blue;
 	font-family: 'Dancing Script', 'Times New Roman', Times, serif;
 }

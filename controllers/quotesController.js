@@ -15,19 +15,9 @@ exports.quote_create = async function(req,res) {
         secret
     } = req.body;
 
+    // Used to store the line item and objects together as objects
     let line_item_list = [];
     let secret_list = [];
-
-    console.log(typeof(line_items))
-
-    console.log('this is both prices: ', price)
-
-    // console.log(line_items.)
-    console.log(user_name);
-    console.log(status);
-    console.log(total);
-    console.log(cust_email);
-    console.log(customer);
 
     // Attempt to create employee, catch error if one occures
     try {
@@ -39,7 +29,7 @@ exports.quote_create = async function(req,res) {
             customer
         });
 
-        // Loop for line items
+        // Loop for line items add them to line_item list
         for(i = 0; i < line_items.length; i++) {
             const obj = {
                 quote_id: qte.id,
@@ -51,10 +41,10 @@ exports.quote_create = async function(req,res) {
 
         // Loop over list of all line items to be added
         line_item_list.forEach(async function(obj) {
-            const lineItem = await line_item.create(obj)
+            const lineItem = await line_item.create(obj);
         });
 
-        // Loop for secret notes
+        // Loop for secret notes and add them to secret_list
         for(i = 0; i < secret.length; i++) {
             const obj = {
                 quote_id: qte.id,
@@ -65,10 +55,10 @@ exports.quote_create = async function(req,res) {
 
         // Loop over and add all secret notes
         secret_list.forEach(async function(obj) {
-            const secret = await secret_note.create(obj)
+            const secret = await secret_note.create(obj);
         });
 
-        return res.send(qte);
+        return res.redirect('/dashboard/sales');
     } catch(err) {
         console.log(err);
         return res.status(500).send(err);

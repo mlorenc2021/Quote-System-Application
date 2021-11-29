@@ -1,15 +1,275 @@
-<%= qte.user_name %>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="/css/styles-sales.css"> -->
+    <title>Edit Quote</title>
+
+</head>
+
+<body>
+    <header>
+        <div class="dash-header">
+            <a href="/dashboard/sales">Dashboard</a>
+            <h1>Welcome Sales Associate, .....
+                <!----this is where the user name goes-->
+                Your Commission: $
+            </h1>
+            <a href="/login">Logout</a>
+        </div>
+    </header>
+
+    <div class="testbox-sales">
+
+        <form action="/api/quotes" method="POST">
+            <div class="accounttype">
+                <h3>Edit Quote</h3>
+                <hr>
+            </div>
+
+            <!-- display customer name -->
+            <div class="select">
+                <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
+                <input name="customer" readonly id="customer" value=<%= qte.customer.name %>>
+            </div>
+
+            <!-- change customer email-->
+            <div>
+                <label id="icon" for="cust_email"><i class="fas fa-envelope"></i></label>
+                <input type="email" id="cust_email" name="cust_email" placeholder="Enter e-mail Address" size="20"
+                    maxlength="20" required>
+            </div>
+
+
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+            <!-- add new line items -->
+            <h4>Line Items <button class="add_field_button_line">Add Line Items</button></h4>
+
+            <!-- display current line items -->
+            <div class="output_fields_warp_line">
+                <% line_items.forEach(function(line_item) { %>
+                    <div class="output_line_items_list">
+                        <div>
+                            <label>Label: </label>
+                            <input type="text" value="<%= line_item.label %>" id="line_items" class="line_items" name="line_items">
+                            <label>Price: </label>
+                            <input type="number" value="<%= line_item.price %>" id="price" class="price" name="price">
+                        </div>
+                    </div>
+                    <button type="submit" class="output_remove_field_line"> Remove Line Item</button>
+                    <% }) %>
+            </div>
+
+            <!-- add new line items -->
+            <div class="input_fields_wrap_line"></div>
+
+
+
+
+            <!-- add secret notes -->
+            <h4>Secret Notes <button class="add_field_button_note">Add Secret Note</button></h4>
+
+            <!-- display current secret notes -->
+            <div>
+                <% secret_notes.forEach(function(note) { %>
+                <input type="text" value="<%= note.note %>" id="secret" class="secret" name="secret">
+                    <% }) %>
+            </div>
+
+            <!-- add new line items -->
+            <div class="input_fields_wrap_note"></div>
+
+            <!-- calculate total with discount -->
+            <h4>Discount</h4>
+            <div class="quote-price">
+
+                <label for="discount">Discount: </label>
+                <input type="number" class="form-control" name="discount" min="0" step="0.01" id="discount">
+
+                <button onclick="getPercentage()">Percentage</button>
+                <button onclick="getAmount()">Amount</button>
+
+
+                <input readonly id="total" name="total" min="0">
+
+            </div>
+
+            <div>
+                <label for="user_name">Sign your quote:</label>
+                <input type="text" id="user_name" name="user_name" placeholder="Enter username" required>
+            </div>
+
+
+            <button type="submit">Create Quote</button>
+        </form>
+</body>
+
+</html>
+
+
+<script>
+
+    $(document).ready(function () {
+        var max_fields = 5; //maximum input boxes allowed
+
+        var wrapper1 = $(".input_fields_wrap_line"); //Fields wrapper
+        var wrapper2 = $(".input_fields_wrap_note"); //Fields wrapper
+        var wrapper3 = $(".output_fields_wrap_note"); //Fields wrapper
+
+
+        var add_button_line = $(".add_field_button_line"); //Add button ID
+        var add_button_note = $(".add_field_button_note"); //Add button ID
+
+
+        var x = 1; //initlal text box count
+        $(add_button_line).click(function (e) { //on add input button click
+            e.preventDefault();
+            if (x < max_fields) { //max input box allowed
+                x++; //text box increment
+
+                $(wrapper1).append('<div class="line_items_list">' +
+
+                    '<div>' +
+                    '<label>Label: </label>' +
+                    '<input type="text" id="line_items" class="line_items" name="line_items">' +
+                    '<label>Price: </label>' +
+                    '<input type="number" id="price" class="price" name="price">' +
+                    '</div>' +
+
+                    '<button type="submit" class="remove_field_line"> Remove Line Item</button>' +
+
+
+                    '</div>');
+            }
+        });
+
+        $(wrapper1).on("click", ".remove_field_line", function (e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('.line_items_list').remove();
+            calculateTotal();
+            x--;
+        })
+
+        $(wrapper3).on("click", ".output_remove_field_line", function (e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('.output_line_items_list').remove();
+            calculateTotal();
+            x--;
+        })        
+
+        function calculateTotal() {
+            //Initialize total to 0
+            var total = 0;
+            $(".price").each(function () {
+                // Sum only if the text entered is number and greater than 0
+                if (!isNaN(this.value) && this.value.length != 0) {
+                    total += parseFloat(this.value);
+                }
+            });
+            //Assign the total to label
+            //.toFixed() method will roundoff the final sum to 2 decimal places
+            $('#total').val(total.toFixed(2));
+        }
+
+        //Iterate through each Textbox and add keyup event handler
+        $("body").on('keyup', '.price', function (e) {
+
+            e.preventDefault();
+            calculateTotal();
+
+        });
+
+
+        var y = 1; //initlal text box count
+        $(add_button_note).click(function (e) { //on add input button click
+
+            e.preventDefault();
+            if (y < max_fields) { //max input box allowed
+                y++; //text box increment
+
+                $(wrapper2).append('<div class="line_items_note">' +
+
+                    '<div>' +
+                    '<input type="text" id="secret" class="secret" name="secret">' +
+                    '</div>' +
+
+                    '<button type="submit" class="remove_field_note"> Remove Secret Note</button>' +
+
+
+                    '</div>');
+            }
+        });
+
+        $(wrapper2).on("click", ".remove_field_note", function (e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('.line_items_note').remove();
+            y--;
+        })
+
+
+
+    });
+
+
+    function stringifyItems() {
+        // var litem = document.getElementById("line_items");
+        console.log(".line_items");
+    }
+
+
+
+    function getPercentage() {
+        var price = Number(document.getElementById("total").value);
+        var percent = Number(document.getElementById("discount").value) / 100;
+        var totalValue = price - (price * percent);
+        document.getElementById("total").value = totalValue.toFixed(2);
+    }
+
+    function getAmount() {
+        var price = Number(document.getElementById("total").value);
+        var amount = Number(document.getElementById("discount").value);
+        var totalValue = price - amount;
+
+        if (totalValue <= 0.00) {
+            totalValue = 0.00;
+            document.getElementById("total").value = totalValue.toFixed(2);
+        }
+        else {
+            document.getElementById("total").value = totalValue.toFixed(2);
+        }
+    }
+
+
+
+</script>
+</div>
+<footer>
+    <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small>
+</footer>
+</body>
+
+
+</html>
+
+
+<!-- <%= qte.user_name %>
 <%= qte.total %>
 <%= qte.status %>
 <%= qte.cust_email %>
-<%= qte.customer %>
+<%= qte.customer %> -->
 
-<% line_items.forEach(function(line_item) { %>
+<!-- <% line_items.forEach(function(line_item) { %>
     <%= line_item.label %>
     <%= line_item.price %>
-<% }) %>
+<% }) %> -->
     
 
-<% secret_notes.forEach(function(note) { %>
+<!-- <% secret_notes.forEach(function(note) { %>
     <%= note.note %>
-<% }) %>
+<% }) %> -->

@@ -159,12 +159,12 @@
             x--;
         })
 
-        $(wrapper3).on("click", ".output_remove_field_line", function (e) { //user click on remove text
-            e.preventDefault();
-            $(this).parent('.output_line_items_list').remove();
-            calculateTotal();
-            x--;
-        })        
+        // $(wrapper3).on("click", ".output_remove_field_line", function (e) { //user click on remove text
+        //     e.preventDefault();
+        //     $(this).parent('.output_line_items_list').remove();
+        //     calculateTotal();
+        //     x--;
+        // })        
 
         function calculateTotal() {
             //Initialize total to 0
@@ -232,11 +232,6 @@
         });
    }
 
-
-    function stringifyItems() {
-        // var litem = document.getElementById("line_items");
-        console.log(".line_items");
-    }
 
 
 

@@ -13,7 +13,13 @@ exports.create_quote = async function (req, res) {
     await res.render('./sales/create_quote.ejs', {cust: cust});
 };
 
+exports.edit_quote = async function (req, res) {
+    qte = await quote.quote_get_one(req,res);
+    await res.render('./sales/edit_quote.ejs', {qte:qte});
+};
+
 exports.finalize_quote = async function (req, res) {
+    qte = await quote.quote_get_all_by_status('draft');
     await res.render('./sales/finalize_quote.ejs');
 };
 

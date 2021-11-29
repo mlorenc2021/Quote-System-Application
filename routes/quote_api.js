@@ -11,6 +11,9 @@ router.get('/', quote_controller.quote_get_all);
 // API to get an quote based on aployee user_name
 router.get('/:user_name', quote_controller.quote_get_all_for_user);
 
+// API to get an quote based on  quote_id
+router.get('/:id', quote_controller.quote_get_one);
+
 // API to get a customer query
 router.post('/review', quote_controller.review_quotes);
 

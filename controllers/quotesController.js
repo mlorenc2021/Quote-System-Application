@@ -76,6 +76,30 @@ exports.quote_get_all = async function(req,res) {
     }
 };
 
+// api to get alll quotes
+exports.quote_get_one = async function(req,res) {
+    const id = req.params.id;
+    try {
+        const qte = await quote.findOne({where: {id}});
+        // console.log(qte)
+        return qte;
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+};
+
+// api to get alll quotes
+exports.quote_get_all_by_status = async function(status) {
+    try {
+        const qte = await quote.findAll({where: {status}});
+        return qte;
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send({error: 'Something went wrong'}, err);
+    }
+};
+
 // API to get an quote based on aployee user_name
 exports.quote_get_all_for_user = async function(req,res) {
     const user_name = req.params.user_name; //store username param in user_name

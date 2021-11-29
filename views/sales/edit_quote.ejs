@@ -18,7 +18,7 @@
     <header>
         <div class="dash-header">
             <a href="/dashboard/sales">Dashboard</a>
-            <h1>Welcome Sales Associate, .....
+            <h1>Welcome Sales Associate, ....
                 <!----this is where the user name goes-->
                 Your Commission: $
             </h1>
@@ -37,8 +37,10 @@
             <!-- display customer name -->
             <div class="select">
                 <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
-                <input name="customer" readonly id="customer" value=<%= qte.customer.name %>>
+                <input readonly id="customer" name="customer" value=<%= qte.customer %>>
             </div>
+
+
 
             <!-- change customer email-->
             <div>
@@ -55,7 +57,7 @@
             <h4>Line Items <button class="add_field_button_line">Add Line Items</button></h4>
 
             <!-- display current line items -->
-            <div class="output_fields_warp_line">
+            <div class="output_fields_wrap_line">
                 <% line_items.forEach(function(line_item) { %>
                     <div class="subjectName">
                         <div>
@@ -64,7 +66,7 @@
                             <label>Price: </label>
                             <input type="number" value="<%= line_item.price %>" id="price" class="price" name="price">
                         </div>
-                    <button type="submit" >Remove Line Item</button>
+                    <button type="submit" class="remove_field_line">Remove Line Item</button>
                     </div>
                     <% }) %>
             </div>
@@ -78,6 +80,7 @@
             <!-- add secret notes -->
             <h4>Secret Notes <button class="add_field_button_note">Add Secret Note</button></h4>
 
+
             <!-- display current secret notes -->
             <div>
                 <% secret_notes.forEach(function(note) { %>
@@ -85,8 +88,10 @@
                     <% }) %>
             </div>
 
+
             <!-- add new line items -->
             <div class="input_fields_wrap_note"></div>
+
 
             <!-- calculate total with discount -->
             <h4>Discount</h4>
@@ -119,26 +124,50 @@
 <script>
 
     $(document).ready(function () {
-        var wrapper3 = $(".output_fields_wrap_note"); //Fields wrapper
-        $(wrapper3).on("click", ".output_remove_field_line", function (e) { //user click on remove text
+        var wrapper3 = $(".output_fields_wrap_line"); //Fields wrapper for line items
+
+        $(wrapper3).on("click", ".remove_field_line", function (e) { //user click on remove text
+        e.preventDefault();
+        $(this).parent('.subjectName').remove();
+        calculateTotal();
+        x--;
+        })
+
+
+
+        function calculateTotal() {
+            //Initialize total to 0
+            var total = 0;
+            $(".price").each(function () {
+                // Sum only if the text entered is number and greater than 0
+                if (!isNaN(this.value) && this.value.length != 0) {
+                    total += parseFloat(this.value);
+                }
+            });
+            //Assign the total to label
+            //.toFixed() method will roundoff the final sum to 2 decimal places
+            $('#total').val(total.toFixed(2));
+        }
+
+        //Iterate through each Textbox and add keyup event handler
+        $("body").on('keyup', '.price', function (e) {
+
             e.preventDefault();
-            $(this).parent('.output_line_items_list').remove();
             calculateTotal();
-            x--;
-        })  
 
+        });
+        
     });
-
 
     $(document).ready(function () {
         var max_fields = 5; //maximum input boxes allowed
 
-        var wrapper1 = $(".input_fields_wrap_line"); //Fields wrapper
-        var wrapper2 = $(".input_fields_wrap_note"); //Fields wrapper
+        var wrapper1 = $(".input_fields_wrap_line"); //Fields wrapper for line items
+        var wrapper2 = $(".input_fields_wrap_note"); //Fields wrapper for secret notes 
 
 
-        var add_button_line = $(".add_field_button_line"); //Add button ID
-        var add_button_note = $(".add_field_button_note"); //Add button ID
+        var add_button_line = $(".add_field_button_line"); //Add button ID for line items
+        var add_button_note = $(".add_field_button_note"); //Add button ID for secret notes
 
 
         var x = 1; //initlal text box count
@@ -227,17 +256,17 @@
 
     // Link to source https://www.tutorialspoint.com/how-to-remove-li-elements-on-button-click-in-javascript
     // The below code deletes the line items that were initially imported!
-    var allSubjectName = document.querySelectorAll(".subjectName");
-        for (var index = 0; index <allSubjectName.length; index++){
-            allSubjectName[index].addEventListener("click", function(){
-                this.classList.toggle("active");
-            });
-            allSubjectName[index].querySelector("button").addEventListener("click",
-        function(){
-            this.closest(".subjectName").remove();
-            calculateTotal();
-        });
-   }
+//     var allSubjectName = document.querySelectorAll(".subjectName");
+//         for (var index = 0; index <allSubjectName.length; index++){
+//             allSubjectName[index].addEventListener("click", function(){
+//                 this.classList.toggle("active");
+//             });
+//             allSubjectName[index].querySelector("button").addEventListener("click",
+//         function(){
+//             this.closest(".subjectName").remove();
+//             calculateTotal();
+//         });
+//    }
 
 
 

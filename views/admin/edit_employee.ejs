@@ -18,7 +18,7 @@
     </header>
 
     <div class="testbox-register">
-        <form action="/api/employees" method="POST">
+        <form action="/api/employees/update" method="POST">
             
             <div class="accounttype">
                 <h3>Current Information</h3>
@@ -37,7 +37,7 @@
 
             <div>
                 <label id="icon" for="password"><i class="fas fa-key"></i> </label>
-                <input type="password" id="password" name="password" value="" size="20" maxlength="20" required>
+                <input type="password" id="password" name="password" value="" size="20" maxlength="20">
             </div>
 
             <div>
@@ -47,7 +47,6 @@
 
             <div class="select">
                 <select name="role" id="role" required>
-                    <option value="" disabled selected hidden ></option>
                     <option value="sales">Sales Associate</option>
                     <option value="manager">Sales Manager</option>
                     <option value="accountant">Accountant</option>

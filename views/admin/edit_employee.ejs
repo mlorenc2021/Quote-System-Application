@@ -1,9 +1,69 @@
-<%= emp.user_name %>
+<!DOCTYPE html>
 
-<%= emp.employee_name %>
+<html lang="en">
 
-<%= emp.commision %>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles-register.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <title>Edit Employee</title>
+</head>
 
-<%= emp.address %>
+<body>
+    <header>
+        <div class = "cont">
+            <h1>Edit Employee</h1>
+        </div>
+    </header>
 
-<%= emp.role %>
+    <div class="testbox-register">
+        <form action="/api/employees/update" method="POST">
+            
+            <div class="accounttype">
+                <h3>Current Information</h3>
+                <hr>
+            </div>
+
+            <div>
+                <label id="icon" for="employee_name"><i class="far fa-address-book"></i></label>
+                <input type="text" id="employee_name" name="employee_name" value="<%= emp.employee_name %>" size="20" maxlength="20" required>
+            </div>
+
+            <div>
+                <label id="icon" for="user_name"><i class="fas fa-user"></i></label>
+                <input type="text" id="user_name" name="user_name" value="<%= emp.user_name %>" size="20" maxlength="20" readonly>
+            </div>
+
+            <div>
+                <label id="icon" for="password"><i class="fas fa-key"></i> </label>
+                <input type="password" id="password" name="password" value="" size="20" maxlength="20">
+            </div>
+
+            <div>
+                <label id="icon" for="address"><i class="fas fa-address-card"></i> </label>
+                <input type="text" id="address" name="address" value="<%= emp.address %>" size="20" maxlength="20" required>
+            </div>
+
+            <div class="select">
+                <select name="role" id="role" required>
+                    <option value="sales">Sales Associate</option>
+                    <option value="manager">Sales Manager</option>
+                    <option value="accountant">Accountant</option>
+                    <option value="admin">Administrator</option>
+                </select>
+            </div>
+
+            <div class ="button-fix">
+                <button type="submit">Edit</button> 
+            </div>
+                <a href="./.."> <button type="button">Cancel</button></a>
+            </div>
+        </form> 
+    </div>
+
+    <footer>    	
+        <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small> 
+    </footer> 
+</body>
+</html>

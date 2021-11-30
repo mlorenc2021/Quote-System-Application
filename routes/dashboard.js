@@ -12,7 +12,7 @@ router.get('/sales/edit_quote/:id', dashboard.edit_quote);
 
 //manager dashboard
 router.get('/manager', dashboard.manager_dashboard);
-router.get('/manager/update_quote', dashboard.update_quote);
+router.get('/manager/update_quote/:id', dashboard.update_quote);
 router.get('/manager/sanction_quote', dashboard.sanction_quote);
 
 

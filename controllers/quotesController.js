@@ -81,6 +81,8 @@ exports.quote_create = async function(req,res) {
     }
 };
 
+
+
 //apis for quotes
 exports.quote_update = async function(req,res) {
     const {
@@ -116,6 +118,7 @@ exports.quote_update = async function(req,res) {
         console.log(qte.id)
 
         if(typeof(line_item) !== 'string'){
+
             // Loop for line items add them to line_item list
             for(i = 0; i < line_items.length; i++) {
                 const obj = {
@@ -127,9 +130,31 @@ exports.quote_update = async function(req,res) {
             }
         }
 
+        const old_line_items = await get_line_items(qte.id);
+        const deleted_line_items = [];
+        for(i = 0; i < old_line_items.length; i++){
+            const old_line_item = old_line_items[i];
+            let found = false;
+            for(e = 0; e < line_item_list.length(); e++) {
+                if (line_item_list[e].id = old_line_item.id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                deleted_line_items.push(old_line_item);
+            }
+        }
+
         // Loop over list of all line items to be added
         line_item_list.forEach(async function(obj) {
             const lineItem = await line_item.upsert(obj);
+
+        });
+
+        delete_line_items.forEach(async function(obj) {
+            console.log("about delete line item", obj.id)
+            await line_item.delete(obj);
         });
 
         if(typeof(line_item) !== 'string'){
@@ -212,13 +237,14 @@ exports.quote_get_one = async function(req,res) {
 };
 
 // api to get alll quotes
-exports.get_line_items = async function(quote_id) {
+exports.get_line_items = async function (quote_id) {
+    console.log("getting items quote with id", quote_id)
     try {
-        const line_items = await line_item.findAll({where: {quote_id}});
+        const line_items = await line_item.findAll({ where: { quote_id } });
         return line_items;
-    } catch(err) {
+    } catch (err) {
         console.log(err);
-        return res.status(500).send({error: 'Something went wrong'}, err);
+        return res.status(500).send({ error: 'Something went wrong' }, err);
     }
 };
 

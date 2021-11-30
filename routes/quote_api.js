@@ -11,6 +11,12 @@ router.get('/', quote_controller.quote_get_all);
 //apis for quotes
 router.post('/update', quote_controller.quote_update);
 
+//apis for quotes
+router.post('/delete/line_item', quote_controller.delete_line_item);
+
+//apis for quotes
+router.post('/delete/secret_note', quote_controller.delete_secret_note);
+
 // API to get an quote based on aployee user_name
 router.get('/:user_name', quote_controller.quote_get_all_for_user);
 

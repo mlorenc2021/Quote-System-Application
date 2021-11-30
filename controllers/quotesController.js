@@ -53,7 +53,7 @@ exports.quote_create = async function(req,res) {
             const lineItem = await line_item.create(obj);
         });
 
-        if(typeof(line_items) !== 'string'){
+        if(typeof(secret) !== 'string'){
             // Loop for secret notes and add them to secret_list
             for(i = 0; i < secret.length; i++) {
                 const obj = {
@@ -115,14 +115,16 @@ exports.quote_update = async function(req,res) {
 
         console.log(qte.id)
 
-        // Loop for line items add them to line_item list
-        for(i = 0; i < line_items.length; i++) {
-            const obj = {
-                quote_id: quote_id,
-                label: line_items[i],
-                price: price[i]
+        if(typeof(line_item) !== 'string'){
+            // Loop for line items add them to line_item list
+            for(i = 0; i < line_items.length; i++) {
+                const obj = {
+                    quote_id: quote_id,
+                    label: line_items[i],
+                    price: price[i]
+                }
+                line_item_list.push(obj);
             }
-            line_item_list.push(obj);
         }
 
         // Loop over list of all line items to be added
@@ -130,13 +132,15 @@ exports.quote_update = async function(req,res) {
             const lineItem = await line_item.upsert(obj);
         });
 
-        // Loop for secret notes and add them to secret_list
-        for(i = 0; i < secret.length; i++) {
-            const obj = {
-                quote_id: quote_id,
-                note: secret[i]
+        if(typeof(line_item) !== 'string'){
+            // Loop for secret notes and add them to secret_list
+            for(i = 0; i < secret.length; i++) {
+                const obj = {
+                    quote_id: quote_id,
+                    note: secret[i]
+                }
+                secret_list.push(obj);
             }
-            secret_list.push(obj);
         }
 
         // Loop over and add all secret notes
@@ -145,6 +149,38 @@ exports.quote_update = async function(req,res) {
         });
 
         return res.redirect('/api/quotes/finalize/'+ quote_id);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send(err);
+    }
+};
+
+//apis for quotes
+exports.delete_line_item = async function(req,res) {
+    const {
+        id,
+    } = req.body;
+
+    // Attempt to detel line item
+    try {
+        await line_item.delete({where: {id}});
+        return res.send('success');
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send(err);
+    }
+};
+
+//apis for quotes
+exports.delete_secret_note = async function(req,res) {
+    const {
+        id,
+    } = req.body;
+
+    // Attempt to detel line item
+    try {
+        await secret_note.delete({where: {id}});
+        return res.send('success');
     } catch(err) {
         console.log(err);
         return res.status(500).send(err);

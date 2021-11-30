@@ -148,7 +148,7 @@ exports.quote_update = async function(req,res) {
             const secret = await secret_note.upsert(obj);
         });
 
-        return res.redirect('/api/quotes/finalize/'+ quote_id);
+        return res.redirect('/dashboard/sales');
     } catch(err) {
         console.log(err);
         return res.status(500).send(err);

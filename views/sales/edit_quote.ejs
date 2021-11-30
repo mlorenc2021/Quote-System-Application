@@ -85,7 +85,7 @@
                             <label>Price: </label>
                             <input type="number" value="<%= line_item.price %>" id="price" class="price" name="price">
                         </div>
-                    <button type="submit" class="remove_field_line">Remove Line Item</button>
+                    <button type="submit"  class="remove_field_line">Remove Line Item</button>
                     </div>
                     <% }) %>
             </div>
@@ -148,10 +148,8 @@
 
 <script>
 
-    // function passQuoteID() {
-    //     getElementById("quote_id")
-    // }
 
+    //this is for removing current line items and secret notes
     $(document).ready(function () {
         var wrapper3 = $(".output_fields_wrap_line"); //Fields wrapper for line items
         var wrapper4 = $(".output_fields_wrap_note"); //Fields wrapper for line items

@@ -14,10 +14,11 @@ exports.quote_create = async function(req,res) {
         price,
         secret
     } = req.body;
-
     // Used to store the line item and objects together as objects
     let line_item_list = [];
     let secret_list = [];
+
+
 
     // Attempt to create employee, catch error if one occures
     try {
@@ -29,14 +30,22 @@ exports.quote_create = async function(req,res) {
             customer
         });
 
-        // Loop for line items add them to line_item list
-        for(i = 0; i < line_items.length; i++) {
-            const obj = {
-                quote_id: qte.id,
-                label: line_items[i],
-                price: price[i]
+        if(typeof(line_items) !== 'string'){
+            // Loop for line items add them to line_item list
+            for(i = 0; i < line_items.length; i++) {
+                const obj = {
+                    quote_id: qte.id,
+                    label: line_items[i],
+                    price: price[i]
+                }
+                line_item_list.push(obj);
             }
-            line_item_list.push(obj);
+        } else {
+                line_item_list.push({
+                    quote_id: qte.id,
+                    label: line_items,
+                    price: price
+                });
         }
 
         // Loop over list of all line items to be added
@@ -44,13 +53,20 @@ exports.quote_create = async function(req,res) {
             const lineItem = await line_item.create(obj);
         });
 
-        // Loop for secret notes and add them to secret_list
-        for(i = 0; i < secret.length; i++) {
-            const obj = {
-                quote_id: qte.id,
-                note: secret[i]
+        if(typeof(line_items) !== 'string'){
+            // Loop for secret notes and add them to secret_list
+            for(i = 0; i < secret.length; i++) {
+                const obj = {
+                    quote_id: qte.id,
+                    note: secret[i]
+                }
+                secret_list.push(obj);
             }
-            secret_list.push(obj);
+        } else {
+                secret_list.push({
+                    quote_id: qte.id,
+                    note: secret
+                });
         }
 
         // Loop over and add all secret notes

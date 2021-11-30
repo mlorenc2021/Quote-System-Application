@@ -27,7 +27,6 @@ body{
 	flex-basis: 100%;
 }
 
-
 	/* header decoration */
 	header {
 
@@ -75,7 +74,7 @@ body{
 		border-radius: 5px;
 		cursor: pointer;
 		text-decoration: none;
-		transition: all 0.3s ease 0s;
+		transition: all 0.2s ease 0s;
 	}
 
 
@@ -108,29 +107,30 @@ body{
 		margin-bottom: 10px;
 	}
     
-    .dash-line p
+    .dash-line p, .dash-button p
     {
         text-align: center;
     }
 
     form {
-		margin: 20px 30px;
+		margin: 0px 30px;
 	}
 
-	.testbox-admin {
-		margin: 20px auto;
+    .testbox-admin
+    {
+        margin: 20px auto;
 		top: 20px;
-		width: 643px; 
-		height: 484px; 
+		width: 1520px; 
+		height: 110px; 
 		-webkit-border-radius: 8px/7px; 
 		-moz-border-radius: 8px/7px; 
 		border-radius: 8px/7px; 
-		background-color: rgba(247, 143, 8, 0.8); 
+		background-color: orange; 
 		-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
 		-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
 		box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
 		border: solid 1px #cbc9c9;
-	}
+    }
 
 
     select {
@@ -154,13 +154,11 @@ body{
     /* Custom Select */
     .select {
         position: relative;
-        display: flex;
-        flex-wrap: wrap;
+        display: inline-flex;
         width: 15em;
         height: 2em;
-        left: 190px;
-        margin-top: 10px;
-        bottom: 30px;
+        margin-right: 20px;
+        bottom: 0px;
         line-height: 3;
         background: brown;
         overflow: hidden;
@@ -195,48 +193,21 @@ body{
     }
     
     label {
-		font-size: 17px;
-		font-weight: 300px;
-		color: rgb(94, 57, 57);
-		text-align: center;
-		padding-top: 10px;
-		margin-bottom: 10px;
+        display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
+		font-weight: 80px;
+        margin-right: 0px;
+		color: blue;
 	}
 
-	.search-date {
-
-        position: relative;
-        display: inline-flex;
-    
-        bottom: 29px;
-        margin-left: 470px;
-    }
-
-	.search-status {
-
-        position: relative;
-        display: inline-flex;
-    
-        bottom: 63px;
-        margin-left: 470px;
-    }
-
-	.search-associate {
-
-        position: relative;
-        display: inline-flex;
-    
-        bottom: 63px;
-        margin-left: 470px;
-    }
 
 	.search-customer {
 
         position: relative;
         display: inline-flex;
     
-        bottom: 63px;
-        margin-left: 470px;
+        top: 5px;
+        margin-left: 0px;
     }
 
 
@@ -260,11 +231,75 @@ body{
 		-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
 		box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
 		border: solid 1px #cbc9c9;
-		margin-left: -5px;
+		margin-left: 10px;
 		margin-top: 35px; 
 		padding-left: 10px;
 	}
     
+
+    #employee_table {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 80%;
+      }
+      
+      #employee_table td, #employee_table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+
+      tr
+      {
+          background-color: #FFA500;
+      }
+      
+      
+      #employee_table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #d85c27;
+        color: white;
+      }
+    
+      #employee_table tr:nth-child(even){background-color: #FFD68A;}
+      
+      #employee_table tr:hover {background-color: white;}
+
+.dash-button
+{
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 10px;
+    margin-left: 40%;
+    flex-basis: 100%;
+    left: 50px;
+
+    object-fit: cover;
+}
+
+
+      .dash-button a
+      {
+          margin-left: 90px;
+          margin-top: 10px;
+          padding: 20px 20px 20px 20px;
+          color: brown;
+          background-color: rgb(241, 193, 32);
+          border-radius: 15px 15px 15px 15px;
+          cursor: pointer;
+          text-decoration: none;
+          transition: all 0.3s ease 0s;
+      }
+  
+       .dash-button a:hover
+      {	
+          max-width: 100%;
+          padding: 18px;
+          background-color: rgba(0, 136, 169, 0.8);
+      }
+   
 /*footer*/
 footer {
 

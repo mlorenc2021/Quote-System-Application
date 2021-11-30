@@ -6,11 +6,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/styles-admin.css">
+    <link rel="stylesheet" href="/css/styles-admin.css"> 
     <title>Manage Users</title>
 
     <!-- Super fast and easy table-->
-    <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- This below link is creating an issue at <a> herf links-->
+   <!--<link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --> 
     <link rel = "stylesheet" href = "https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 
     <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -37,7 +39,8 @@
     
             <a href="/login">Logout</a>
         </div>
-    </header>
+    
+        </header>
 
     <table id= "employee_table" 
            class= "table table-bordered table-striped"
@@ -60,19 +63,21 @@
             <td><%= field.commision %></td>
             <td><%= field.address %></td>
             <td><%= field.role %></td>
-            <td><a href="./edit_employee/<%=field.user_name%>"><button type="button">Edit</button></a></td>
+            <div class="edit-buton">
+            <td><a href="./edit_employee/<%=field.user_name%>"><button type="button"><i class="fas fa-edit fa-2x"></i>Edit</button></a></td>
+        </div>
         </tr>
     <% }) %>
         </tbody>
         <br>
     </table>
 
-    <header>
-        <div class="dash-header">
-            <a href="./create_employee">Create</a>
+        <div class="dash-button">
+            <a href="./create_employee"><i class="fas fa-user-plus"></i><br<p> Create</p></a>
         </div>
-    </header>
 
+
+    
     <footer>    	
         <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small> 
     </footer> 

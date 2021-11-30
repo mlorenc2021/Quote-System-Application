@@ -25,14 +25,17 @@
     </header>
 
     
+    <div class ="testbox-admin">
     <form action="/api/quotes/review" method="post">
+
+        <div class="one">
         <label>Search by date from:
             <input type="date" name="start_date" min="" max="">
         </label>
         <label>to
             <input type="date" name="end_date" min="" max="">
         </label>
-
+        <div class="two">
         <label>Search by Quote Status
             <div class="select">            
                 <select name="status" id="status">
@@ -44,6 +47,7 @@
             </div>
         </label>
 
+      
         <label>Search by Associate
             <div class="select">
                 <select name="user_name" id="associate">
@@ -68,10 +72,11 @@
 
         <div class="search-customer">
             <button id="icon" type="submit"><i class="fa fa-search fa-2x"></i></button> 
-        </div>       
+        </div> 
+    </div>      
     </form>
-
-
+    </div>
+    <hr> <br>
         <table id= "employee_table" 
            class= "table table-bordered table-striped"
            style= "width:100%">

@@ -115,7 +115,7 @@ exports.quote_update = async function(req,res) {
 
         console.log(qte.id)
 
-        if(typeof(line_item) !== 'string'){
+        if(typeof(line_items) !== 'string'){
             // Loop for line items add them to line_item list
             for(i = 0; i < line_items.length; i++) {
                 const obj = {
@@ -132,7 +132,7 @@ exports.quote_update = async function(req,res) {
             const lineItem = await line_item.upsert(obj);
         });
 
-        if(typeof(line_item) !== 'string'){
+        if(typeof(secret) !== 'string'){
             // Loop for secret notes and add them to secret_list
             for(i = 0; i < secret.length; i++) {
                 const obj = {

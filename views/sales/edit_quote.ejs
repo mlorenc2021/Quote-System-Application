@@ -159,7 +159,6 @@
         e.preventDefault();
         $(this).parent('.line_items_list_current').remove();
         calculateTotal();
-        x--;
         })
 
 
@@ -186,9 +185,10 @@
         });
 
         $(wrapper4).on("click", ".remove_field_note", function (e) { //user click on remove text
+            console.log("delete line item event", e)
             e.preventDefault();
             $(this).parent('.secret_notes_list_current').remove();
-            y--;
+            $(this).parent('.line_items_list').delete_line_item();
         })        
         
     });

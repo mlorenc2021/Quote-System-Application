@@ -166,8 +166,8 @@
                 <label for="discount">Discount: </label>
                 <input type="number" class="form-control" name="discount" min="0" step="0.01" id="discount">
 
-                <button onclick="getPercentage()">Percentage</button>
-                <button onclick="getAmount()">Amount</button>
+                <button type="button" onclick="getPercentage()">Percentage</button>
+                <button type="button" onclick="getAmount()">Amount</button>
 
 
                 <input readonly id="total" value="<%= qte.total %>" step="0.01" name="total" min="0">

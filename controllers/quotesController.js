@@ -244,8 +244,10 @@ exports.quote_update = async function(req,res) {
         });
 
         const referer = req.headers.referer;
+        console.log("what is referer at account update", referer)
         const isUpdate = referer.indexOf("/update_quote") != -1;
-        const url = isUpdate ? '/dashboard/manager' : '/dashboard/sales';
+        const isAccountantUpdate = referer.indexOf("/accountant/update_quote") != -1;
+        const url = isUpdate ? (isAccountantUpdate ? '/dashboard/accountant' : '/dashboard/manager') : '/dashboard/sales';
 
         return res.redirect(url);
     } catch(err) {

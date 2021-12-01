@@ -1,6 +1,10 @@
 const express = require('express'); //Import express module
 const path = require('path'); //Import path module
 require('dotenv').config(); //Import dotenv module
+const axios = require('axios');
+const {randomUUID} = require('crypto');
+
+// Database imports
 const {hq_db, legacy_db} = require('./db/models');
 
 // Routes Imports
@@ -43,6 +47,23 @@ app.use('/dashboard', dashboardRoutes);
 app.use('/api/employees', employeeRoutes);
 app.use('/api/quotes', quoteRoutes);
 app.use('/api/customer', customerRoutes);
+
+app.post('/process_test', (req,res) => {
+axios
+    .post('http://blitz.cs.niu.edu/PurchaseOrder/',{
+        "order": randomUUID(),
+        "associate": "2",
+        "custid": "21",
+        "amount": "1234.56"
+    }).then(res => {
+        console.log(`status code: ${res.status}`)
+        console.log(res.data)
+        console.log(res.data.commission)
+    }).catch(error => {
+        console.error(error)
+    })
+    res.end();
+})
 
 // If user is attempting to access a resource that doesn't exist
 app.use((req,res) => {

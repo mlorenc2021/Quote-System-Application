@@ -52,6 +52,22 @@ exports.employee_update = async function(req,res) {
     }
 };
 
+// This method is used to delete an employee
+exports.employee_delete = async function(req,res) {
+    const id = req.params.id;
+
+    // Attempt to create employee, catch error if one occures
+    try {
+        const emp = await employee.destroy({
+            where: {id}
+        });
+        return res.redirect('/dashboard/admin');
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send(err);
+    }
+};
+
 //This method is used to get all employees from the employee table
 exports.employee_get_all = async function (req, res) {
     try {

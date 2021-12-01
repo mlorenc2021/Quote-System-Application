@@ -14,9 +14,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({employee, line_item, secret_note}) {
       // define association here
-      this.belongsTo(employee, {foreignKey:'user_name'});
-      this.hasMany(line_item, {foreignKey:'id'});
-      this.hasMany(secret_note, {foreignKey:'id'});
+      this.belongsTo(employee, {
+        foreignKey:'user_name',
+        onDelete: 'CASCADE'
+      });
+      this.hasMany(line_item, {
+        foreignKey:'id',
+        onDelete: 'CASCADE'
+    });
+      this.hasMany(secret_note, {
+        foreignKey:'id',
+        onDelete: 'CASCADE'
+      });
     }
   };
   const quote_def = {

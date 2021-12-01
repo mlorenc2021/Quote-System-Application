@@ -52,6 +52,69 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        quote_id: 6,
+        label: 'Plant Repair',
+        price: 10.99,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        quote_id: 6,
+        label: 'Wall Repair',
+        price: 12.19,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        quote_id: 6,
+        label: 'Hearter Repair',
+        price: 204.83,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        quote_id: 7,
+        label: 'Plant Repair',
+        price: 11.99,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        quote_id: 8,
+        label: 'Wall Repair',
+        price: 19.19,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        quote_id: 9,
+        label: 'Hearter Repair',
+        price: 204.83,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        quote_id: 10,
+        label: 'Widget Inspection',
+        price: 204349578.83,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        quote_id: 11,
+        label: 'Wall Repair',
+        price: 19.19,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        quote_id: 12,
+        label: 'Hearter Repair',
+        price: 204.83,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ],
     {
 

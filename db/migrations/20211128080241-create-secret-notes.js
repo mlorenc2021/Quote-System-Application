@@ -14,7 +14,8 @@ module.exports = {
         references: {
           model:'quotes',
           key:'id'
-        }
+        },
+          onDelete: 'CASCADE'
       },
       note: {
         type: Sequelize.STRING,

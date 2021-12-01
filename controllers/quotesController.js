@@ -3,6 +3,9 @@ const { Op } = require('sequelize');
 const sequelize = require('sequelize');
 const axios = require('axios');
 const {randomUUID} = require('crypto');
+const nodemailer = require("nodemailer");
+require('dotenv').config(); //Import dotenv module
+
 
 //apis for quotes
 exports.quote_create = async function(req,res) {
@@ -463,16 +466,46 @@ exports.sanction_quote = async function(req,res) {
         if (qte.status != 'finalized') {
             res.send('This quote is not a finalized quote, please contact your manager');
         }
-    } catch(err) {
-        console.log(err);
-        return res.status(500).send({error: 'Something went wrong'}, err);
-    }
-    //Then we can promote the quote
-    try {
+        //Then we can promote the quote
         quote.update(
             {status: 'sanctioned'},
             {where: {id: id}}
         )
+
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.PROJECTEMAIL,
+                pass: process.env.PROJECTPASS
+            }
+        });
+        const emailine_items = await line_item.findAll({ where: {quote_id: qte.id}});
+        console.log("contents of line items for email", emailine_items)
+        let litems = new Map();
+        var lineItemString = "Your order of\n";
+
+        emailine_items.forEach(function (field) {
+            litems.set(field.label, field.price);
+            console.log("field labels in loop: ", field.label)
+            console.log("field price in loop: ", field.price)
+            lineItemString += `Label: ${field.label} Price: $${field.price}\n`;
+        });
+        console.log("total is ", qte.total)
+        lineItemString += `Your total is $${qte.total}\n`;
+        // var obj = Object.fromEntries(litems);
+        // var jsonString = JSON.stringify(obj);
+        // litems = litems.toString();
+        console.log("litems content: ", litems)
+
+        // send mail with defined transport object
+        let info = await transporter.sendMail({
+            from: '"TEAM 3B" <csci467project2021@gmail.com>', // sender address
+            to: qte.cust_email, // list of receivers
+            subject: `Order #${qte.id} has been sanctioned`, // Subject line
+            text: lineItemString
+        });
+
+        //redirect to manager dashboard after sanctioning quote
         return res.redirect('/dashboard/manager');
     } catch(err) {
         console.log(err);

@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/styles-sales.css">
+    <link rel="stylesheet" href="/css/styles-sales.css"> 
     <title>Create Quote</title>
 
 </head>
@@ -23,7 +23,7 @@
         </div>
         </header>
 
- <div class="testbox-sales">
+ 
    
     <form action="/api/quotes" method="POST">
         <div class="accounttype">
@@ -31,7 +31,9 @@
             <hr>
         </div>
 
+<div class="wrapper">
 
+    <div class="side-col">
         <div class="select">
             <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
             <select name="customer" id="customer">
@@ -41,7 +43,9 @@
                 <% }) %>
             </select>
         </div>
-  
+    </div>
+
+    <div class="main-col">
         <div>
             <label id ="icon" for="cust_email"><i class="fas fa-envelope"></i></label>
             <input type="email" 
@@ -50,49 +54,68 @@
                    placeholder="Enter e-mail Address" 
                    size="20" maxlength="20" required>
         </div>
+   
+    </div>   
+</div>
 
-
-
+<hr>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+        <div class="add-remove">
         <!-- add new line items -->
-        <h4>Line Items <button class="add_field_button_line">Add Line Items</button></h4>
+
+        <div class="side-col">
+        <h4>Line Items</h4> 
+        <button class="add_field_button_line"><i class="fas fa-sitemap fa-2x"></i> Line Items</button>
 
         <div class="input_fields_wrap_line"></div>
 
-
+      </div>
         <!-- add secret notes -->
-        <h4>Secret Notes <button class="add_field_button_note">Add Secret Note</button></h4>
+
+        <div class="main-col">
+        <h4>Secret Notes</h4> 
+        
+        
+        <button class="add_field_button_note"><i class="fas fa-clipboard fa-2x"></i> Secret Note</button>
 
         <!-- add new line items -->        
         <div class="input_fields_wrap_note"></div>
-
+        </div>
         <!-- calculate total with discount -->
-        <h4>Discount</h4>
-        <div class="quote-price">
+    </div>
 
-            <label for="discount">Discount: </label>
+    <hr>
+
+    <div class="add-remove">
+    <div class="side-col2">
+        <h4>Discount</h4>
+
+            <label id="icon2" for="discount"><i class="fas fa-tags"></i></label>
             <input type="number" class="form-control" name="discount" min="0" step="0.01" id="discount">
 
-            <button onclick="getPercentage()">Percentage</button>
-            <button onclick="getAmount()">Amount</button>
-
+    
+            <button class="button1" onclick="getPercentage()"><i class="fas fa-percent"></i><p2>percentage</p2></button>
+            <button class="button2" onclick="getAmount()"><i class="fas fa-money-bill-alt"></i>Amount</button>
 
             <input readonly id="total" name="total" min="0">
 
-        </div>
 
-        <div>
-            <label for="user_name">Sign your quote:</label>
+    </div>
+
+        <div class="main-col2">
+            <h4>Sign your quote</h4>
+            <label id="icon2" for="user_name"><i class="fas fa-file-signature"></i></label>
             <input type="text" id="user_name" name="user_name" placeholder="Enter username" required>
         </div>
+    </div>
 
-
+    <hr>
+    <div class="button-fix">
         <button type="submit">Create Quote</button>
+    </div>
     </form>
-</body>
 
-</html>
 
 
 <script>
@@ -118,16 +141,13 @@
                     '<div>' +
                     '<label>Label: </label>' +
                     '<input type="text" id="line_items" class="line_items" name="line_items">' +
-                    '<label>Price: </label>' +
+                    '<label> Price: </label>' +
                     '<input type="number" id="price" class="price" name="price">' +
                     '</div>' +
 
-                    '<button type="submit" class="remove_field_line"> Remove Line Item</button>' +
-
+                    '<button type1="submit" class="remove_field_line"> Remove Line Item</button>' +
 
                     '</div>');
-                e.stringifyItems();
-
             }
         });
 
@@ -174,7 +194,7 @@
                     '<input type="text" id="secret" class="secret" name="secret">' +
                     '</div>' +
 
-                    '<button type="submit" class="remove_field_note"> Remove Secret Note</button>' +
+                    '<button type2="submit" class="remove_field_note"> Remove Secret Note</button>' +
 
 
                     '</div>');
@@ -191,13 +211,7 @@
 
     });
 
-
-    function stringifyItems() {
-        // var litem = document.getElementById("line_items");
-        console.log(".line_items");
-    }
-
-    
+   
     
     function getPercentage() {
         var price = Number(document.getElementById("total").value);
@@ -223,7 +237,6 @@
         
 
 </script>
-</div>
 <footer>    	
     <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small> 
 </footer> 

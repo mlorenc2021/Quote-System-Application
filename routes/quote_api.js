@@ -32,10 +32,10 @@ router.post('/review', quote_controller.review_quotes);
 router.get('/finalize/:id', quote_controller.finalize_quote);
 
 // API to finalize a quote
-router.post('/sanction/:id', quote_controller.sanction_quote);
+router.get('/sanction/:id', quote_controller.sanction_quote);
 
 // API to finalize a quote
-router.post('/purchase/:id', quote_controller.purchase_order);
+router.get('/process/:id', quote_controller.purchase_order);
 
 
 module.exports = router;

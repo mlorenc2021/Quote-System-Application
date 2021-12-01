@@ -59,7 +59,7 @@
                         <%= field.cust_email %>
                     </td>
                     <td><a href="./update_quote/<%= field.id %>"><button type="button">Update</button></a></td>
-                    <td><a href="./perform_sanction_quote/<%=field.id%>"><button type="button">Sanction Quote</button></a></td>
+                    <td><a href="/api/quotes/sanction/<%=field.id%>"><button type="button">Sanction Quote</button></a></td>
                 </tr>
                 <% }) %>
         </tbody>

@@ -66,15 +66,6 @@ exports.finalize_quote = async function (req, res) {
     });
 };
 
-exports.perform_finalize_quote = async function (req, res) {
-    //change status from draft to finalized
-    return quote.finalize_quote(req, res);
-
-};
-
-
-
-
 //MANAGER dashboard and interfaces
 exports.manager_dashboard = async function(req,res) {
     //Employee session information
@@ -127,15 +118,6 @@ exports.sanction_quote = async function (req, res) {
     });
 };
 
-exports.perform_sanction_quote = async function (req, res) {
-    //change status from finalized to sanctioned
-    return quote.sanction_quote(req, res);
-
-};
-
-
-
-
 //ACCOUNTANT dashboard and interfaces
 exports.accountant_dashboard = async function(req,res) {
     //Employee session information
@@ -157,15 +139,6 @@ exports.process_order = async function (req, res) {
         user_name:user_name,
     });
 };
-
-exports.perform_process_order = async function (req, res) {
-    //change status from finalized to sanctioned
-    return quote.process_order(req, res);
-
-};
-
-
-
 
 //admin dashboard and interfaces
 exports.admin_dashboard = async function(req,res) {

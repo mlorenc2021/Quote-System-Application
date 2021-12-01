@@ -7,7 +7,6 @@ const dashboard = require('../controllers/dashboardController');
 router.get('/sales', dashboard.sales_dashboard);
 router.get('/sales/create_quote', dashboard.create_quote);
 router.get('/sales/finalize_quote', dashboard.finalize_quote);
-router.get('/sales/perform_finalize_quote/:id', dashboard.perform_finalize_quote);
 router.get('/sales/edit_quote/:id', dashboard.edit_quote);
 
 
@@ -15,14 +14,12 @@ router.get('/sales/edit_quote/:id', dashboard.edit_quote);
 router.get('/manager', dashboard.manager_dashboard);
 router.get('/manager/update_quote/:id', dashboard.edit_quote);
 router.get('/manager/sanction_quote', dashboard.sanction_quote);
-router.get('/manager/perform_sanction_quote/:id', dashboard.perform_sanction_quote);
 
 
 //accountant dashboard
 router.get('/accountant', dashboard.accountant_dashboard);
 router.get('/accountant/process_order', dashboard.process_order);
 router.get('/accountant/update_quote/:id', dashboard.edit_quote);
-router.get('/manager/perform_process_order/:id', dashboard.perform_process_order);
 
 
 //admin dashboard

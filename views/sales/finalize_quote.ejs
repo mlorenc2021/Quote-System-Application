@@ -13,9 +13,9 @@
     <header>
         <div class="dash-header">
             <a href="/dashboard/sales">Dashboard</a>
-            <h1>Welcome Sales Associate, .....
+            <h1>Welcome Sales Associate, <%= employee_name %> 
                 <!----this is where the user name goes-->
-                Your Commission: $
+                Your Commission: $ <%= commission %> 
             </h1>
             <a href="/login">Logout</a>
         </div>
@@ -47,7 +47,7 @@
             <td><%= field.customer %></td>
             <td><%= field.cust_email %></td>
             <td><a href="./edit_quote/<%=field.id%>"><button type="button">Edit</button></a></td>
-            <td><a href="./perform_finalize_quote/<%=field.id%>"><button type="button" >Finalize Quote</button></a></td>
+            <td><a href="/api/quotes/finalize/<%=field.id%>"><button type="button" >Finalize Quote</button></a></td>
         </tr>
     <% }) %>
         </tbody>

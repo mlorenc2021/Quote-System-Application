@@ -1,3 +1,4 @@
+const app = require('../app');
 const { employee } = require('../db/models');
 
 // This method is used to create a new employee
@@ -98,6 +99,11 @@ exports.employee_check_credentials = async function(req,res) {
         const emp = await employee.findOne({where: {user_name}});
         const success = await emp.validPassword(password, emp.password);
         if(success) {
+            req.session.employee_name = emp.employee_name;
+            req.session.user_name = emp.user_name;
+            req.session.commission = emp.commission;
+            req.session.role = emp.role;
+            console.log('inside of chech: ', req.session)
             res.redirect('./dashboard/' + emp.role);
         } else {
             res.send('Failure');

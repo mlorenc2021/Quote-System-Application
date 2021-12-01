@@ -26,8 +26,7 @@
             <a href="/dashboard/accountant">Dashboard</a>
             <% } %>
 
-            <h1>Quotes
-            </h1>
+            <h1>Quotes</h1>
             <a href="/login">Logout</a>
         </div>
     </header>
@@ -174,12 +173,6 @@
                 <input readonly id="total" value="<%= qte.total %>" step="0.01" name="total" min="0">
 
             </div>
-
-            <div>
-                <label for="user_name">Sign your quote:</label>
-                <input type="text" id="user_name" name="user_name" placeholder="Enter username" required>
-            </div>
-
 
             <element hidden><input type="text" id="quote_id" name="quote_id" value="<%= qte.id %>"></element>
             <button type="submit">Save</button>

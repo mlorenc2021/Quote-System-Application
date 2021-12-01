@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(secret_note, {foreignKey:'id'});
     }
   };
-  quote.init({
+  const quote_def = {
     user_name: {
       type:DataTypes.STRING,
       allowNull: false,
@@ -45,9 +45,9 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull: false,
     }
-  }, {
+  };
+  return quote.init(quote_def, {
     sequelize,
     modelName: 'quote',
   });
-  return quote;
 };

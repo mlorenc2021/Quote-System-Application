@@ -13,8 +13,9 @@ router.get('/sales/edit_quote/:id', dashboard.edit_quote);
 
 //manager dashboard
 router.get('/manager', dashboard.manager_dashboard);
-router.get('/manager/update_quote/:id', dashboard.update_quote);
+router.get('/manager/update_quote/:id', dashboard.edit_quote);
 router.get('/manager/sanction_quote', dashboard.sanction_quote);
+router.get('/manager/perform_sanction_quote/:id', dashboard.perform_sanction_quote);
 
 
 //accountant dashboard

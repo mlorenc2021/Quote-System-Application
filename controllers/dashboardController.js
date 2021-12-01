@@ -9,7 +9,6 @@ exports.sales_dashboard = async function(req,res) {
 };
 
 exports.create_quote = async function (req, res) {
-    console.log("routing to common edit quote for create_quote")
     qte = {id: null, user_name: '', total: 0, status: 'draft', cust_email: '', customer: ''};
     cust = await customer.customer_get_all();
     line_items = [];
@@ -18,21 +17,23 @@ exports.create_quote = async function (req, res) {
         qte: qte,
         line_items: line_items,
         secret_notes: secret_notes,
-        cust: cust
+        cust: cust,
+        isUpdate: false
     });
 };
 
 exports.edit_quote = async function (req, res) {
     qte = await quote.quote_get_one(req,res);
     cust = await customer.customer_get_all();
-    console.log('What is quote.id?:',qte.id);
+    const isUpdate = req.route.path.startsWith("/manager/update_quote");
     line_items = await quote.get_line_items(qte.id);
     secret_notes = await quote.get_secret(qte.id);
     await res.render('./sales/edit_quote.ejs', {
         qte:qte, 
         line_items:line_items, 
         secret_notes:secret_notes,
-        cust:cust
+        cust:cust,
+        isUpdate:isUpdate
     });
 };
 
@@ -71,6 +72,11 @@ exports.sanction_quote = async function (req, res) {
     await res.render('./manager/sanction_quote.ejs');
 };
 
+exports.perform_sanction_quote = async function (req, res) {
+    //change status from finalized to sanctioned
+    return quote.sanction_quote(req, res);
+
+};
 
 //accountant dashboard and interfaces
 exports.accountant_dashboard = async function(req,res) {

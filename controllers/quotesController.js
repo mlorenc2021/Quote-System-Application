@@ -243,9 +243,11 @@ exports.quote_update = async function(req,res) {
             const secret = await secret_note.upsert(obj);
         });
 
+        const referer = req.headers.referer;
+        const isUpdate = referer.indexOf("/update_quote") != -1;
+        const url = isUpdate ? '/dashboard/manager' : '/dashboard/sales';
 
-
-        return res.redirect('/dashboard/sales');
+        return res.redirect(url);
     } catch(err) {
         console.log(err);
         return res.status(500).send(err);
@@ -458,7 +460,7 @@ exports.sanction_quote = async function(req,res) {
             {status: 'sanctioned'},
             {where: {id: id}}
         )
-        return res.send();
+        return res.redirect('/dashboard/manager');
     } catch(err) {
         console.log(err);
         return res.status(500).send({error: 'Something went wrong'}, err);

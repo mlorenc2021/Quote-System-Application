@@ -18,9 +18,7 @@
     <header>
         <div class="dash-header">
             <a href="/dashboard/sales">Dashboard</a>
-            <h1>Welcome Sales Associate, ....
-                <!----this is where the user name goes-->
-                Your Commission: $
+            <h1>Quotes
             </h1>
             <a href="/login">Logout</a>
         </div>
@@ -30,66 +28,81 @@
 
         <form action="/api/quotes/update" method="POST">
             <div class="accounttype">
-                <h3><%= qte.id != null ? 'Edit' : 'Create' %> Quote</h3>
+                <h3><%= qte.id != null ? (isUpdate ? 'Update' : 'Edit' ): 'Create' %> Quote</h3>
                 <hr>
             </div>
 
-            <!-- display customer name -->
-            <div class="select">
-                <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
-                <select name="customer" id="customer">
-                    <option value="<%= qte.customer %>"><%= qte.customer %></option>
-                    <% cust.forEach(function(field){ %>
-                        <option value="<%= field.name %>"><%= field.name %> </option>
-                        <% }) %>
-                </select>
-            </div>
+                        <!-- display customer name -->
+
+            <% if(isUpdate) { %>
+                <div><label>Customer Name:</label><input type="text" name="customer" readonly id="customer" value="<%= qte.customer %>" ></div>
+                <div><label >Customer Email:</label><input type="text" readonly id="cust_email" name="cust_email" value="<%= qte.cust_email %>" ></div>
+                <br></br>
+                <!-- <div><label>Associate Name:</label><span><%= qte.user_name %></span></div> -->
 
 
-            <!-- <div class="select">
-                <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
-                <input id="customer" name="customer" value=<%= qte.customer %>>
-                <input readonly id="quote_id" name="quote_id" value=<%= qte.id %>>
-            </div> -->
-
-            <!-- <p>
-                <%= cust.name %>
-                <%= cust.city %>
-                <%= cust.street %>
-                <%= cust.address %>
-            </p> -->
-
-
-
-            <!-- change customer email-->
-            <div>
-                <label id="icon" for="cust_email"><i class="fas fa-envelope"></i></label>
-                <input type="email" id="cust_email" name="cust_email" placeholder="Enter e-mail Address" size="20"
-                    maxlength="20" value="<%= qte.cust_email %>" required>
-            </div>
-
+            <% }else{ %>
+                <div class="select">
+                    <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
+                    <select name="customer" id="customer">
+                        <option value="<%= qte.customer %>"><%= qte.customer %></option>
+                        <% cust.forEach(function(field){ %>
+                            <option value="<%= field.name %>"><%= field.name %> </option>
+                            <% }) %>
+                    </select>
+                </div>
+                            <!-- change customer email-->
+                <div>
+                    <label id="icon" for="cust_email"><i class="fas fa-envelope"></i></label>
+                    <input type="email" id="cust_email" name="cust_email" placeholder="Enter e-mail Address" size="20" maxlength="20"
+                        value="<%= qte.cust_email %>" required>
+                </div>
+            <% } %>
 
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+            
             <!-- add new line items -->
-            <h4>Line Items <button class="add_field_button_line">Add Line Items</button></h4>
+            <div>
+                <h4>Line Items
+                    <% if(!isUpdate) { %>
+                        <button class="add_field_button_line">Add Line Items</button>
+                    <% } %>
+                </h4>
+            </div>
+
+        
 
             <!-- display current line items -->
             <div class="output_fields_wrap_line">
                 <% line_items.forEach(function(line_item, index) { %>
                     <div class="line_items_list_current">
                         <div>
-
+                            
                             <input type="hidden" value="<%= line_item.id %>" id="<%= 'line_item_id_' + index %>"  name="<%= 'line_item_id_' + index %>">
 
                             <label>Label: </label>
-                            <input type="text" value="<%= line_item.label %>" id="<%= 'line_item_label_' + index %>" class="line_items" name="<%= 'line_item_label_' + index %>">
+                            <% if(!isUpdate) { %>
+                            <input type="text" value="<%= line_item.label %>" id="<%= 'line_item_label_' + index %>" class="line_items" name="<%= 'line_item_label_' + index %>" >
+                            <% } else {%>
+                            <input type="text" value="<%= line_item.label %>" id="<%= 'line_item_label_' + index %>" class="line_items" name="<%= 'line_item_label_' + index %>" disabled="true" >
+                            <% } %>
+
 
                             <label>Price: </label>
-                            <input type="number" value="<%= line_item.price %>" id="<%= 'price_' + index %>" class="price" name="<%= 'price_' + index %>">
+                            <% if(!isUpdate) { %>
+                            <input type="number" value="<%= line_item.price %>" id="<%= 'price_' + index %>" class="price" name="<%= 'price_' + index %>" >
+                            <% } else {%>
+                            <input type="number" value="<%= line_item.price %>" id="<%= 'price_' + index %>" class="price" name="<%= 'price_' + index %>" disabled="true" >
+                            
+                            <% } %>
                         </div>
-                    <button type="submit"  class="remove_field_line">Remove Line Item</button>
+
+                            <% if(!isUpdate) { %>
+                                <button type="submit" class="remove_field_line">Remove Line Item</button>
+                            <% } %>
+
                     </div>
                     <% }) %>
             </div>
@@ -101,7 +114,13 @@
 
 
             <!-- add secret notes -->
-            <h4>Secret Notes <button class="add_field_button_note">Add Secret Note</button></h4>
+            <div>
+                <h4>Secret Notes
+                    <% if(!isUpdate) { %>
+                        <button class="add_field_button_note">Add Secret Note</button>
+                        <% } %>
+                </h4>
+            </div>
 
 
             <!-- display current secret notes -->
@@ -111,9 +130,21 @@
                         <div>
                             <input type="hidden" value="<%= secret_note.id %>" id="<%= 'secret_note_id_' + index %>" name="<%= 'secret_note_id_' + index %>">
 
+                            <% if(!isUpdate) { %>
                             <input type="text" value="<%= secret_note.note %>" id="<%= 'secret_note_note_' + index %>" class="secret" name="<%= 'secret_note_note_' + index %>">
+                            <% } else {%>
+                            <!-- <input type="text" value="<%= secret_note.note %>" id="<%= 'secret_note_note_' + index %>" class="secret" name="<%= 'secret_note_note_' + index %>" disabled="true" style="width:250px"> -->
+                            <span><%= secret_note.note %></span>
+                            
+                            <% } %>
+
+
                         </div>
-                    <button type="submit" class="remove_field_note">Remove Secret Note current</button>
+
+                        <% if(!isUpdate) { %>
+                        <button type="submit" class="remove_field_note">Remove Secret Note</button>
+                        <% } %>
+
                     </div>
                     <% }) %>
             </div>

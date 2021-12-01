@@ -2,44 +2,109 @@ const employee = require('./employeeController');
 const customer = require('./customerController');
 const quote = require('./quotesController');
 
+
 //sales dashboard and interfaces
 exports.sales_dashboard = async function(req,res) {
     await res.render('./sales/sales_dashboard.ejs');
 };
 
 exports.create_quote = async function (req, res) {
+    qte = {id: null, user_name: '', total: 0, status: 'draft', cust_email: '', customer: ''};
     cust = await customer.customer_get_all();
-    // console.log(cust) 
-    await res.render('./sales/create_quote.ejs', {cust: cust});
+    line_items = [];
+    secret_notes = [];
+    await res.render('./sales/edit_quote.ejs', {
+        qte: qte,
+        line_items: line_items,
+        secret_notes: secret_notes,
+        cust: cust,
+        isUpdate: false,
+        isAccountantUpdate: false
+    });
+};
+
+exports.edit_quote = async function (req, res) {
+    qte = await quote.quote_get_one(req,res);
+    cust = await customer.customer_get_all();
+    const isAccountantUpdate = req.route.path.startsWith("/accountant/update_quote");
+    const isManagerUpdate = req.route.path.startsWith("/manager/update_quote");
+    const isUpdate = isAccountantUpdate || isManagerUpdate;
+    line_items = await quote.get_line_items(qte.id);
+    secret_notes = await quote.get_secret(qte.id);
+    await res.render('./sales/edit_quote.ejs', {
+        qte:qte, 
+        line_items:line_items, 
+        secret_notes:secret_notes,
+        cust:cust,
+        isUpdate:isUpdate,
+        isAccountantUpdate:isAccountantUpdate
+    });
 };
 
 exports.finalize_quote = async function (req, res) {
+    qte = await quote.quote_get_all_by_status('draft');
     await res.render('./sales/finalize_quote.ejs');
 };
 
+exports.perform_finalize_quote = async function (req, res) {
+    //change status from draft to finalized
+    return quote.finalize_quote(req, res);
 
-//manager dashboard and interfaces
+};
+
+
+
+
+//MANAGER dashboard and interfaces
 exports.manager_dashboard = async function(req,res) {
     await res.render('./manager/manager_dashboard.ejs');
 };
 
 exports.update_quote = async function (req, res) {
-    await res.render('./manager/update_quote.ejs');
+    qte = await quote.quote_get_one(req, res);
+    cust = await customer.customer_get_all();
+    console.log('What is quote.id?:', qte.id);
+    line_items = await quote.get_line_items(qte.id);
+    secret_notes = await quote.get_secret(qte.id);
+    await res.render('./manager/update_quote.ejs', {
+        qte: qte,
+        line_items: line_items,
+        secret_notes: secret_notes,
+        cust: cust
+    });
 };
 
 exports.sanction_quote = async function (req, res) {
+    qte = await quote.quote_get_all_by_status('finalized');
     await res.render('./manager/sanction_quote.ejs');
 };
 
+exports.perform_sanction_quote = async function (req, res) {
+    //change status from finalized to sanctioned
+    return quote.sanction_quote(req, res);
 
-//accountant dashboard and interfaces
+};
+
+
+
+
+//ACCOUNTANT dashboard and interfaces
 exports.accountant_dashboard = async function(req,res) {
     await res.render('./accountant/accountant_dashboard.ejs');
 };
 
 exports.process_order = async function (req, res) {
+    qte = await quote.quote_get_all_by_status('sanctioned');
     await res.render('./accountant/process_order.ejs');
 };
+
+exports.perform_process_order = async function (req, res) {
+    //change status from finalized to sanctioned
+    return quote.process_order(req, res);
+
+};
+
+
 
 
 //admin dashboard and interfaces

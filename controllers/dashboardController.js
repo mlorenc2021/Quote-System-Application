@@ -99,6 +99,13 @@ exports.process_order = async function (req, res) {
     await res.render('./accountant/process_order.ejs');
 };
 
+exports.perform_process_order = async function (req, res) {
+    //change status from finalized to sanctioned
+    return quote.process_order(req, res);
+
+};
+
+
 
 
 //admin dashboard and interfaces

@@ -488,7 +488,7 @@ exports.purchase_order = async function(req,res) {
             {status: 'purchase_order'},
             {where: {id: id}}
         )
-        return res.send();
+        return res.redirect('/dashboard/accountant');
     } catch(err) {
         console.log(err);
         return res.status(500).send({error: 'Something went wrong'}, err);

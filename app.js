@@ -37,13 +37,6 @@ app.use(express.json()); // This allows easy use for exporting to json format
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 
-// Registration get request
-// Registration routes are temporary as functionality will eventuall
-// be moved to the admin interface page
-app.get('/register', (req,res) => {
-    res.render('register.ejs');
-});
-
 app.use('/dashboard', dashboardRoutes);
 app.use('/api/employees', employeeRoutes);
 app.use('/api/quotes', quoteRoutes);

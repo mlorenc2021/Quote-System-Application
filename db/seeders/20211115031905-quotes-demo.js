@@ -12,7 +12,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        user_name: 'sales',
+        user_name: 'billy',
         total: 190,
         status: 'draft',
         cust_email: 'customer2@customerdomain.com',
@@ -21,7 +21,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        user_name: 'sales',
+        user_name: 'billy',
         total: 1120,
         status: 'draft',
         cust_email: 'customer3@customerdomain.com',
@@ -39,7 +39,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        user_name: 'sales',
+        user_name: 'bob',
         total: 120,
         status: 'draft',
         cust_email: 'customer1@customerdomain.com',
@@ -48,7 +48,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        user_name: 'sales',
+        user_name: 'bob',
         total: 190,
         status: 'draft',
         cust_email: 'customer2@customerdomain.com',
@@ -57,7 +57,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        user_name: 'sales',
+        user_name: 'billy',
         total: 1120,
         status: 'draft',
         cust_email: 'customer3@customerdomain.com',
@@ -75,7 +75,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        user_name: 'sales',
+        user_name: 'bob',
         total: 190,
         status: 'sanctioned',
         cust_email: 'customer2@customerdomain.com',
@@ -84,7 +84,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        user_name: 'sales',
+        user_name: 'billy',
         total: 1120,
         status: 'sanctioned',
         cust_email: 'customer3@customerdomain.com',
@@ -93,7 +93,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        user_name: 'sales',
+        user_name: 'billy',
         total: 190,
         status: 'sanctioned',
         cust_email: 'customer2@customerdomain.com',

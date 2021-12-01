@@ -1,6 +1,7 @@
 const employee = require('./employeeController');
 const customer = require('./customerController');
 const quote = require('./quotesController');
+const quoteModel = require('../db/models/hq_db/quote');
 
 //sales dashboard and interfaces
 exports.sales_dashboard = async function(req,res) {
@@ -8,9 +9,17 @@ exports.sales_dashboard = async function(req,res) {
 };
 
 exports.create_quote = async function (req, res) {
+    console.log("routing to common edit quote for create_quote")
+    qte = {id: null, user_name: '', total: 0, status: 'draft', cust_email: '', customer: ''};
     cust = await customer.customer_get_all();
-    // console.log(cust) 
-    await res.render('./sales/create_quote.ejs', {cust: cust});
+    line_items = [];
+    secret_notes = [];
+    await res.render('./sales/edit_quote.ejs', {
+        qte: qte,
+        line_items: line_items,
+        secret_notes: secret_notes,
+        cust: cust
+    });
 };
 
 exports.edit_quote = async function (req, res) {
@@ -31,8 +40,6 @@ exports.finalize_quote = async function (req, res) {
     qte = await quote.quote_get_all_by_status('draft');
     await res.render('./sales/finalize_quote.ejs');
 };
-
-
 
 
 //manager dashboard and interfaces

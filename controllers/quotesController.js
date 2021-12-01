@@ -5,6 +5,7 @@ const sequelize = require('sequelize');
 //apis for quotes
 exports.quote_create = async function(req,res) {
     const {
+        id,
         user_name, 
         total, 
         status, 
@@ -17,20 +18,23 @@ exports.quote_create = async function(req,res) {
     // Used to store the line item and objects together as objects
     let line_item_list = [];
     let secret_list = [];
+    // req.body.iterateProperties((key, value) => console.log(key + ': ' + value)
 
 
 
     // Attempt to create employee, catch error if one occures
     try {
-        const qte = await quote.create( {
+        const qte = await quote.upsert( {
+            id,
             user_name, 
             total, 
             status,
             cust_email,
-            customer
+            customer,
         });
 
-        if(typeof(line_items) !== 'string'){
+        if (line_items !== undefined){
+            console.log("line items is", line_items)
             // Loop for line items add them to line_item list
             for(i = 0; i < line_items.length; i++) {
                 const obj = {
@@ -53,7 +57,7 @@ exports.quote_create = async function(req,res) {
             const lineItem = await line_item.create(obj);
         });
 
-        if(typeof(secret) !== 'string'){
+        if(secret !== undefined){
             // Loop for secret notes and add them to secret_list
             for(i = 0; i < secret.length; i++) {
                 const obj = {
@@ -93,84 +97,153 @@ exports.quote_update = async function(req,res) {
         total, 
         status, 
         cust_email, 
-        customer,
-        line_items,
-        price,
-        secret
+        customer
+
     } = req.body;
-    console.log(quote_id)
 
     // Used to store the line item and objects together as objects
     let line_item_list = [];
     let secret_list = [];
 
+    const line_items = [];//labels
+    const price = [];
+    const line_items_ids = [];
+
+    const secret = [];//notes
+    const secret_ids = [];
+
+    console.log("====================request body paramters==================")
+    Object.keys(req.body).filter(key => req.body.hasOwnProperty(key)).forEach((key) => {
+        const value = req.body[key];
+        console.log(key + ': ' + value)
+
+        if (key.startsWith("line_item_id_")) {
+            line_items_ids.push(value);
+        } 
+        else if (key.startsWith("line_item_label_")) {
+            line_items.push(value);
+        } 
+        else if (key.startsWith("price_")) {
+            price.push(value);
+        }
+        else if (key.startsWith("secret_note_id_")) {
+            secret_ids.push(value);
+        }
+        else if (key.startsWith("secret_note_note_")) {
+            secret.push(value);
+        }
+ 
+    });
+
+    // console.log("what is line item ids", line_items_ids)
+    // console.log("what is line item label", line_items)
+    // console.log("what is line item price", price)
+
     // Attempt to create employee, catch error if one occures
     try {
-        const qte = await quote.upsert( {
-            id: quote_id,
+        let id = quote_id ? quote_id : null;
+        
+        console.log("quote id is ", id)
+        const return_value = await quote.upsert( {
+            id: id,
             user_name, 
             total, 
             status,
             cust_email,
             customer
-        });
+        }, { returning: true });
+        // console.log("return value is", return_value[0].dataValues)
 
-        console.log(qte.id)
+        const qte = return_value[0].dataValues;
 
-        if(typeof(line_items) !== 'string'){
+        // console.log("saved quote is", qte)
+
+        if (line_items !== undefined) {
             // Loop for line items add them to line_item list
             for(i = 0; i < line_items.length; i++) {
                 const obj = {
-                    quote_id: quote_id,
+                    quote_id: qte.id,
+                    id: line_items_ids[i],
                     label: line_items[i],
                     price: price[i]
                 }
                 line_item_list.push(obj);
             }
         }
+        // console.log("new line item list", line_item_list)
 
-        const old_line_items = await get_line_items(qte.id);
+        const old_line_items = await exports.get_line_items(quote_id);
+        // console.log("old line items", old_line_items)
         const deleted_line_items = [];
-        for(i = 0; i < old_line_items.length; i++){
-            const old_line_item = old_line_items[i];
+        for(var i = 0; i < old_line_items.length; i++){
+            const old_line_item = old_line_items[i].dataValues;
+            // console.log("old line item is", old_line_item)
             let found = false;
-            for(e = 0; e < line_item_list.length(); e++) {
-                if (line_item_list[e].id = old_line_item.id) {
+            // console.log("line item list length", line_item_list.length)
+            for(var e = 0; e < line_item_list.length; e++) {
+            
+                // console.log("line items element", line_item_list[e])
+                if (line_item_list[e].id == old_line_item.id) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                deleted_line_items.push(old_line_item);
+                // console.log("!found about to delete", old_line_item)
+                await line_item.destroy({ where: { id: old_line_item.id } });
             }
         }
 
         // Loop over list of all line items to be added
         line_item_list.forEach(async function(obj) {
+            console.log("upserting line item", obj)
             const lineItem = await line_item.upsert(obj);
 
         });
 
-        delete_line_items.forEach(async function(obj) {
-            console.log("about delete line item", obj.id)
-            await line_item.delete(obj);
-        });
 
-        if(typeof(secret) !== 'string'){
+        if (secret !== undefined) {
             // Loop for secret notes and add them to secret_list
             for(i = 0; i < secret.length; i++) {
                 const obj = {
-                    quote_id: quote_id,
+                    quote_id: qte.id,
+                    id: secret_ids[i],
                     note: secret[i]
                 }
                 secret_list.push(obj);
             }
         }
 
+        const old_secret_notes = await exports.get_secret(quote_id);
+        console.log("new secret note list", secret_list)
+        console.log("old secret note list", old_secret_notes)
+        
+        for (var i = 0; i < old_secret_notes.length; i++) {
+            const old_secret_note = old_secret_notes[i].dataValues;
+
+            let found = false;
+
+            for (var e = 0; e < secret_list.length; e++) {
+
+                // console.log("line items element", line_item_list[e])
+                if (secret_list[e].id == old_secret_note.id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+
+                await secret_note.destroy({ where: { id: old_secret_note.id } });
+            }
+        }
+
         // Loop over and add all secret notes
         secret_list.forEach(async function(obj) {
+            console.log("upserting secret note", obj)
             const secret = await secret_note.upsert(obj);
         });
+
+
 
         return res.redirect('/dashboard/sales');
     } catch(err) {
@@ -187,7 +260,7 @@ exports.delete_line_item = async function(req,res) {
 
     // Attempt to detel line item
     try {
-        await line_item.delete({where: {id}});
+        await line_item.destroy({where: {id}});
         return res.send('success');
     } catch(err) {
         console.log(err);

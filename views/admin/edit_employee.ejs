@@ -21,7 +21,7 @@
         <form action="/api/employees/update" method="POST">
             
             <div class="accounttype">
-                <h3>Current Information</h3>
+                <h3><%= emp.employee_name %></h3>
                 <hr>
             </div>
 
@@ -30,10 +30,10 @@
                 <input type="text" id="employee_name" name="employee_name" value="<%= emp.employee_name %>" size="20" maxlength="20" required>
             </div>
 
-            <div>
+            <!-- <div>
                 <label id="icon" for="user_name"><i class="fas fa-user"></i></label>
                 <input type="text" id="user_name" name="user_name" value="<%= emp.user_name %>" size="20" maxlength="20" readonly>
-            </div>
+            </div> -->
 
             <div>
                 <label id="icon" for="password"><i class="fas fa-key"></i> </label>

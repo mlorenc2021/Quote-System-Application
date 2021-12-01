@@ -13,15 +13,26 @@ const customerRoutes = require('./routes/customer_api');
 
 //invoke express function to create server
 const app = express();
+const session = require('express-session');
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+}));
+// Express session middleware
+app.use(function (req, res, next)  {
+    // Check if we've already initialised a session
+    if (!req.session.initialised) {
+       // Initialise our variables on the session object (that's persisted across requests by the same user
+       req.session.initialised = true;
+       req.session.employee_name;
+    }
+    next();
+ });
 app.use(express.urlencoded());
-
 app.use(express.static("public"));
-
-
 app.set('view-engine', 'ejs');
 app.use(express.json()); // This allows easy use for exporting to json format
-
-
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);

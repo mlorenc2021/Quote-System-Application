@@ -4,7 +4,14 @@ const employee_controller = require('../controllers/employeeController');
 const loginController = require('../controllers/loginController');
 
 // GET login page
-router.get('/', loginController.login_get);
+router.get('/', function (req,res) {
+    req.session.destroy(function(err) {
+        // cannot access session here
+      })
+      console.log(req.session)
+      res.render('login.ejs');
+},  loginController.login_get
+);
 
 router.post('/', employee_controller.employee_check_credentials);
 

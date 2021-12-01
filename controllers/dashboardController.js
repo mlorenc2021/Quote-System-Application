@@ -1,7 +1,7 @@
 const employee = require('./employeeController');
 const customer = require('./customerController');
 const quote = require('./quotesController');
-const quoteModel = require('../db/models/hq_db/quote');
+
 
 //sales dashboard and interfaces
 exports.sales_dashboard = async function(req,res) {
@@ -41,6 +41,11 @@ exports.finalize_quote = async function (req, res) {
     await res.render('./sales/finalize_quote.ejs');
 };
 
+exports.perform_finalize_quote = async function (req, res) {
+    //change status from draft to finalized
+    return quote.finalize_quote(req, res);
+
+};
 
 //manager dashboard and interfaces
 exports.manager_dashboard = async function(req,res) {

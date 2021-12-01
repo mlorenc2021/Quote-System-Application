@@ -7,6 +7,7 @@ const dashboard = require('../controllers/dashboardController');
 router.get('/sales', dashboard.sales_dashboard);
 router.get('/sales/create_quote', dashboard.create_quote);
 router.get('/sales/finalize_quote', dashboard.finalize_quote);
+router.get('/sales/perform_finalize_quote/:id', dashboard.perform_finalize_quote);
 router.get('/sales/edit_quote/:id', dashboard.edit_quote);
 
 

@@ -30,7 +30,7 @@
 
         <form action="/api/quotes/update" method="POST">
             <div class="accounttype">
-                <h3>Edit Quote</h3>
+                <h3><%= qte.id != null ? 'Edit' : 'Create' %> Quote</h3>
                 <hr>
             </div>
 
@@ -52,12 +52,12 @@
                 <input readonly id="quote_id" name="quote_id" value=<%= qte.id %>>
             </div> -->
 
-            <!-- <strong>
+            <!-- <p>
                 <%= cust.name %>
                 <%= cust.city %>
                 <%= cust.street %>
                 <%= cust.address %>
-            </strong> -->
+            </p> -->
 
 
 
@@ -77,13 +77,17 @@
 
             <!-- display current line items -->
             <div class="output_fields_wrap_line">
-                <% line_items.forEach(function(line_item) { %>
+                <% line_items.forEach(function(line_item, index) { %>
                     <div class="line_items_list_current">
                         <div>
+
+                            <input type="hidden" value="<%= line_item.id %>" id="<%= 'line_item_id_' + index %>"  name="<%= 'line_item_id_' + index %>">
+
                             <label>Label: </label>
-                            <input type="text" value="<%= line_item.label %>" id="line_items" class="line_items" name="line_items">
+                            <input type="text" value="<%= line_item.label %>" id="<%= 'line_item_label_' + index %>" class="line_items" name="<%= 'line_item_label_' + index %>">
+
                             <label>Price: </label>
-                            <input type="number" value="<%= line_item.price %>" id="price" class="price" name="price">
+                            <input type="number" value="<%= line_item.price %>" id="<%= 'price_' + index %>" class="price" name="<%= 'price_' + index %>">
                         </div>
                     <button type="submit"  class="remove_field_line">Remove Line Item</button>
                     </div>
@@ -102,12 +106,14 @@
 
             <!-- display current secret notes -->
             <div class="output_fields_wrap_note">
-                <% secret_notes.forEach(function(note) { %>
+                <% secret_notes.forEach(function(secret_note, index) { %>
                     <div class="secret_notes_list_current">
                         <div>
-                            <input type="text" value="<%= note.note %>" id="secret" class="secret" name="secret">
+                            <input type="hidden" value="<%= secret_note.id %>" id="<%= 'secret_note_id_' + index %>" name="<%= 'secret_note_id_' + index %>">
+
+                            <input type="text" value="<%= secret_note.note %>" id="<%= 'secret_note_note_' + index %>" class="secret" name="<%= 'secret_note_note_' + index %>">
                         </div>
-                    <button type="submit" class="remove_field_note">Remove Secret Note</button>
+                    <button type="submit" class="remove_field_note">Remove Secret Note current</button>
                     </div>
                     <% }) %>
             </div>
@@ -139,7 +145,7 @@
 
 
             <element hidden><input type="text" id="quote_id" name="quote_id" value="<%= qte.id %>"></element>
-            <button type="submit">Update Quote</button>
+            <button type="submit">Save</button>
         </form>
 </body>
 
@@ -185,19 +191,19 @@
         });
 
         $(wrapper4).on("click", ".remove_field_note", function (e) { //user click on remove text
-            console.log("delete line item event", e)
             e.preventDefault();
             $(this).parent('.secret_notes_list_current').remove();
-            $(this).parent('.line_items_list').delete_line_item();
         })        
         
     });
 
+
+
     $(document).ready(function () {
         var max_fields = 5; //maximum input boxes allowed
 
-        var wrapper1 = $(".input_fields_wrap_line"); //Fields wrapper for line items
-        var wrapper2 = $(".input_fields_wrap_note"); //Fields wrapper for secret notes 
+        var wrapper1 = $(".output_fields_wrap_line"); //Fields wrapper for line items
+        var wrapper2 = $(".output_fields_wrap_note"); //Fields wrapper for secret notes 
 
 
         var add_button_line = $(".add_field_button_line"); //Add button ID for line items
@@ -210,13 +216,17 @@
             if (x < max_fields) { //max input box allowed
                 x++; //text box increment
 
-                $(wrapper1).append('<div class="line_items_list">' +
+                var line_items_containers = document.getElementsByClassName("line_items_list_current");
+                var nextIndex = line_items_containers.length;
+                console.log("nxt index is", nextIndex)
+
+                $(wrapper1).append('<div class="line_items_list_current">' +
 
                     '<div>' +
                     '<label>Label: </label>' +
-                    '<input type="text" id="line_items" class="line_items" name="line_items">' +
+                    '<input type="text" id="line_item_label_' + nextIndex + '" class="line_items" name="line_item_label_' + nextIndex + '">' +
                     '<label>Price: </label>' +
-                    '<input type="number" id="price" class="price" name="price">' +
+                    '<input type="number" id="price_' + nextIndex + '" class="price" name="price_' + nextIndex + '">' +
                     '</div>' +
 
                     '<button type="submit" class="remove_field_line"> Remove Line Item</button>' +
@@ -265,10 +275,15 @@
             if (y < max_fields) { //max input box allowed
                 y++; //text box increment
 
-                $(wrapper2).append('<div class="line_items_note">' +
+                var secret_notes_containers = document.getElementsByClassName("secret_notes_list_current");
+                var nextIndex = secret_notes_containers.length;
+                console.log("note nxt index is", nextIndex)                
+
+                $(wrapper2).append('<div class="secret_notes_list_current">' +
+                    
 
                     '<div>' +
-                    '<input type="text" id="secret" class="secret" name="secret">' +
+                    '<input type="text" id="secret_note_note_' + nextIndex +'" class="secret" name="secret_note_note_' + nextIndex +'">' +
                     '</div>' +
 
                     '<button type="submit" class="remove_field_note"> Remove Secret Note</button>' +
@@ -279,6 +294,7 @@
         });
 
         $(wrapper2).on("click", ".remove_field_note", function (e) { //user click on remove text
+            console.log("removing note")
             e.preventDefault();
             $(this).parent('.line_items_note').remove();
             y--;
@@ -322,18 +338,3 @@
 </html>
 
 
-<!-- <%= qte.user_name %>
-<%= qte.total %>
-<%= qte.status %>
-<%= qte.cust_email %>
-<%= qte.customer %> -->
-
-<!-- <% line_items.forEach(function(line_item) { %>
-    <%= line_item.label %>
-    <%= line_item.price %>
-<% }) %> -->
-    
-
-<!-- <% secret_notes.forEach(function(note) { %>
-    <%= note.note %>
-<% }) %> -->

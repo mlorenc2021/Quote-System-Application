@@ -18,14 +18,17 @@ exports.create_quote = async function (req, res) {
         line_items: line_items,
         secret_notes: secret_notes,
         cust: cust,
-        isUpdate: false
+        isUpdate: false,
+        isAccountantUpdate: false
     });
 };
 
 exports.edit_quote = async function (req, res) {
     qte = await quote.quote_get_one(req,res);
     cust = await customer.customer_get_all();
-    const isUpdate = req.route.path.startsWith("/manager/update_quote");
+    const isAccountantUpdate = req.route.path.startsWith("/accountant/update_quote");
+    const isManagerUpdate = req.route.path.startsWith("/manager/update_quote");
+    const isUpdate = isAccountantUpdate || isManagerUpdate;
     line_items = await quote.get_line_items(qte.id);
     secret_notes = await quote.get_secret(qte.id);
     await res.render('./sales/edit_quote.ejs', {
@@ -33,7 +36,8 @@ exports.edit_quote = async function (req, res) {
         line_items:line_items, 
         secret_notes:secret_notes,
         cust:cust,
-        isUpdate:isUpdate
+        isUpdate:isUpdate,
+        isAccountantUpdate:isAccountantUpdate
     });
 };
 
@@ -48,7 +52,10 @@ exports.perform_finalize_quote = async function (req, res) {
 
 };
 
-//manager dashboard and interfaces
+
+
+
+//MANAGER dashboard and interfaces
 exports.manager_dashboard = async function(req,res) {
     await res.render('./manager/manager_dashboard.ejs');
 };
@@ -78,14 +85,20 @@ exports.perform_sanction_quote = async function (req, res) {
 
 };
 
-//accountant dashboard and interfaces
+
+
+
+
+//ACCOUNTANT dashboard and interfaces
 exports.accountant_dashboard = async function(req,res) {
     await res.render('./accountant/accountant_dashboard.ejs');
 };
 
 exports.process_order = async function (req, res) {
+    qte = await quote.quote_get_all_by_status('sanctioned');
     await res.render('./accountant/process_order.ejs');
 };
+
 
 
 //admin dashboard and interfaces

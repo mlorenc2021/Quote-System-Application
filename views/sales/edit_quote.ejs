@@ -17,7 +17,14 @@
 <body>
     <header>
         <div class="dash-header">
+            <% if(!isUpdate) {%>
             <a href="/dashboard/sales">Dashboard</a>
+            <% }else if(!isAccountantUpdate){ %>
+            <a href="/dashboard/manager">Dashboard</a>
+            <% }else { %>
+            <a href="/dashboard/accountant">Dashboard</a>
+            <% } %>
+
             <h1>Quotes
             </h1>
             <a href="/login">Logout</a>
@@ -65,7 +72,7 @@
             
             <!-- add new line items -->
             <div>
-                <h4>Line Items
+                <h4>Line Items (<%= line_items.length %>)
                     <% if(!isUpdate) { %>
                         <button class="add_field_button_line">Add Line Items</button>
                     <% } %>
@@ -86,7 +93,7 @@
                             <% if(!isUpdate) { %>
                             <input type="text" value="<%= line_item.label %>" id="<%= 'line_item_label_' + index %>" class="line_items" name="<%= 'line_item_label_' + index %>" >
                             <% } else {%>
-                            <input type="text" value="<%= line_item.label %>" id="<%= 'line_item_label_' + index %>" class="line_items" name="<%= 'line_item_label_' + index %>" disabled="true" >
+                            <input type="text" value="<%= line_item.label %>" readonly id="<%= 'line_item_label_' + index %>" class="line_items" name="<%= 'line_item_label_' + index %>"  >
                             <% } %>
 
 
@@ -94,7 +101,7 @@
                             <% if(!isUpdate) { %>
                             <input type="number" value="<%= line_item.price %>" id="<%= 'price_' + index %>" class="price" name="<%= 'price_' + index %>" >
                             <% } else {%>
-                            <input type="number" value="<%= line_item.price %>" id="<%= 'price_' + index %>" class="price" name="<%= 'price_' + index %>" disabled="true" >
+                            <input type="number" value="<%= line_item.price %>" readonly id="<%= 'price_' + index %>" class="price" name="<%= 'price_' + index %>"  >
                             
                             <% } %>
                         </div>
@@ -133,9 +140,7 @@
                             <% if(!isUpdate) { %>
                             <input type="text" value="<%= secret_note.note %>" id="<%= 'secret_note_note_' + index %>" class="secret" name="<%= 'secret_note_note_' + index %>">
                             <% } else {%>
-                            <!-- <input type="text" value="<%= secret_note.note %>" id="<%= 'secret_note_note_' + index %>" class="secret" name="<%= 'secret_note_note_' + index %>" disabled="true" style="width:250px"> -->
-                            <span><%= secret_note.note %></span>
-                            
+                            <input type="text" value="<%= secret_note.note %>" readonly id="<%= 'secret_note_note_' + index %>" class="secret" name="<%= 'secret_note_note_' + index %>" style="width:400px">                           
                             <% } %>
 
 

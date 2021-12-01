@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/styles-accoutant.css">
+    <!-- <link rel="stylesheet" href="/css/styles-accoutant.css"> -->
     <title>Process Order</title>
 
 </head>
@@ -24,5 +24,58 @@
         </div>
     
         </header>
+
+    <table id="quote_table" class="table table-bordered table-striped" style="width:100%;">
+        <thread>
+            <tr>
+                <th>Quote Id</th>
+                <th>Employee Name</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Customer</th>
+                <th>Customer Email</th>
+                <th>Edit Quote</th>
+            </tr>
+        </thread>
+        <tbody>
+            <% qte.forEach(function(field){ %>
+                <tr>
+                    <td>
+                        <%= field.id %>
+                    </td>
+                    <td>
+                        <%= field.user_name %>
+                    </td>
+                    <td>
+                        <%= field.status %>
+                    </td>
+                    <td>
+                        <%= field.total %>
+                    </td>
+                    <td>
+                        <%= field.customer %>
+                    </td>
+                    <td>
+                        <%= field.cust_email %>
+                    </td>
+                    <td><a href="./update_quote/<%= field.id %>"><button type="button">Update</button></a></td>
+                    <td><a href="./perform_process_quote/<%=field.id%>"><button type="button">Process Order</button></a>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+        <br>
+    </table>
+    
+    
+    
+    
+    <footer>
+        <small> &copy; GROUP 3B PLANT SERVICES QUOTE SYSTEM. CSCI 467 </small>
+    </footer>
+    </body>
+    
+    </html>
+
 
 </body>

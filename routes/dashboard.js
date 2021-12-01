@@ -21,6 +21,7 @@ router.get('/manager/perform_sanction_quote/:id', dashboard.perform_sanction_quo
 //accountant dashboard
 router.get('/accountant', dashboard.accountant_dashboard);
 router.get('/accountant/process_order', dashboard.process_order);
+router.get('/accountant/update_quote/:id', dashboard.edit_quote);
 
 
 //admin dashboard

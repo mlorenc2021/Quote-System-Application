@@ -5,8 +5,8 @@
 
 
 *{
-
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
@@ -156,7 +156,7 @@ body{
         position: relative;
         display: inline-flex;
         width: 15em;
-        height: 2em;
+        height: 2.4em;
         margin-right: 20px;
         bottom: 0px;
         line-height: 3;
@@ -244,8 +244,7 @@ body{
       }
       
       #employee_table td, #employee_table th {
-        border: 1px solid #ddd;
-        padding: 8px;
+        padding: 5px;
       }
 
       tr

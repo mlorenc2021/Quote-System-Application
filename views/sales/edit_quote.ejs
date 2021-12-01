@@ -41,12 +41,10 @@
 
                         <!-- display customer name -->
 
-            <% if(isAccountantUpdate) { %>
-                <div><label>Customer Name:</label><input type="text" name="customer" readonly id="customer" value="<%= qte.customer %>" ></div>
-                <div><label >Customer Email:</label><input type="text" readonly id="cust_email" name="cust_email" value="<%= qte.cust_email %>" ></div>
-                <br></br>
-                <!-- <div><label>Associate Name:</label><span><%= qte.user_name %></span></div> -->
-
+            <% if(isAccountantUpdate || isUpdate) { %>
+                <div><label>Customer Name:</label><input type="text" name="customer"  id="customer" value="<%= qte.customer %>" readonly></div>
+                <div><label >Customer Email:</label><input type="text" id="cust_email" name="cust_email" value="<%= qte.cust_email %>" readonly></div>
+                <div><label>Associate Name:</label><input type="text" id="user_name" name="user_name" value="<%= qte.user_name %>" readonly></div>
 
             <% }else{ %>
                 <div class="select">

@@ -26,6 +26,8 @@ app.use(function (req, res, next)  {
        // Initialise our variables on the session object (that's persisted across requests by the same user
        req.session.initialised = true;
        req.session.employee_name;
+       req.session.user_name;
+       req.session.commission;
     }
     next();
  });

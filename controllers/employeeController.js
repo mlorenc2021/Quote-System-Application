@@ -99,8 +99,9 @@ exports.employee_check_credentials = async function(req,res) {
         const emp = await employee.findOne({where: {user_name}});
         const success = await emp.validPassword(password, emp.password);
         if(success) {
-            console.log(emp.employee_name);
             req.session.employee_name = emp.employee_name;
+            req.session.user_name = emp.user_name;
+            req.session.commission = emp.commission;
             console.log('inside of chech: ', req.session)
             res.redirect('./dashboard/' + emp.role);
         } else {

@@ -6,7 +6,7 @@ const sequelize = require('sequelize');
 exports.quote_create = async function(req,res) {
     const {
         id,
-        user_name, 
+        // user_name, 
         total, 
         status, 
         cust_email, 
@@ -15,6 +15,7 @@ exports.quote_create = async function(req,res) {
         price,
         secret
     } = req.body;
+    const user_name = req.session.user_name;
     // Used to store the line item and objects together as objects
     let line_item_list = [];
     let secret_list = [];
@@ -93,13 +94,14 @@ exports.quote_update = async function(req,res) {
         quote_id,
         secret_id,
         line_item_id,
-        user_name, 
+        // user_name, 
         total, 
         status, 
         cust_email, 
         customer
 
     } = req.body;
+    const user_name = req.session.user_name;
 
     // Used to store the line item and objects together as objects
     let line_item_list = [];

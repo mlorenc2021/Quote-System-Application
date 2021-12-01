@@ -5,7 +5,7 @@ const quote = require('./quotesController');
 
 //sales dashboard and interfaces
 exports.sales_dashboard = async function(req,res) {
-    console.log(req.session)
+    //Employee session information
     const employee_name = req.session.employee_name;
     const user_name = req.session.user_name;
     const commission = req.session.commission;

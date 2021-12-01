@@ -1,6 +1,8 @@
-const { quote, line_item, secret_note} = require('../db/models');
+const { employee, quote, line_item, secret_note, customer} = require('../db/models');
 const { Op } = require('sequelize');
 const sequelize = require('sequelize');
+const axios = require('axios');
+const {randomUUID} = require('crypto');
 
 //apis for quotes
 exports.quote_create = async function(req,res) {
@@ -103,6 +105,7 @@ exports.quote_update = async function(req,res) {
     } = req.body;
     const user_name = req.session.user_name;
 
+
     // Used to store the line item and objects together as objects
     let line_item_list = [];
     let secret_list = [];
@@ -154,7 +157,7 @@ exports.quote_update = async function(req,res) {
             cust_email,
             customer
         }, { returning: true });
-        // console.log("return value is", return_value[0].dataValues)
+        console.log("return value is", return_value[0].dataValues)
 
         const qte = return_value[0].dataValues;
 
@@ -474,22 +477,74 @@ exports.sanction_quote = async function(req,res) {
 // API to promote a quote
 exports.purchase_order = async function(req,res) {
     const id = req.params.id; //store id param in user_name
-    //First check if the quote can be promoted
     try {
         const qte = await quote.findOne({where: {id}});
+        const emp = await employee.findOne({where: {user_name:qte.user_name}});
+        if(qte.customer.startsWith('Cust')){
+            var cust = await customer.findOne({
+                where: {
+                    name: {
+                        [Op.like]: `cust%`
+                    }
+            }});
+            console.log(cust)
+        } else {
+            var cust = await customer.findOne({
+                where: {name:qte.customer}
+            })
+        }
+        //First check if the quote can be promoted
         if (qte.status != 'sanctioned') {
             res.send('This quote is not a finalized quote, please contact your manager');
         }
-    } catch(err) {
-        console.log(err);
-        return res.status(500).send({error: 'Something went wrong'}, err);
-    }
-    //Then we can promote the quote
-    try {
-        quote.update(
-            {status: 'purchase_order'},
-            {where: {id: id}}
-        )
+        //Then we can process the order
+        axios
+            .post('http://blitz.cs.niu.edu/PurchaseOrder/', {
+                "order": randomUUID(),
+                "associate": qte.user_name,
+                "custid": cust.id,
+                "amount": qte.total
+            }).then(res => {
+                console.log(`status code: ${res.status}`)
+                console.log(res.data)
+                console.log('commision: ', res.data.commission)
+
+                //get the commision rate and convert it to a decimal
+                let rate = res.data.commission;
+                rate = rate.split('%');
+                rate = rate[0];
+                rate = rate / 100;
+                rate = +rate; // make sure rate is a number
+                console.log('rate: ', rate);
+
+                // Multiply the commission by the total
+                let commission = qte.total * rate;
+                commission = commission.toFixed(2);
+                console.log('Sales comission: ', commission);
+
+                // Update the employee record with the comission
+                console.log(typeof(commission));
+                commission = +commission; // make sure commission is a number
+                console.log(typeof(commission));
+                console.log(typeof(emp.commission));
+                commission += +emp.commission;
+
+                employee.update({
+                    commission: commission
+                 }, {
+                    where: {user_name:emp.user_name}
+                });
+
+
+
+            }).catch(error => {
+                console.error(error)
+            })
+
+        // quote.update(
+        //     {status: 'purchase_order'},
+        //     {where: {id: id}}
+        // )
         return res.redirect('/dashboard/accountant');
     } catch(err) {
         console.log(err);

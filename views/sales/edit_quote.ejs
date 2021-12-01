@@ -41,7 +41,7 @@
 
                         <!-- display customer name -->
 
-            <% if(isUpdate) { %>
+            <% if(isAccountantUpdate) { %>
                 <div><label>Customer Name:</label><input type="text" name="customer" readonly id="customer" value="<%= qte.customer %>" ></div>
                 <div><label >Customer Email:</label><input type="text" readonly id="cust_email" name="cust_email" value="<%= qte.cust_email %>" ></div>
                 <br></br>
@@ -73,7 +73,7 @@
             <!-- add new line items -->
             <div>
                 <h4>Line Items (<%= line_items.length %>)
-                    <% if(!isUpdate) { %>
+                    <% if(!isAccountantUpdate) { %>
                         <button class="add_field_button_line">Add Line Items</button>
                     <% } %>
                 </h4>
@@ -90,7 +90,7 @@
                             <input type="hidden" value="<%= line_item.id %>" id="<%= 'line_item_id_' + index %>"  name="<%= 'line_item_id_' + index %>">
 
                             <label>Label: </label>
-                            <% if(!isUpdate) { %>
+                            <% if(!isAccountantUpdate) { %>
                             <input type="text" value="<%= line_item.label %>" id="<%= 'line_item_label_' + index %>" class="line_items" name="<%= 'line_item_label_' + index %>" >
                             <% } else {%>
                             <input type="text" value="<%= line_item.label %>" readonly id="<%= 'line_item_label_' + index %>" class="line_items" name="<%= 'line_item_label_' + index %>"  >
@@ -98,7 +98,7 @@
 
 
                             <label>Price: </label>
-                            <% if(!isUpdate) { %>
+                            <% if(!isAccountantUpdate) { %>
                             <input type="number" value="<%= line_item.price %>" id="<%= 'price_' + index %>" class="price" name="<%= 'price_' + index %>" >
                             <% } else {%>
                             <input type="number" value="<%= line_item.price %>" readonly id="<%= 'price_' + index %>" class="price" name="<%= 'price_' + index %>"  >
@@ -106,7 +106,7 @@
                             <% } %>
                         </div>
 
-                            <% if(!isUpdate) { %>
+                            <% if(!isAccountantUpdate) { %>
                                 <button type="submit" class="remove_field_line">Remove Line Item</button>
                             <% } %>
 
@@ -123,7 +123,7 @@
             <!-- add secret notes -->
             <div>
                 <h4>Secret Notes
-                    <% if(!isUpdate) { %>
+                    <% if(!isAccountantUpdate) { %>
                         <button class="add_field_button_note">Add Secret Note</button>
                         <% } %>
                 </h4>
@@ -137,7 +137,7 @@
                         <div>
                             <input type="hidden" value="<%= secret_note.id %>" id="<%= 'secret_note_id_' + index %>" name="<%= 'secret_note_id_' + index %>">
 
-                            <% if(!isUpdate) { %>
+                            <% if(!isAccountantUpdate) { %>
                             <input type="text" value="<%= secret_note.note %>" id="<%= 'secret_note_note_' + index %>" class="secret" name="<%= 'secret_note_note_' + index %>">
                             <% } else {%>
                             <input type="text" value="<%= secret_note.note %>" readonly id="<%= 'secret_note_note_' + index %>" class="secret" name="<%= 'secret_note_note_' + index %>" style="width:400px">                           
@@ -146,7 +146,7 @@
 
                         </div>
 
-                        <% if(!isUpdate) { %>
+                        <% if(!isAccountantUpdate) { %>
                         <button type="submit" class="remove_field_note">Remove Secret Note</button>
                         <% } %>
 

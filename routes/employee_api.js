@@ -12,6 +12,9 @@ router.get('/:user_name', employee_controller.employee_get_one);
 router.post('/', employee_controller.employee_create);
 
 // API to create an employee
+router.get('/delete/:id', employee_controller.employee_delete);
+
+// API to create an employee
 router.post('/update', employee_controller.employee_update);
 
 module.exports = router;

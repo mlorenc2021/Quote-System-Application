@@ -19,7 +19,8 @@ module.exports = {
         references: {
           model:'employees',
           key:'user_name'
-        }
+        },
+        onDelete: 'cascade'
       },
       total: {
         type: Sequelize.DECIMAL,

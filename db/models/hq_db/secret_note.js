@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({quote}) {
       // define association here
-      this.belongsTo(quote, {foreignKey:'id'});
+      this.belongsTo(quote, {
+        foreignKey:'id',
+        onDelete: 'CASCADE'
+      });
     }
   };
   secret_note.init({

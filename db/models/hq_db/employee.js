@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({quote}) {
       // define association here
-      this.hasMany(quote, {foreignKey:'user_name'})
+      this.hasMany(quote, {
+        foreignKey:'user_name', 
+        onDelete:'cascade'
+      })
     }
 
     //Hides the user ID from being returned

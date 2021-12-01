@@ -9,10 +9,12 @@ exports.sales_dashboard = async function(req,res) {
     const employee_name = req.session.employee_name;
     const user_name = req.session.user_name;
     const commission = req.session.commission;
+    const role = req.session.role;
     await res.render('./sales/sales_dashboard.ejs',{
         employee_name:employee_name,
         user_name:user_name,
-        commission:commission
+        commission:commission,
+        role:role
     });
 };
 
@@ -54,11 +56,13 @@ exports.finalize_quote = async function (req, res) {
     const employee_name = req.session.employee_name;
     const user_name = req.session.user_name;
     const commission = req.session.commission;
+    const role = req.session.role;
     qte = await quote.quote_get_all_by_status('draft');
     await res.render('./sales/finalize_quote.ejs', {
         employee_name:employee_name,
         user_name:user_name,
-        commission:commission
+        commission:commission,
+        role:role
     });
 };
 
@@ -76,9 +80,11 @@ exports.manager_dashboard = async function(req,res) {
     //Employee session information
     const employee_name = req.session.employee_name;
     const user_name = req.session.user_name;
+    const role = req.session.role;
     await res.render('./manager/manager_dashboard.ejs', {
         employee_name:employee_name,
         user_name:user_name,
+        role:role
     });
 };
 
@@ -87,6 +93,7 @@ exports.update_quote = async function (req, res) {
     const employee_name = req.session.employee_name;
     const user_name = req.session.user_name;
     const commission = req.session.commission;
+    const role = req.session.role;
     qte = await quote.quote_get_one(req, res);
     cust = await customer.customer_get_all();
     console.log('What is quote.id?:', qte.id);
@@ -100,7 +107,8 @@ exports.update_quote = async function (req, res) {
 
         employee_name:employee_name,
         user_name:user_name,
-        commission:commission
+        commission:commission,
+        role:role
     });
 };
 
@@ -109,11 +117,13 @@ exports.sanction_quote = async function (req, res) {
     const employee_name = req.session.employee_name;
     const user_name = req.session.user_name;
     const commission = req.session.commission;
+    const role = req.session.role;
     qte = await quote.quote_get_all_by_status('finalized');
     await res.render('./manager/sanction_quote.ejs', {
         employee_name:employee_name,
         user_name:user_name,
-        commission:commission
+        commission:commission,
+        role:role
     });
 };
 

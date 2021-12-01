@@ -102,6 +102,7 @@ exports.employee_check_credentials = async function(req,res) {
             req.session.employee_name = emp.employee_name;
             req.session.user_name = emp.user_name;
             req.session.commission = emp.commission;
+            req.session.role = emp.role;
             console.log('inside of chech: ', req.session)
             res.redirect('./dashboard/' + emp.role);
         } else {

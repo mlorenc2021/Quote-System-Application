@@ -103,7 +103,13 @@ exports.quote_update = async function(req,res) {
         customer
 
     } = req.body;
-    const user_name = req.session.user_name;
+    let user_name = req.session.user_name;
+    const role = req.session.role;
+
+    if(role !== 'sales') {
+        const q = await quote.findOne({where:{id:quote_id}});
+        user_name = q.user_name;
+    }
 
 
     // Used to store the line item and objects together as objects

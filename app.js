@@ -32,6 +32,7 @@ app.use(function (req, res, next)  {
        req.session.employee_name;
        req.session.user_name;
        req.session.commission;
+       req.session.role;
     }
     next();
  });

@@ -32,5 +32,4 @@ router.get('/admin/review_quotes', dashboard.review_quotes);
 router.get('/admin/create_employee', dashboard.create_employee);
 router.get('/admin/edit_employee/:user_name', dashboard.edit_employee);
 
-
 module.exports = router;

@@ -7,7 +7,13 @@ const quote = require('./quotesController');
 exports.sales_dashboard = async function(req,res) {
     console.log(req.session)
     const employee_name = req.session.employee_name;
-    await res.render('./sales/sales_dashboard.ejs',{employee_name:employee_name});
+    const user_name = req.session.user_name;
+    const commission = req.session.commission;
+    await res.render('./sales/sales_dashboard.ejs',{
+        employee_name:employee_name,
+        user_name:user_name,
+        commission:commission
+    });
 };
 
 exports.create_quote = async function (req, res) {

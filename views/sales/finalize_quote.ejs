@@ -43,7 +43,7 @@
             <td><%= field.id %></td>
             <td><%= field.user_name %></td>
             <td><%= field.status %></td>
-            <td><%= field.total %></td>
+            <td>$<%= field.total.toFixed(2) %></td>
             <td><%= field.customer %></td>
             <td><%= field.cust_email %></td>
             <td><a href="./edit_quote/<%=field.id%>"><button type="button">Edit</button></a></td>

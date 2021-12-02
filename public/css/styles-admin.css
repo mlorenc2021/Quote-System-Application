@@ -119,17 +119,17 @@ body{
     .testbox-admin
     {
         margin: 20px auto;
-		top: 20px;
-		width: 1020px; 
-		height: auto; 
-		-webkit-border-radius: 8px/7px; 
-		-moz-border-radius: 8px/7px; 
-		border-radius: 8px/7px; 
-		background-color: orange; 
-		-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-		-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-		box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-		border: solid 1px #cbc9c9;
+        top: 20px;
+        width: 1020px; 
+        height: 70px; 
+        -webkit-border-radius: 8px/7px; 
+        -moz-border-radius: 8px/7px; 
+        border-radius: 8px/7px; 
+        background-color: orange; 
+        -webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+        -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+        box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+        border: solid 1px #cbc9c9;
     }
 
 

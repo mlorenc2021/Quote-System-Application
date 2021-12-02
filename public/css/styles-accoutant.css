@@ -2,8 +2,8 @@
 
 
 *{
-	margin: 0;
-    padding: 0;
+
+	box-sizing: border-box;
 }
 
 html {
@@ -110,34 +110,6 @@ body{
 		margin-bottom: 10px;
 	}
 
-
-	#quote_table {
-        font-family: Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 80%;
-      }
-      
-      #quote_table td, #quote_table th {
-        padding: 5px;
-      }
-
-      tr
-      {
-          background-color: #FFA500;
-      }
-      
-      
-      #quote_table th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #d85c27;
-        color: white;
-      }
-    
-      #quote_table tr:nth-child(even){background-color: #FFD68A;}
-      
-      #quote_table tr:hover {background-color: white;}
 
 /*footer*/
 footer {

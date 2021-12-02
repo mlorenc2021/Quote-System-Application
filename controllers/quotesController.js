@@ -360,6 +360,19 @@ exports.quote_get_all_by_status = async function(status) {
     }
 };
 
+// api to get alll by status and employee
+exports.quote_get_all_by_status_and_user_name = async function (user_name, status) {
+    try {
+        const qte = await quote.findAll({
+            where: { status, user_name },
+        });
+        return qte;
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ error: 'Something went wrong' }, err);
+    }
+};
+
 // API to get an quote based on aployee user_name
 exports.quote_get_all_for_user = async function(req,res) {
     const user_name = req.params.user_name; //store username param in user_name
@@ -586,10 +599,10 @@ exports.purchase_order = async function(req,res) {
                 console.error(error)
             })
 
-        // quote.update(
-        //     {status: 'purchase_order'},
-        //     {where: {id: id}}
-        // )
+        quote.update(
+            {status: 'purchase_order'},
+            {where: {id: id}}
+        )
 
         let transporter = nodemailer.createTransport({
             service: 'gmail',

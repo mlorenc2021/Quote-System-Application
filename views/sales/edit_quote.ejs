@@ -10,7 +10,9 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <!-- <link rel="stylesheet" href="/css/styles-sales.css"> -->
+    <link rel="stylesheet" href="/css/styles-edit-quote.css">
+
+
     <title><%= qte.id !=null ? (isUpdate ? 'Update' : 'Edit' ): 'Create' %> Quote</title>
 
 </head>
@@ -39,7 +41,7 @@
                 <hr>
             </div>
 
-                        <!-- display customer name -->
+            <!-- display customer name -->
 
             <% if(isAccountantUpdate || isUpdate) { %>
                 <div><label>Customer Name:</label><input type="text" name="customer"  id="customer" value="<%= qte.customer %>" readonly></div>
@@ -47,6 +49,12 @@
                 <div><label>Associate Name:</label><input type="text" id="user_name" name="user_name" value="<%= qte.user_name %>" readonly></div>
 
             <% }else{ %>
+
+            <hr>
+                <div class="wrapper">
+                    
+                    <div class="side-col">
+
                 <div class="select">
                     <label id="icon" for="customer"><i class="fas fa-user-tie"></i></label>
                     <select name="customer" id="customer">
@@ -56,19 +64,33 @@
                             <% }) %>
                     </select>
                 </div>
+            </div>
+
                             <!-- change customer email-->
+            <div class="main-col">
+
                 <div>
                     <label id="icon" for="cust_email"><i class="fas fa-envelope"></i></label>
                     <input type="email" id="cust_email" name="cust_email" placeholder="Enter e-mail Address" size="20" maxlength="20"
                         value="<%= qte.cust_email %>" required>
                 </div>
+            </div>
+        </div>
+
+
+
             <% } %>
 
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-            
+            <hr>
             <!-- add new line items -->
+
+                <div class="add-remove">
+                <!-- add new line items -->
+            
+                <div class="side-col">            
             <div>
                 <h4>Line Items (<%= line_items.length %>)
                     <% if(!isAccountantUpdate) { %>
@@ -115,7 +137,9 @@
             <!-- add new line items -->
             <div class="input_fields_wrap_line"></div>
 
+        </div>
 
+        <div class="main-col">
 
 
             <!-- add secret notes -->
@@ -155,8 +179,13 @@
 
             <!-- add new line items -->
             <div class="input_fields_wrap_note"></div>
+    </div>
+        </div>
 
+<hr>
 
+    <div class="add-remove">
+    <div class="side-col2">
             <!-- calculate total with discount -->
             <h4>Discount</h4>
             <div class="quote-price">
@@ -173,7 +202,14 @@
             </div>
 
             <element hidden><input type="text" id="quote_id" name="quote_id" value="<%= qte.id %>"></element>
-            <button type="submit">Save</button>
+
+        </div>
+    </div>
+</div>
+
+            <div class="button-fix">
+                <button type="submit">Save</button>
+            </div>
         </form>
 </body>
 

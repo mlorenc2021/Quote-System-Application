@@ -119,17 +119,17 @@ body{
     .testbox-admin
     {
         margin: 20px auto;
-		top: 20px;
-		width: 1520px; 
-		height: 110px; 
-		-webkit-border-radius: 8px/7px; 
-		-moz-border-radius: 8px/7px; 
-		border-radius: 8px/7px; 
-		background-color: orange; 
-		-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-		-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-		box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-		border: solid 1px #cbc9c9;
+        top: 20px;
+        width: 1020px; 
+        height: 70px; 
+        -webkit-border-radius: 8px/7px; 
+        -moz-border-radius: 8px/7px; 
+        border-radius: 8px/7px; 
+        background-color: orange; 
+        -webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+        -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+        box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+        border: solid 1px #cbc9c9;
     }
 
 
@@ -193,17 +193,17 @@ body{
     }
     
     label {
-        display: inline-block;
+        display: flex;
         font-family: Arial, Helvetica, sans-serif;
 		font-weight: 80px;
-        margin-right: 0px;
+        margin-right: 10px;
 		color: blue;
 	}
 
 
-	.search-customer {
+	.search-by {
 
-        position: relative;
+        position: center;
         display: inline-flex;
     
         top: 5px;
@@ -237,13 +237,13 @@ body{
 	}
     
 
-    #employee_table {
+    #quote_table {
         font-family: Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         width: 80%;
       }
       
-      #employee_table td, #employee_table th {
+      #quote_table td, #quote_table th {
         padding: 5px;
       }
 
@@ -253,7 +253,7 @@ body{
       }
       
       
-      #employee_table th {
+      #quote_table th {
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
@@ -261,9 +261,9 @@ body{
         color: white;
       }
     
-      #employee_table tr:nth-child(even){background-color: #FFD68A;}
+      #quote_table tr:nth-child(even){background-color: #FFD68A;}
       
-      #employee_table tr:hover {background-color: white;}
+      #quote_table tr:hover {background-color: white;}
 
 .dash-button
 {
@@ -298,7 +298,19 @@ body{
           padding: 18px;
           background-color: rgba(0, 136, 169, 0.8);
       }
+
+
+       .search-by
+      {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          margin-top: 20px;
+      }     
    
+
+
 /*footer*/
 footer {
 

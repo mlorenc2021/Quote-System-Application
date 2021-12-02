@@ -57,7 +57,7 @@ exports.finalize_quote = async function (req, res) {
     const user_name = req.session.user_name;
     const commission = req.session.commission;
     const role = req.session.role;
-    qte = await quote.quote_get_all_by_status('draft');
+    qte = await quote.quote_get_all_by_status_and_user_name(user_name, 'draft');
     await res.render('./sales/finalize_quote.ejs', {
         employee_name:employee_name,
         user_name:user_name,

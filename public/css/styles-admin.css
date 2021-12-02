@@ -121,7 +121,7 @@ body{
         margin: 20px auto;
 		top: 20px;
 		width: 1020px; 
-		height: 70px; 
+		height: auto; 
 		-webkit-border-radius: 8px/7px; 
 		-moz-border-radius: 8px/7px; 
 		border-radius: 8px/7px; 
@@ -309,6 +309,8 @@ body{
           margin-top: 20px;
       }     
    
+
+
 /*footer*/
 footer {
 

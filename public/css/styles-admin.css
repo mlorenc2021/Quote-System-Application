@@ -235,7 +235,34 @@ body{
 		margin-top: 35px; 
 		padding-left: 10px;
 	}
+
+    #employee_table {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 80%;
+      }
+      
+      #employee_table td, #employee_table th {
+        padding: 5px;
+      }
+
+      tr
+      {
+          background-color: #FFA500;
+      }
+      
+      
+      #employee_table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #d85c27;
+        color: white;
+      }
     
+      #employee_table tr:nth-child(even){background-color: #FFD68A;}
+      
+      #employee_table tr:hover {background-color: white;}  
 
     #quote_table {
         font-family: Arial, Helvetica, sans-serif;

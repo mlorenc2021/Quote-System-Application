@@ -41,7 +41,7 @@
 
             <!-- display customer name -->
 
-            <% if(!isAccountantUpdate || !isUpdate) { %>
+            <% if(isAccountantUpdate || isUpdate) { %>
                 <div><label>Customer Name:</label><input type="text" name="customer"  id="customer" value="<%= qte.customer %>" readonly></div>
                 <div><label >Customer Email:</label><input type="text" id="cust_email" name="cust_email" value="<%= qte.cust_email %>" readonly></div>
                 <div><label>Associate Name:</label><input type="text" id="user_name" name="user_name" value="<%= qte.user_name %>" readonly></div>

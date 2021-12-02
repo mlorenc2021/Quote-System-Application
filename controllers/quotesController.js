@@ -586,10 +586,10 @@ exports.purchase_order = async function(req,res) {
                 console.error(error)
             })
 
-        // quote.update(
-        //     {status: 'purchase_order'},
-        //     {where: {id: id}}
-        // )
+        quote.update(
+            {status: 'purchase_order'},
+            {where: {id: id}}
+        )
 
         let transporter = nodemailer.createTransport({
             service: 'gmail',

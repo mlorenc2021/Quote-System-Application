@@ -31,14 +31,14 @@
     <div class ="testbox-admin">
         <form action="/api/quotes/review" method="post">
 
-            <div class="one">
+            <div class="date-filter">
                 <label>Search by date from:</label>
                     <input type="date" name="start_date" min="" max="">
                 <label>to</label>
                     <input type="date" name="end_date" min="" max="">
             </div>
         
-            <div class="two">
+            <div class="status-filter">
                 <label>Search by Quote Status</label>
                     <div class="select">            
                         <select name="status" id="status">
@@ -50,7 +50,7 @@
                     </div>
             </div>
         
-            <div>
+            <div class="associate-filter">
                 <label>Search by Associate</label>
                     <div class="select">
                         <select name="user_name" id="associate">
@@ -62,7 +62,7 @@
                     </div>
             </div>
 
-            <div>
+            <div class="customer-filter">
                 <label>Search by Customer</label>
                     <div class="select">
                         <select name="customer" id="customer">
@@ -86,11 +86,11 @@
         <thead>
             <tr>
                 <th>User Name</th>
-                <th>Employee Name</th>
-                <th>Commission</th>
-                <th>Address</th>
-                <th>Role</th>
-                <th>Edit Employee</th>
+                <th>Quote Status</th>
+                <th>Customer Name</th>
+                <th>Customer Email</th>
+                <th>Quote Total</th>
+                <th>Quote Creation Info</th>
             </tr>
         </thead>
         <tbody>
@@ -100,10 +100,7 @@
                     <td><%= field.status %></td>
                     <td><%= field.customer %></td>
                     <td><%= field.cust_email %></td>
-                    <td><%= field.line_items %></td>
-                    <td><%= field.price %></td>
-                    <td><%= field.discount %></td>
-                    <td><%= field.secret %></td>
+                    <td><%= field.total %></td>
                     <td><%= field.createdAt %></td>
                     <!-- <td><%= field.updatedAt %></td> -->
                     <!-- <td><a href="./edit_employee/<%=field.user_name%>"><button type="button">Edit</button></a></td> -->

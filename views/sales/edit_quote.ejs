@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <!-- <link rel="stylesheet" href="/css/styles-sales.css"> -->
+    <link rel="stylesheet" href="/css/styles-sales.css">
     <title><%= qte.id !=null ? (isUpdate ? 'Update' : 'Edit' ): 'Create' %> Quote</title>
 
 </head>
@@ -39,9 +39,9 @@
                 <hr>
             </div>
 
-                        <!-- display customer name -->
+            <!-- display customer name -->
 
-            <% if(isAccountantUpdate || isUpdate) { %>
+            <% if(!isAccountantUpdate || !isUpdate) { %>
                 <div><label>Customer Name:</label><input type="text" name="customer"  id="customer" value="<%= qte.customer %>" readonly></div>
                 <div><label >Customer Email:</label><input type="text" id="cust_email" name="cust_email" value="<%= qte.cust_email %>" readonly></div>
                 <div><label>Associate Name:</label><input type="text" id="user_name" name="user_name" value="<%= qte.user_name %>" readonly></div>

@@ -1,4 +1,4 @@
-# 467 group project
+# Group Project for CSCI 467
 ## Dependencies
 - Install [Nodejs](https://nodejs.org/en/) 
 via [NVM](https://github.com/nvm-sh/nvm#install--update-script)
